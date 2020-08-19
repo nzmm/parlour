@@ -1,4 +1,7 @@
 import { writable } from 'svelte/store';
-//import { Views } from './enums/Views';
+import { Views } from './enums/Views';
 
-export const currentView = writable(0);
+export const currentView = writable(Views.Artists);
+
+export const artists = writable({ready: false, data: []});
+export const albums = writable({ready: false, data: []});

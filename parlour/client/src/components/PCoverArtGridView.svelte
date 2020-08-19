@@ -4,51 +4,7 @@
 
     export let heading = "";
     export let subheading = "";
-    export let items = [
-        {title: '1'},
-        {title: '2'},
-        {title: '3'},
-        {title: '4'},
-        {title: '5'},
-        {title: '6', playing: true},
-        {title: '7'},
-        {title: '8'},
-        {title: '9'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-        {title: '10'},
-    ];
+    export let data = [];
 
     let w: number;
     $: columnTemplate = "1fr ".repeat(Math.max(1, Math.floor(w / 180))).trimEnd();
@@ -66,11 +22,11 @@
     </header>
 
     <div class="grid py-4 px-2" bind:clientWidth={w} style="--col-template:{columnTemplate}">
-        {#each items as item}
+        {#each data as item}
         <div class="item">
             <button class="btn">
-                <PCoverArt size="120px" src="" playing={item.playing} />
-                <span>{item.title}</span>
+                <PCoverArt size="120px" src={item.thumbnails[0]?.medium.url} playing={item.playing} />
+                <small>{item.name}</small>
             </button>
         </div>
         {/each}

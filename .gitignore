@@ -1,0 +1,5 @@
+
+venv
+oauth_settings.yml
+db.sqlite3
+*.pyc

@@ -26,8 +26,10 @@
         <div class="item">
             <button class="btn">
                 <PCoverArt size="120px" src={item.thumbnails[0]?.medium.url} playing={item.playing} />
-                <small>{item.name}</small>
             </button>
+            <div>
+                <small>{item.name}</small>
+            </div>
         </div>
         {/each}
     </div>
@@ -42,8 +44,10 @@
         column-gap: 15px;
     }
     .grid > .item {
+        line-height: 1;
         text-align: center;
         justify-self: center;
+        overflow: hidden;
     }
     .grid > .item > button {
         padding: 2px;

@@ -9,10 +9,10 @@
 
 <NavBar class="border-bottom">
     <a class="navbar-brand" href="/">
-        <img src="../../data/im/parlour-brand-32.png" alt="Parlour" height="32" />
+        <img src="/static/data/im/parlour-brand-32.png" alt="Parlour" height="32" />
     </a>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <NavLink
                 label="Artists"

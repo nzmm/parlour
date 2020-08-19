@@ -1,4 +1,5 @@
 import os
+import ast
 import time
 import yaml
 from requests_oauthlib import OAuth2Session
@@ -14,10 +15,10 @@ os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
 os.environ['OAUTHLIB_IGNORE_SCOPE_CHANGE'] = '1'
 
 # Load the oauth_settings.yml file
-stream = open('oauth_settings.yml', 'r')
+stream = open('graph_oauth_settings.yml', 'r')
 settings = yaml.load(stream, yaml.SafeLoader)
-authorize_url = '{0}{1}'.format(settings['authority'], settings['authorize_endpoint'])
-token_url = '{0}{1}'.format(settings['authority'], settings['token_endpoint'])
+authorize_url = f'{settings["authority"]}{settings["authorize_endpoint"]}'
+token_url = f'{settings["authority"]}{settings["token_endpoint"]}'
 
 
 def get_sign_in_url():
@@ -45,8 +46,18 @@ def get_token_from_code(callback_url, expected_state):
     return token
 
 
-def get_token(request):
-    token = request.session['oauth_token']
+def store_token(user, token):
+    token_obj, created = Token.objects.update_or_create(user=user, type="graph", defaults={
+      'value': token
+    })
+    return token_obj, created
+
+
+def get_token(user):
+    token_obj = user.tokens.filter(type="graph").first()
+
+    token = token_obj.value if token_obj else None
+    token = ast.literal_eval(token)
 
     if token != None:
         # check expiration
@@ -65,25 +76,14 @@ def get_token(request):
                 'client_secret': settings['app_secret'],
             }
 
+            print("Refreshing graph user token...")
             new_token = aad_auth.refresh_token(token_url, **refresh_params)
 
-            store_token(request.user, new_token)
+            store_token(user, new_token)
 
             return new_token
         else:
             return token
-
-
-def store_token(user, token):
-    token_obj, created = Token.objects.update_or_create(user=user, type="graph", defaults={
-      'value': token
-    })
-    print(token_obj, created)
-    return token_obj, created
-
-
-def get_token(user):
-  return user.tokens.filter(type="graph").first()
 
 
 def remove_token(user):

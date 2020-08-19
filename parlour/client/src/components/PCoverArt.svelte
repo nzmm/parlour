@@ -1,5 +1,5 @@
 <script lang="ts">
-    const COVERART_PLACEHOLDER = "../../data/im/coverart-placeholder.png";
+    const COVERART_PLACEHOLDER = "/static/data/im/coverart-placeholder.png";
 
     export let src = "";
     export let alt = "Cover art";

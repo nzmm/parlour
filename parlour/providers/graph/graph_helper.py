@@ -6,3 +6,10 @@ def get_user(token):
     graph_client = OAuth2Session(token=token)
     user = graph_client.get(f'{graph_url}/me')
     return user.json()
+
+
+def get_albums(token):
+    print(token)
+    graph_client = OAuth2Session(token=token)
+    songs = graph_client.get(f'{graph_url}/me/drive/special/music/children')
+    return songs.json()

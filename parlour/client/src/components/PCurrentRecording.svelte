@@ -8,7 +8,7 @@
     export let currentRecording: ICurrentRecording = {
         id: "",
         title: "Villans",
-        coverArt: "../../data/im/albumart.png",
+        coverArt: "/static/data/im/albumart.png",
         artistName: "Queens of the Stone Age",
         albumName: "Villans",
         duration: 123,

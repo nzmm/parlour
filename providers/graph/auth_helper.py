@@ -20,6 +20,7 @@ settings = yaml.load(stream, yaml.SafeLoader)
 authorize_url = f'{settings["authority"]}{settings["authorize_endpoint"]}'
 token_url = f'{settings["authority"]}{settings["token_endpoint"]}'
 
+PROVIDER_NAME = "graph"
 
 def get_sign_in_url():
     # Initialize the OAuth client
@@ -33,7 +34,6 @@ def get_sign_in_url():
 
 
 def get_token_from_code(callback_url, expected_state):
-    # Initialize the OAuth client
     aad_auth = OAuth2Session(settings['app_id'],
         state=expected_state,
         scope=settings['scopes'],
@@ -47,14 +47,14 @@ def get_token_from_code(callback_url, expected_state):
 
 
 def store_token(user, token):
-    token_obj, created = Token.objects.update_or_create(user=user, type="graph", defaults={
+    token_obj, created = Token.objects.update_or_create(user=user, provider=PROVIDER_NAME, defaults={
       'value': token
     })
     return token_obj, created
 
 
 def get_token(user):
-    token_obj = user.tokens.filter(type="graph").first()
+    token_obj = user.tokens.filter(provider=PROVIDER_NAME).first()
 
     token = token_obj.value if token_obj else None
     token = ast.literal_eval(token)
@@ -87,4 +87,4 @@ def get_token(user):
 
 
 def remove_token(user):
-    return user.tokens.filter(type="graph").delete()
+    return user.tokens.filter(provider=PROVIDER_NAME).delete()

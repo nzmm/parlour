@@ -4,5 +4,5 @@ from providers.models import Token
 
 @admin.register(Token)
 class TokenAdmin(admin.ModelAdmin):
-    list_display = ("user", "type", "modified")
-    list_filter = ('type',)
+    list_display = ("user", "provider", "modified")
+    list_filter = ('provider',)

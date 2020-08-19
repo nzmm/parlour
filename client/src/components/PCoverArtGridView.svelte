@@ -47,7 +47,6 @@
         line-height: 1;
         text-align: center;
         justify-self: center;
-        overflow: hidden;
     }
     .grid > .item > button {
         padding: 2px;

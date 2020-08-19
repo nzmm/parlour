@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.http import HttpResponseRedirect, JsonResponse
-from providers.graph.auth_helper import get_sign_in_url, get_token_from_code, get_token, store_token
-from providers.graph.graph_helper import get_albums
+from providers.graph.auth import get_sign_in_url, get_token_from_code, get_token, store_token
+from providers.graph.requests import get_albums
 
 
 def graph_sign_in(request):

@@ -12,3 +12,9 @@ def get_albums(token):
     graph_client = OAuth2Session(token=token)
     songs = graph_client.get(f'{graph_url}/me/drive/special/music/children?expand=thumbnails&select=id,name,thumbnails')
     return songs.json()
+
+
+def get_music_children(token):
+    graph_client = OAuth2Session(token=token)
+    children = graph_client.get(f'{graph_url}/me/drive/special/music/children?expand=thumbnails&select=id,name,thumbnails,audio,file,folder')
+    return children.json()

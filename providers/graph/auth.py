@@ -20,7 +20,7 @@ settings = yaml.load(stream, yaml.SafeLoader)
 authorize_url = f'{settings["authority"]}{settings["authorize_endpoint"]}'
 token_url = f'{settings["authority"]}{settings["token_endpoint"]}'
 
-PROVIDER_NAME = "graph"
+PROVIDER_GRAPH = "graph"
 
 def get_sign_in_url():
     # Initialize the OAuth client
@@ -47,19 +47,19 @@ def get_token_from_code(callback_url, expected_state):
 
 
 def store_token(user, token):
-    token_obj, created = Token.objects.update_or_create(user=user, provider=PROVIDER_NAME, defaults={
+    token_obj, created = Token.objects.update_or_create(user=user, provider=PROVIDER_GRAPH, defaults={
       'value': token
     })
     return token_obj, created
 
 
 def get_token(user):
-    token_obj = user.tokens.filter(provider=PROVIDER_NAME).first()
+    token_obj = user.tokens.filter(provider=PROVIDER_GRAPH).first()
 
     token = token_obj.value if token_obj else None
     token = ast.literal_eval(token)
 
-    if token != None:
+    if token:
         # check expiration
         now = time.time()
         expire_time = token['expires_at'] - 300
@@ -87,4 +87,4 @@ def get_token(user):
 
 
 def remove_token(user):
-    return user.tokens.filter(provider=PROVIDER_NAME).delete()
+    return user.tokens.filter(provider=PROVIDER_GRAPH).delete()

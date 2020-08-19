@@ -43,6 +43,6 @@ class Track(models.Model):
     length = models.PositiveIntegerField()
     bitrate = models.PositiveSmallIntegerField(null=True)
     provider = models.CharField(max_length=8)
-    download_url = models.TextField()
+    provider_id = models.CharField(max_length=255, default="")
     release = models.ForeignKey(Release, on_delete=models.CASCADE, related_name="tracks")
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name="artist_tracks")

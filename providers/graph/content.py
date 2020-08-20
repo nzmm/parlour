@@ -20,4 +20,7 @@ def get_thumbnail_url(track):
     thumbs = get_thumbnails(token, parent_id).get('value', [])
     graph_url = thumbs[0]['medium']['url'] if thumbs else None
 
+    if not graph_url:
+        return ""
+
     return track_cache_thumbnail(track, graph_url)

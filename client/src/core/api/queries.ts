@@ -1,0 +1,17 @@
+import { GET } from "./requests";
+
+export async function getArtists() {
+    return GET("/providers/get_artists");
+}
+
+export async function getAlbums() {
+    return GET("/providers/get_albums");
+}
+
+export async function getSongs() {
+    return GET("/providers/get_songs");
+}
+
+export async function getDownload(id: string) {
+    return GET("/providers/get_download", { id });
+}

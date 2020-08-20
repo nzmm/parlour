@@ -25,7 +25,7 @@
         {#each data as item}
         <div class="item">
             <button class="btn">
-                <PCoverArt size="120px" src={item.thumbnails[0]?.medium.url} playing={item.playing} />
+                <PCoverArt size="120px" playing={item.playing} />
             </button>
             <div>
                 <small>{item.name}</small>

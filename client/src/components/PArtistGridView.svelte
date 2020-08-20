@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { getAlbums } from '../core/api/graph';
+    import { getArtists } from '../core/api/queries';
     import { artists } from '../core/store';
 
     import PCoverArtGridView from "./PCoverArtGridView.svelte";
@@ -10,9 +10,10 @@
             return;
         }
 
-        const res = await getAlbums();
+        const res = await getArtists();
         const data = await res.json();
-        artists.set({ ready: true, data: data.value });
+        console.log(data);
+        artists.set({ ready: true, data: data.artists });
     });
 </script>
 

@@ -4,7 +4,7 @@
     export let glyphName: string;
 </script>
 
-<Button>
+<Button on:click >
     <i class="fas {glyphName}"></i>
 </Button>
 

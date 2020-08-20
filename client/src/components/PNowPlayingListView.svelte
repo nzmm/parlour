@@ -1,5 +1,5 @@
 <script lang="ts">
-    import PRecordingListView from "./PRecordingListView.svelte";
+    import PTrackListView from "./PTrackListView.svelte";
 </script>
 
-<PRecordingListView heading="Now Playing" subheading="12 songs queued" />
+<PTrackListView heading="Now Playing" subheading="12 songs queued" />

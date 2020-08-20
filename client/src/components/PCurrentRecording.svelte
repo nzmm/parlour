@@ -1,32 +1,30 @@
 <script lang="ts">
-    import type { ICurrentRecording } from '../core/interfaces/ICurrentRecording';
+    import type { ICurrentTrack } from '../core/interfaces/ICurrentTrack';
 
     import BoxDropshadow from './common/BoxDropshadow.svelte';
     import TextDropshadow from './common/TextDropshadow.svelte';
     import PCoverArt from './PCoverArt.svelte';
 
-    export let currentRecording: ICurrentRecording = {
+    export let currentTrack: ICurrentTrack = {
         id: "",
-        title: "Villans",
+        name: "Villans",
         coverArt: "/static/data/im/albumart.png",
         artistName: "Queens of the Stone Age",
-        albumName: "Villans",
-        duration: 123,
-        position: 10
+        albumName: "Villans"
     }
 </script>
 
 <section class="d-flex align-items-center">
     <BoxDropshadow size="small">
         <PCoverArt
-            src={currentRecording.coverArt}
+            src={currentTrack.coverArt}
             size="70px" />
     </BoxDropshadow>
     <TextDropshadow>
         <div class="ml-3">
             <p class="m-0 pb-0">
                 <strong>
-                    <a href="#recording">{currentRecording.title}</a>
+                    <a href="#recording">{currentTrack.name}</a>
                 </strong>
                 &nbsp;
                 <a href="#like">
@@ -35,7 +33,7 @@
             </p>
             <p class="m-0 pb-0">
                 <small>
-                    <a href="#artist">{currentRecording.artistName}</a>
+                    <a href="#artist">{currentTrack.artistName}</a>
                 </small>
             </p>
         </div>

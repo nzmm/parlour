@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Views } from "../core/enums/Views";
     import { currentView } from "../core/store";
+    import type { AudioPlayer } from "../core/audio/player";
 
     import FluidContainer from "./common/FluidContainer.svelte";
     import PArtistGridView from "./PArtistGridView.svelte";
@@ -14,11 +15,13 @@
         [Views.Songs]: { component: PSongListView },
         [Views.NowPlaying]: { component: PNowPlayingListView }
     }
+
+    export let player: AudioPlayer;
 </script>
 
 <div class="content-view w-100 h-100">
     <FluidContainer>
-        <svelte:component this={views[$currentView].component} />
+        <svelte:component this={views[$currentView].component} {player} />
     </FluidContainer>
 </div>
 

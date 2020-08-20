@@ -1,7 +1,9 @@
 from django.urls import reverse
 from django.http import HttpResponseRedirect, JsonResponse
 from providers.graph.auth import get_sign_in_url, get_token_from_code, get_token, store_token
-from providers.graph.requests import get_albums
+from providers.common import queries
+from providers.common import serializers
+from providers.graph.download import get_download_url
 
 
 def graph_sign_in(request):
@@ -22,7 +24,22 @@ def graph_sign_out(request):
     return HttpResponseRedirect(reverse('home'))
 
 
-def graph_get_albums(request):
-    token = get_token(request.user)
-    songs = get_albums(token)
-    return JsonResponse(songs)
+def get_artists(request):
+    artists = queries.get_artists_query(request.user)
+    return JsonResponse({'artists': serializers.serialize_artists(artists)})
+
+
+def get_albums(request):
+    albums = queries.get_albums_query(request.user)
+    return JsonResponse({'albums': serializers.serialize_albums(albums)})
+
+
+def get_songs(request):
+    songs = queries.get_songs_query(request.user)
+    return JsonResponse({'songs': serializers.serialize_songs(songs)})
+
+
+def get_download(request):
+    track_id = request.GET.get('id')
+    url = get_download_url(request.user, track_id)
+    return JsonResponse({'download': url})

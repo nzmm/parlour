@@ -6,7 +6,8 @@ DEFAULT_ARTIST_FIELDS = (
 
 DEFAULT_ALBUM_FIELDS = (
     'id',
-    'name')
+    'name',
+    'thumbnail')
 
 DEFAULT_SONG_FIELDS = (
     'id',

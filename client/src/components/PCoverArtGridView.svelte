@@ -1,10 +1,12 @@
 <script lang="ts">
+    import type { ITrack } from "../core/interfaces/ITrack";
+
     import ScrolledView from "./common/ScrolledView.svelte";
     import PCoverArt from "./PCoverArt.svelte";
 
     export let heading = "";
     export let subheading = "";
-    export let data = [];
+    export let data: ITrack[] = [];
 
     let w: number;
     $: columnTemplate = "1fr ".repeat(Math.max(1, Math.floor(w / 180))).trimEnd();
@@ -25,7 +27,7 @@
         {#each data as item}
         <div class="item">
             <button class="btn">
-                <PCoverArt size="120px" playing={item.playing} />
+                <PCoverArt size="120px" src={item.thumbnail} />
             </button>
             <div>
                 <small>{item.name}</small>

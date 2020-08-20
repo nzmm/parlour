@@ -16,4 +16,4 @@
     });
 </script>
 
-<PCoverArtGridView heading="Albums" subheading="123 albums" data={$albums.data} />
+<PCoverArtGridView heading="Albums" subheading="{$albums.data.length} albums" data={$albums.data} />

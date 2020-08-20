@@ -13,13 +13,13 @@
 
         currentTrack.update(cur => ({
             ...cur,
-            thumbnail_url: data.thumbnail
+            thumbnail: data.thumbnail
         }));
     };
 
     $: {
-        const { id, thumbnail_url } = $currentTrack;
-        if (id && !thumbnail_url) {
+        const { id, thumbnail } = $currentTrack;
+        if (id && !thumbnail) {
             getThumb(id);
         }
     }
@@ -28,7 +28,7 @@
 <section class="d-flex align-items-center">
     <BoxDropshadow size="small">
         <PCoverArt
-            src={$currentTrack.thumbnail_url}
+            src={$currentTrack.thumbnail}
             size="70px" />
     </BoxDropshadow>
     <TextDropshadow>

@@ -39,6 +39,7 @@ def track_cache_thumbnail(track, url):
     release.thumbnail.save('coverart.jpg', f)
     release.save()
 
-    release.tracks.update(thumbnail=release.thumbnail.url)
+    media_url = release.thumbnail.url
+    release.tracks.update(thumbnail=media_url)
 
-    return track.thumbnail
+    return media_url

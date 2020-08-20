@@ -14,7 +14,7 @@ def get_track_name(f, audio):
 def store_audio(user, f, audio):
     artist, _ = Artist.objects.get_or_create(
         user=user,
-        name=audio.get('albumArtist'))
+        name=audio.get('albumArtist', ''))
 
     release, _ = Release.objects.update_or_create(
         user=user,
@@ -34,6 +34,7 @@ def store_audio(user, f, audio):
             'position': audio.get('track', 0),
             'number': audio.get('track', ''),
             'name': get_track_name(f, audio),
+            'release_name': audio.get('album'),
             'artist_credit': audio.get('artist', ''),
             'genre': audio.get('genre', ''),
             'year': audio.get('year'),

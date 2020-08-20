@@ -13,6 +13,7 @@ DEFAULT_SONG_FIELDS = (
     'number',
     'name',
     'artist_credit',
+    'release_name',
     'year',
     'length_display')
 

@@ -48,6 +48,7 @@ class Track(models.Model):
     position = models.PositiveIntegerField(default=0)
     number = models.CharField(max_length=5)
     name = models.CharField(max_length=255)
+    release_name = models.CharField(max_length=255)
     artist_credit = models.CharField(max_length=255)
     genre = models.CharField(max_length=255, default="")
     year = models.PositiveSmallIntegerField(null=True)

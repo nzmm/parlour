@@ -28,3 +28,10 @@ def get_item(token, driveitem_id, select=()):
     url = f'{graph_url}/me/drive/items/{driveitem_id}{query_str}'
     item = graph_client.get(url)
     return item.json()
+
+
+def get_thumbnails(token, driveitem_id):
+    graph_client = OAuth2Session(token=token)
+    url = f'{graph_url}/me/drive/items/{driveitem_id}/thumbnails'
+    thumbs = graph_client.get(url)
+    return thumbs.json()

@@ -15,3 +15,7 @@ export async function getSongs() {
 export async function getDownload(id: string) {
     return GET("/providers/get_download", { id });
 }
+
+export async function getThumbnail(id: string) {
+    return GET("/providers/get_thumbnail", { id });
+}

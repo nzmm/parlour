@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from providers.graph.auth import get_sign_in_url, get_token_from_code, get_token, store_token
 from providers.common import queries
 from providers.common import serializers
-from providers.graph.download import get_download_url
+from providers.graph.content import get_download_url, get_thumbnail_url
 
 
 def graph_sign_in(request):
@@ -43,3 +43,9 @@ def get_download(request):
     track_id = request.GET.get('id')
     url = get_download_url(request.user, track_id)
     return JsonResponse({'download': url})
+
+
+def get_thumbnail(request):
+    track_id = request.GET.get('id')
+    url = get_thumbnail_url(request.user, track_id)
+    return JsonResponse({'thumbnail': url})

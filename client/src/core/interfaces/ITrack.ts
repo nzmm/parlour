@@ -5,4 +5,5 @@ export interface ITrack {
     artist_credit: string;
     release_name: string;
     length_display: string;
+    thumbnail_url: string;
 }

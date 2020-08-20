@@ -23,5 +23,6 @@ urlpatterns = [
     path('get_artists', views.get_artists, name='get_artists'),
     path('get_albums', views.get_albums, name='get_albums'),
     path('get_songs', views.get_songs, name='get_songs'),
-    path('get_download', views.get_download, name='get_download')
+    path('get_download', views.get_download, name='get_download'),
+    path('get_thumbnail', views.get_thumbnail, name='get_thumbnail')
 ]

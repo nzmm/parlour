@@ -1,15 +1,34 @@
 <script lang="ts">
     import { currentTrack } from '../core/store';
+    import { getThumbnail } from '../core/api/queries';
 
     import BoxDropshadow from './common/BoxDropshadow.svelte';
     import TextDropshadow from './common/TextDropshadow.svelte';
     import PCoverArt from './PCoverArt.svelte';
+
+    const getThumb = async (id: string) => {
+        const res = await getThumbnail(id);
+        const data = await res.json();
+        console.log(data);
+
+        currentTrack.update(cur => ({
+            ...cur,
+            thumbnail_url: data.thumbnail
+        }));
+    };
+
+    $: {
+        const { id, thumbnail_url } = $currentTrack;
+        if (id && !thumbnail_url) {
+            getThumb(id);
+        }
+    }
 </script>
 
 <section class="d-flex align-items-center">
     <BoxDropshadow size="small">
         <PCoverArt
-            src={"/static/data/im/albumart.png"}
+            src={$currentTrack.thumbnail_url}
             size="70px" />
     </BoxDropshadow>
     <TextDropshadow>

@@ -52,6 +52,7 @@ class Track(models.Model):
     artist_credit = models.CharField(max_length=255)
     genre = models.CharField(max_length=255, default="")
     year = models.PositiveSmallIntegerField(null=True)
+    thumbnail_url = models.TextField(null=True)
     length = models.PositiveIntegerField()
     length_display = models.CharField(max_length=50)
     bitrate = models.PositiveSmallIntegerField(null=True)

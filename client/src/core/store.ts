@@ -21,5 +21,6 @@ export const currentTrack = writable<ITrack>({
     name: '',
     artist_credit: '',
     release_name: '',
-    length_display: ''
+    length_display: '',
+    thumbnail_url: ''
 });

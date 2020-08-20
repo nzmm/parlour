@@ -7,9 +7,14 @@
     import PCoverArt from './PCoverArt.svelte';
 
     const getThumb = async (id: string) => {
+        console.log('Fetching thumbnail...',  id);
         const res = await getThumbnail(id);
         const data = await res.json();
-        console.log(data);
+        console.log(`Thumbnail url response... "${data.thumbnail}"`);
+
+        if (!data.thumbnail) {
+            return;
+        }
 
         currentTrack.update(cur => ({
             ...cur,
@@ -17,11 +22,10 @@
         }));
     };
 
-    $: {
-        const { id, thumbnail } = $currentTrack;
-        if (id && !thumbnail) {
-            getThumb(id);
-        }
+    $: track = $currentTrack;
+
+    $: if (track.id && !track.thumbnail) {
+        getThumb(track.id);
     }
 </script>
 

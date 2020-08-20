@@ -2,8 +2,12 @@
     import { onMount } from "svelte";
     import { getArtists } from '../core/api/queries';
     import { artists } from '../core/store';
+    import type { AudioPlayer } from "../core/audio/player";
 
     import PCoverArtGridView from "./PCoverArtGridView.svelte";
+
+    export let player: AudioPlayer = null;
+    console.log(player);
 
     onMount(async () => {
         if ($artists.ready) {
@@ -12,7 +16,6 @@
 
         const res = await getArtists();
         const data = await res.json();
-        console.log(data);
         artists.set({ ready: true, data: data.artists });
     });
 </script>

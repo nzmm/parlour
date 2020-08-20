@@ -1,18 +1,17 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-
+    import { currentTrack } from '../core/store';
     import type { ITrack } from "../core/interfaces/ITrack";
+
     import ScrolledView from "./common/ScrolledView.svelte";
 
     export let heading = "";
     export let subheading = "";
-    export let data = [];
+    export let data: ITrack[] = [];
 
     const dispatch = createEventDispatcher();
 
-    function onDblClick(item: ITrack) {
-		dispatch('rowDblClick', item);
-	}
+    $: currentId = $currentTrack.id;
 </script>
 
 <ScrolledView overflowX="hidden" overflowY="scroll">
@@ -28,21 +27,24 @@
 
     <div class="list px-2 py-4">
         {#each data as item}
-        <button class="item d-flex py-2" on:dblclick={() => onDblClick(item)}>
-            <div class="number">
+        <button class="item d-flex py-2 {item.id === currentId ? 'playing' : ''}" on:dblclick={() => dispatch('rowDblClick', item)}>
+            <div class="p-col number">
                 {item.number}
             </div>
-            <div class="name">
-                {#if item.playing}
+            <div class="p-col name">
+                {#if item.id === currentId}
                     <i class="fas fa-play pr-1"></i>
                 {/if}
                 {item.name}
             </div>
-            <div class="length">
-                {item.length_display}
-            </div>
-            <div class="artist">
+            <div class="p-col artist">
                 {item.artist_credit}
+            </div>
+            <div class="p-col release">
+                {item.release_name}
+            </div>
+            <div class="p-col length">
+                {item.length_display}
             </div>
         </button>
         {/each}
@@ -68,6 +70,9 @@
         outline: 0;
         font-size: small;
     }
+    .item.playing {
+        font-weight: bold;
+    }
     .item:nth-child(odd) {
         background-color: #eee;
     }
@@ -75,17 +80,30 @@
         background-color: #ff2a2aff;
         color: #fff;
     }
+    .item > .p-col {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
     .item > .number {
-        width: 32px;
+        width: 42px;
         text-align: center;
+        color: #6c757d;
+    }
+    .item:focus > .number {
+        color: #fff;
     }
     .item > .name {
-        width: 30%;
-    }
-    .item > .length {
-        width: 50px;
+        flex-grow: 1;
     }
     .item > .artist {
-        width: 30%;
+        width: 27%;
+    }
+    .item > .release {
+        width: 27%;
+    }
+    .item > .length {
+        text-align: right;
+        width: 56px;
     }
 </style>

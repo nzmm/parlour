@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
 import { Views } from './enums/Views';
+import type { ITrack } from './interfaces/ITrack';
 
 export const currentView = writable(Views.Songs);
 
@@ -12,4 +13,13 @@ export const playerState = writable({
     playing: false,
     length: 0,
     position: 0
-})
+});
+
+export const currentTrack = writable<ITrack>({
+    id: '',
+    number: '',
+    name: '',
+    artist_credit: '',
+    release_name: '',
+    length_display: ''
+});

@@ -7,7 +7,7 @@
     import TextDropshadow from './common/TextDropshadow.svelte';
 </script>
 
-<NavBar class="border-bottom">
+<NavBar class="top-nav border-bottom">
     <a class="navbar-brand" href="/">
         <img src="/static/data/im/parlour-brand-32.png" alt="Parlour" height="32" />
     </a>
@@ -33,8 +33,8 @@
                 on:click={() => currentView.set(Views.Songs)}/>
 
             <NavLink
-                label="Now Playing"
-                href="#now-playing"
+                label="Play Queue"
+                href="#play-queue"
                 class="ml-3"
                 active={$currentView === Views.NowPlaying}
                 on:click={() => currentView.set(Views.NowPlaying)}/>
@@ -49,6 +49,9 @@
 </NavBar>
 
 <style>
+    :global(.top-nav) {
+        box-shadow: 0 3px 6px rgba(0,0,0,0.11), 0 3px 6px rgba(0,0,0,0.18);
+    }
     .user {
         width: 36px;
         height: 36px;

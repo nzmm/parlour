@@ -1,7 +1,6 @@
-import { playerState } from '../store';
+import { playerState, currentTrack } from '../store';
 import { getDownload } from '../api/queries';
 import type { ITrack } from '../interfaces/ITrack';
-
 
 const TIMER_ITERVAL = 500;
 
@@ -13,10 +12,21 @@ export class AudioPlayer {
 
     constructor() {
         this._player.addEventListener("loadedmetadata", () => {
-            playerState.update(cur => ({ ...cur, length: this._player.duration * 1000 }));
+            playerState.update(cur => ({
+                ...cur,
+                length: this._player.duration * 1000,
+                position: this._player.currentTime * 1000
+            }));
         });
+
         this._player.addEventListener("canplaythrough", () => {
             this.setPlaying();
+        });
+
+        this._player.addEventListener("onended", () => {
+            console.log("playback ended");
+            this._player.currentTime = 0;
+            this.setPaused();
         });
     }
 
@@ -47,9 +57,10 @@ export class AudioPlayer {
     }
 
     async play(track: ITrack) {
+        currentTrack.set(track);
+
         const res = await getDownload(track.id);
         const data = await res.json();
-        console.log(data);
 
         this.setPaused();
         this._player.src = data.download;

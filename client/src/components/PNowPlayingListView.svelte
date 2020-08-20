@@ -2,4 +2,4 @@
     import PTrackListView from "./PTrackListView.svelte";
 </script>
 
-<PTrackListView heading="Now Playing" subheading="12 songs queued" />
+<PTrackListView heading="Play Queue" subheading="0 songs queued" />

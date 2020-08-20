@@ -10,6 +10,7 @@ from providers.models import (
 class TokenAdmin(admin.ModelAdmin):
     list_display = ("user", "provider", "modified")
     list_filter = ('provider',)
+    readonly_fields = ('provider', 'value')
 
 
 @admin.register(Artist)
@@ -24,6 +25,6 @@ class ReleaseAdmin(admin.ModelAdmin):
 
 @admin.register(Track)
 class TrackAdmin(admin.ModelAdmin):
-    list_display = ("user", "provider", "name", "artist_credit")
-    list_filter = ('provider',)
-    read_only = ('provider', 'provider_id')
+    list_display = ("user", "provider", "name", "artist_credit", "liked")
+    list_filter = ('provider', "liked")
+    readonly_fields = ('provider', 'provider_id')

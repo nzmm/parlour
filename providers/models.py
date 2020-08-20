@@ -11,7 +11,7 @@ class Token(models.Model):
     modified = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     def __str__(self):
-        return self.type
+        return f"{self.user.email} ({self.provider})"
 
 
 class Artist(models.Model):
@@ -53,10 +53,11 @@ class Track(models.Model):
     artist_credit = models.CharField(max_length=255)
     genre = models.CharField(max_length=255, default="")
     year = models.PositiveSmallIntegerField(null=True)
-    thumbnail = models.CharField(max_length=255, default="")
+    thumbnail = models.CharField(max_length=255, default="", help_text="This is a copy of the related release thumbnail.url")
     length = models.PositiveIntegerField()
     length_display = models.CharField(max_length=50)
     bitrate = models.PositiveSmallIntegerField(null=True)
+    liked = models.BooleanField(default=False)
     provider = models.CharField(max_length=8)
     provider_id = models.CharField(max_length=255, default="")
     release = models.ForeignKey(Release, on_delete=models.CASCADE, related_name="tracks")

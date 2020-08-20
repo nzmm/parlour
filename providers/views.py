@@ -1,9 +1,12 @@
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, JsonResponse
 from providers.graph.auth import get_sign_in_url, get_token_from_code, get_token, store_token
 from providers.common import queries
 from providers.common import serializers
+from providers.common.encoders import ParlourJSONEncoder
 from providers.graph.content import get_download_url, get_thumbnail_url
+from providers.models import Track
 
 
 def graph_sign_in(request):
@@ -26,26 +29,31 @@ def graph_sign_out(request):
 
 def get_artists(request):
     artists = queries.get_artists_query(request.user)
-    return JsonResponse({'artists': serializers.serialize_artists(artists)})
+    data = {'artists': serializers.serialize_artists(artists)}
+    return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 
 def get_albums(request):
     albums = queries.get_albums_query(request.user)
-    return JsonResponse({'albums': serializers.serialize_albums(albums)})
+    data = {'albums': serializers.serialize_albums(albums)}
+    return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 
 def get_songs(request):
     songs = queries.get_songs_query(request.user)
-    return JsonResponse({'songs': serializers.serialize_songs(songs)})
+    data = {'songs': serializers.serialize_songs(songs)}
+    return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 
 def get_download(request):
     track_id = request.GET.get('id')
-    url = get_download_url(request.user, track_id)
+    track = get_object_or_404(Track, pk=track_id, user=request.user)
+    url = get_download_url(track)
     return JsonResponse({'download': url})
 
 
 def get_thumbnail(request):
     track_id = request.GET.get('id')
-    url = get_thumbnail_url(request.user, track_id)
+    track = get_object_or_404(Track, pk=track_id, user=request.user)
+    url = get_thumbnail_url(track)
     return JsonResponse({'thumbnail': url})

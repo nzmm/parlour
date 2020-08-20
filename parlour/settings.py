@@ -123,5 +123,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    f'{BASE_DIR}/client/public',
+    BASE_DIR / 'client' / 'public',
 ]
+
+# Media (file uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

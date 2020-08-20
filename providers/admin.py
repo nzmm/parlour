@@ -24,6 +24,6 @@ class ReleaseAdmin(admin.ModelAdmin):
 
 @admin.register(Track)
 class TrackAdmin(admin.ModelAdmin):
-    list_display = ("user", "provider", "name")
+    list_display = ("user", "provider", "name", "artist_credit")
     list_filter = ('provider',)
     read_only = ('provider', 'provider_id')

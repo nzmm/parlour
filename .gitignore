@@ -1,5 +1,6 @@
 
 venv
+media
 graph_oauth_settings.yml
 db.sqlite3
 *.pyc

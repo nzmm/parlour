@@ -1,3 +1,10 @@
+import json
+
+
+def get_body_json(request):
+    return json.loads(request.body)
+
+
 def get_display_length(ms):
     s = int((ms / 1000) % 60)
     m = int((ms / (1000 * 60)) % 60)

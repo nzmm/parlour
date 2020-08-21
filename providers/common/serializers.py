@@ -17,7 +17,8 @@ DEFAULT_SONG_FIELDS = (
     'release_name',
     'year',
     'length_display',
-    'thumbnail')
+    'thumbnail',
+    'liked')
 
 
 def get_fields(obj, fields):

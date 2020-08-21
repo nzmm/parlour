@@ -16,11 +16,12 @@ export const playerState = writable({
 });
 
 export const currentTrack = writable<ITrack>({
-    id: '',
+    id: 0,
     number: '',
     name: '',
     artist_credit: '',
     release_name: '',
     length_display: '',
-    thumbnail: ''
+    thumbnail: '',
+    liked: false
 });

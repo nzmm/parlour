@@ -1,12 +1,13 @@
 <script lang="ts">
     import { currentTrack } from '../core/store';
     import { getThumbnail } from '../core/api/queries';
+    import { setLiked } from '../core/api/commands';
 
     import BoxDropshadow from './common/BoxDropshadow.svelte';
     import TextDropshadow from './common/TextDropshadow.svelte';
     import PCoverArt from './PCoverArt.svelte';
 
-    const getThumb = async (id: string) => {
+    const getThumb = async (id: number) => {
         console.log('Fetching thumbnail...',  id);
         const res = await getThumbnail(id);
         const data = await res.json();
@@ -22,6 +23,19 @@
         }));
     };
 
+    const onSetLiked = async (id: number, liked: boolean) => {
+        const res = await setLiked(id, liked);
+        const data = await res.json();
+
+        if (!data.success) {
+            return;
+        }
+
+        currentTrack.update(cur => ({
+            ...cur, liked
+        }));
+    };
+
     $: track = $currentTrack;
 
     $: if (track.id && !track.thumbnail) {
@@ -32,25 +46,25 @@
 <section class="d-flex align-items-center">
     <BoxDropshadow size="small">
         <PCoverArt
-            src={$currentTrack.thumbnail}
+            src={track.thumbnail}
             size="70px" />
     </BoxDropshadow>
     <TextDropshadow>
         <div class="ml-3">
             <p class="m-0 pb-0">
                 <strong>
-                    <a href="#recording">{$currentTrack.name}</a>
+                    <a href="#recording">{track.name}</a>
                 </strong>
-                {#if $currentTrack.id}
-                &nbsp;
-                <a href="#like">
-                    <i class="far fa-heart text-muted px-1"></i>
+
+                {#if track.id}
+                <a href="#like" class="px-1" on:click|preventDefault={() => onSetLiked(track.id, !track.liked)}>
+                    <i class="{track.liked ? "fas" : "text-muted far"} fa-heart"></i>
                 </a>
                 {/if}
             </p>
             <p class="m-0 pb-0">
                 <small>
-                    <a href="#artist">{$currentTrack.artist_credit}</a>
+                    <a href="#artist">{track.artist_credit}</a>
                 </small>
             </p>
         </div>
@@ -64,5 +78,8 @@
     }
     a {
         color: #212529;
+    }
+    .fas.fa-heart {
+        color: #ff2a2aff;
     }
 </style>

@@ -20,9 +20,12 @@ urlpatterns = [
     path('graph_signin', views.graph_sign_in, name='graph_signin'),
     path('graph_signout', views.graph_sign_out, name='graph_signout'),
     path('graph_callback', views.graph_callback, name='graph_callback'),
+
     path('get_artists', views.get_artists, name='get_artists'),
     path('get_albums', views.get_albums, name='get_albums'),
     path('get_songs', views.get_songs, name='get_songs'),
     path('get_download', views.get_download, name='get_download'),
-    path('get_thumbnail', views.get_thumbnail, name='get_thumbnail')
+    path('get_thumbnail', views.get_thumbnail, name='get_thumbnail'),
+
+    path('set_liked', views.set_liked, name='set_liked')
 ]

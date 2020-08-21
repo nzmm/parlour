@@ -3,9 +3,11 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, JsonResponse
 from providers.graph.auth import get_sign_in_url, get_token_from_code, get_token, store_token
 from providers.common import queries
+from providers.common import commands
 from providers.common import serializers
 from providers.common.encoders import ParlourJSONEncoder
 from providers.graph.content import get_download_url, get_thumbnail_url
+from providers.common.utils import get_body_json
 from providers.models import Track
 
 
@@ -57,3 +59,9 @@ def get_thumbnail(request):
     track = get_object_or_404(Track, pk=track_id, user=request.user)
     url = get_thumbnail_url(track)
     return JsonResponse({'thumbnail': url})
+
+
+def set_liked(request):
+    data = get_body_json(request)
+    matches = commands.set_track_liked(request.user, data.get('id'), data.get('liked'))
+    return JsonResponse({'success': matches > 0})

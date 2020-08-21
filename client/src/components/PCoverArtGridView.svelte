@@ -1,12 +1,15 @@
 <script lang="ts">
-    import type { ITrack } from "../core/interfaces/ITrack";
+    import { createEventDispatcher } from 'svelte';
+    import type { IAlbum } from "../core/interfaces/IAlbum";
 
     import ScrolledView from "./common/ScrolledView.svelte";
     import PCoverArt from "./PCoverArt.svelte";
 
     export let heading = "";
     export let subheading = "";
-    export let data: ITrack[] = [];
+    export let data: IAlbum[] = [];
+
+    const dispatch = createEventDispatcher();
 
     let w: number;
     $: columnTemplate = "1fr ".repeat(Math.max(1, Math.floor(w / 180))).trimEnd();
@@ -26,7 +29,7 @@
     <div class="grid py-4 px-2" bind:clientWidth={w} style="--col-template:{columnTemplate}">
         {#each data as item}
         <div class="item">
-            <button class="btn">
+            <button class="btn" on:click={() => dispatch("details", item)}>
                 <PCoverArt size="120px" src={item.thumbnail} />
             </button>
             <div>

@@ -21,7 +21,7 @@
     });
 
     const _enqueue = (track: ITrack, method: (data: ITrack[]) => void) => {
-        if ($playerState.state !== PlaybackState.Playing) {
+        if ($playerState.state === PlaybackState.Stopped) {
             player.play(track);
         } else {
             queue.update(q => {

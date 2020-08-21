@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { songs, queue } from '../core/store';
+    import { songs, queue, playerState } from '../core/store';
     import { getSongs } from '../core/api/queries';
     import type { AudioPlayer } from "../core/audio/player";
     import type { ITrack } from "../core/interfaces/ITrack";
@@ -19,12 +19,20 @@
         songs.set({ ready: true, data: data.songs });
     });
 
-    const enqueue = (item: ITrack) => {
-        queue.update(q => {
-            q.data.push(item);
-            return q;
-        });
+    const _enqueue = (track: ITrack, method: (data: ITrack[]) => void) => {
+        if (!$playerState.playing) {
+            player.play(track);
+        } else {
+            queue.update(q => {
+                method(q.data);
+                return q;
+            });
+        }
     }
+
+    const enqueue = (track: ITrack) => _enqueue(track, data => data.push(track));
+    const enqueueNext = (track: ITrack) => _enqueue(track, data => data.splice(0, 0, track));
+
 </script>
 
 <PTrackListView
@@ -33,4 +41,5 @@
     data={$songs.data}
     withQueueActions
     on:play={e => player.play(e.detail)}
-    on:enqueue={e => enqueue(e.detail)} />
+    on:enqueue={e => enqueue(e.detail)}
+    on:enqueueNext={e => enqueueNext(e.detail)} />

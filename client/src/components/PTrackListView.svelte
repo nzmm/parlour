@@ -62,14 +62,14 @@
                     <a class="dropdown-item" href="#enqueue" on:click|preventDefault={() => dispatch('enqueue', item)}>
                         Add to queue
                     </a>
-                    <a class="dropdown-item" href="#next">
+                    <a class="dropdown-item" href="#next" on:click|preventDefault={() => dispatch('enqueueNext', item)}>
                         Play next
                     </a>
 
                     <div class="dropdown-divider"></div>
                     {/if}
 
-                    <a class="dropdown-item" href="#like">
+                    <a class="dropdown-item" href="#like" on:click|preventDefault={() => null}>
                         Like
                     </a>
                 </Dropdown>

@@ -2,12 +2,8 @@
     import { onMount } from "svelte";
     import { getAlbums } from '../core/api/queries';
     import { albums } from '../core/store';
-    import type { AudioPlayer } from "../core/audio/player";
 
     import PCoverArtGridView from "./PCoverArtGridView.svelte";
-
-    export let player: AudioPlayer = null;
-    console.log(player);
 
     onMount(async () => {
         if ($albums.ready) {

@@ -7,21 +7,23 @@
     import PArtistGridView from "./PArtistGridView.svelte";
     import PAlbumGridView from "./PAlbumGridView.svelte";
     import PSongListView from "./PSongListView.svelte";
-    import PNowPlayingListView from "./PNowPlayingListView.svelte";
-
-    const views = {
-        [Views.Artists]: { component: PArtistGridView },
-        [Views.Albums]: { component: PAlbumGridView },
-        [Views.Songs]: { component: PSongListView },
-        [Views.NowPlaying]: { component: PNowPlayingListView }
-    }
+    import PQueueListView from "./PQueueListView.svelte";
 
     export let player: AudioPlayer;
+
+    const views = {
+        [Views.Artists]: { component: PArtistGridView, props: {} },
+        [Views.Albums]: { component: PAlbumGridView, props: {} },
+        [Views.Songs]: { component: PSongListView, props: { player } },
+        [Views.NowPlaying]: { component: PQueueListView, props: {} }
+    }
+
+    $: view = views[$currentView];
 </script>
 
 <div class="content-view w-100 h-100">
     <FluidContainer>
-        <svelte:component this={views[$currentView].component} {player} />
+        <svelte:component this={view.component} {...view.props} />
     </FluidContainer>
 </div>
 

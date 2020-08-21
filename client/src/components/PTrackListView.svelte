@@ -59,7 +59,7 @@
                     <div class="dropdown-divider"></div>
 
                     {#if withQueueActions}
-                    <a class="dropdown-item" href="#enqueue">
+                    <a class="dropdown-item" href="#enqueue" on:click|preventDefault={() => dispatch('enqueue', item)}>
                         Add to queue
                     </a>
                     <a class="dropdown-item" href="#next">

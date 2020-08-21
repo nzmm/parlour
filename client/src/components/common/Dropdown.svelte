@@ -2,7 +2,7 @@
     import BoxDropshadow from "./BoxDropshadow.svelte";
     import type { DropshadowSize } from "./enums/DropshadowSize";
 
-    export let delayMs: number = 250;
+    export let delayMs: number = 150;
     export let dropshadowSize: DropshadowSize = "big";
 
     let visible = false;

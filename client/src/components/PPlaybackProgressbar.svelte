@@ -32,6 +32,5 @@
     .progressbar > .bg > .bar {
         background-color: #ff2a2aff;
         height: 100%;
-        transition: width .5s;
     }
 </style>

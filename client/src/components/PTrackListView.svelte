@@ -152,7 +152,6 @@
     }
     .item > .meatballs i {
         opacity: 0;
-        transition: opacity .3s;
     }
     .item:hover > .meatballs i {
         opacity: 1;

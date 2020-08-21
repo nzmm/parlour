@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Views } from "../core/enums/Views";
-    import { currentView } from "../core/store";
+    import { currentView, queue } from "../core/store";
 
     import NavBar from './common/NavBar.svelte';
     import NavLink from './common/NavLink.svelte';
@@ -33,7 +33,7 @@
                 on:click={() => currentView.set(Views.Songs)}/>
 
             <NavLink
-                label="Play Queue"
+                label="Play Queue{$queue.data.length ? ` (${$queue.data.length})` : ''}"
                 href="#play-queue"
                 class="ml-3"
                 active={$currentView === Views.NowPlaying}

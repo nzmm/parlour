@@ -8,7 +8,9 @@
 </script>
 
 <li class="nav-item mx-2 {className}" class:active>
-    <a class="nav-link px-0" {href} on:click|preventDefault>{label}</a>
+    <a class="nav-link px-0" {href} on:click|preventDefault>
+        {label}
+    </a>
 </li>
 
 <style>

@@ -2,7 +2,8 @@ import { playerState, currentTrack, queue } from '../store';
 import { getDownload } from '../api/queries';
 import type { ITrack } from '../interfaces/ITrack';
 
-const TIMER_ITERVAL = 500;
+const TIMER_INTERVAL = 1000;
+const ms = (sec: number) => sec * 1000;
 
 
 export class AudioPlayer {
@@ -22,8 +23,8 @@ export class AudioPlayer {
         player.addEventListener("loadedmetadata", () => {
             playerState.update(cur => ({
                 ...cur,
-                length: this._player.duration * 1000,
-                position: this._player.currentTime * 1000
+                length: ms(this._player.duration),
+                position: ms(this._player.currentTime)
             }));
         });
 
@@ -56,12 +57,15 @@ export class AudioPlayer {
             return;
         }
 
-        playerState.update(cur => ({ ...cur, position: this._player.currentTime * 1000 }));
+        playerState.update(cur => {
+            cur.position = ms(this._player.currentTime);
+            return cur;
+        });
         this.newTimeout();
     }
 
     private newTimeout() {
-        this._timer = setTimeout(() => this.updateProgress(), TIMER_ITERVAL);
+        this._timer = setTimeout(() => this.updateProgress(), TIMER_INTERVAL);
     }
 
     private setPlaying() {
@@ -79,7 +83,7 @@ export class AudioPlayer {
 
         playerState.update(cur => (
             ended ?
-                { ...cur, playing: false, position: this._player.duration * 1000 } :
+                { ...cur, playing: false, position: ms(this._player.duration) } :
                 { ...cur, playing: false }));
     }
 

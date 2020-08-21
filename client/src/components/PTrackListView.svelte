@@ -31,18 +31,19 @@
     <div class="list px-2 py-4">
         {#each data as item}
         <div class="item d-flex py-2 {item.id === currentId ? 'playing' : ''}" tabindex="0" on:dblclick={() => dispatch('play', item)}>
-            <div class="p-col playing">
+            <div class="p-col number">
                 {#if item.id === currentId}
                     <i class="fas {$playerState.state === PlaybackState.Playing ? 'fa-play' : 'fa-pause'} pr-1"></i>
+                {:else}
+                    {item.number}
                 {/if}
             </div>
             <div class="p-col liked">
                 {#if item.liked}
                     <i class="fas fa-heart"></i>
+                    {:else}
+                    <i class="far fa-heart"></i>
                 {/if}
-            </div>
-            <div class="p-col number">
-                {item.number}
             </div>
             <div class="p-col name">
                 {item.name}
@@ -123,16 +124,12 @@
         text-overflow: ellipsis;
         white-space: nowrap;
     }
-    .item > .playing {
-        width: 24px;
-        text-align: right;
-    }
     .item > .liked {
-        width: 24px;
-        text-align: right;
+        width: 28px;
+        text-align: left;
     }
     .item > .number {
-        width: 42px;
+        width: 48px;
         text-align: center;
     }
     .item i {

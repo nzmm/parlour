@@ -27,7 +27,12 @@
 
     <div class="list px-2 py-4">
         {#each data as item}
-        <button class="item d-flex py-2 {item.id === currentId ? 'playing' : ''}" on:dblclick={() => dispatch('rowDblClick', item)}>
+        <div class="item d-flex py-2 {item.id === currentId ? 'playing' : ''}" tabindex="0" on:dblclick={() => dispatch('rowDblClick', item)}>
+            <div class="p-col liked">
+                <a href="#like" on:click|preventDefault={() => false}>
+                    <i class="{item.liked ? "fas" : "far"} fa-heart"></i>
+                </a>
+            </div>
             <div class="p-col number">
                 {item.number}
             </div>
@@ -46,7 +51,7 @@
             <div class="p-col length">
                 {item.length_display}
             </div>
-        </button>
+        </div>
         {/each}
     </div>
 </ScrolledView>
@@ -62,7 +67,6 @@
     .item {
         width: 100%;
         margin: 0;
-        padding-left: 24px;
         padding-right: 24px;
         text-align: left;
         background: transparent;
@@ -85,11 +89,29 @@
         text-overflow: ellipsis;
         white-space: nowrap;
     }
+    .item > .liked {
+        width: 24px;
+        text-align: right;
+    }
+    .item > .liked > a > .far {
+        opacity: 0;
+    }
+    .item:hover > .liked > a > .far {
+        opacity: .5;
+    }
+    .item:focus > .liked > a > .far,
+    .item > .liked > a > .fas {
+        opacity: 1;
+    }
     .item > .number {
         width: 42px;
         text-align: center;
+    }
+    .item > .liked > a,
+    .item > .number {
         color: #6c757d;
     }
+    .item:focus > .liked > a,
     .item:focus > .number {
         color: #fff;
     }

@@ -2,6 +2,7 @@ import { writable } from 'svelte/store';
 import { Views } from './enums/Views';
 import type { ITrack } from './interfaces/ITrack';
 import type { ITrackArray } from './interfaces/ITrackArray';
+import { PlaybackState } from './enums/PlaybackState';
 
 export const currentView = writable(Views.Songs);
 
@@ -11,8 +12,7 @@ export const songs = writable<ITrackArray>({ready: false, data: []});
 export const queue = writable<ITrackArray>({ready: true, data: []});
 
 export const playerState = writable({
-    loaded: false,
-    playing: false,
+    state: PlaybackState.Stopped,
     length: 0,
     position: 0
 });

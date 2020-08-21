@@ -1,5 +1,6 @@
 <script lang="ts">
     import { playerState } from '../core/store';
+    import { PlaybackState } from '../core/enums/PlaybackState';
     import type { AudioPlayer } from '../core/audio/player';
 
     import GlyphButton from "./common/GlyphButton.svelte";
@@ -21,7 +22,7 @@
 
         <TextDropshadow>
             <GlyphButton
-                glyphName={$playerState.playing ? 'fa-pause' : 'fa-play'}
+                glyphName={$playerState.state === PlaybackState.Playing  ? 'fa-pause' : 'fa-play'}
                 on:click={() => player.toggle()} />
         </TextDropshadow>
 

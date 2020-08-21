@@ -9,7 +9,7 @@
     export let heading = "";
     export let subheading = "";
     export let data: ITrack[] = [];
-    export let withEnqueuAction: boolean = false;
+    export let withQueueActions: boolean = false;
 
     const dispatch = createEventDispatcher();
 
@@ -29,7 +29,7 @@
 
     <div class="list px-2 py-4">
         {#each data as item}
-        <div class="item d-flex py-2 {item.id === currentId ? 'playing' : ''}" tabindex="0" on:dblclick={() => dispatch('rowDblClick', item)}>
+        <div class="item d-flex py-2 {item.id === currentId ? 'playing' : ''}" tabindex="0" on:dblclick={() => dispatch('play', item)}>
             <div class="p-col playing">
                 {#if item.id === currentId}
                     <i class="fas fa-play pr-1"></i>
@@ -52,13 +52,26 @@
                         <i class="fas fa-ellipsis-h"></i>
                     </big>
 
-                    <a class="dropdown-item" href="#play">Play</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#enqueue">Add to queue</a>
-                    <a class="dropdown-item" href="#next">Play next</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#like">Like</a>
+                    <a class="dropdown-item" href="#play" on:click|preventDefault={() => dispatch('play', item)}>
+                        Play
+                    </a>
 
+                    <div class="dropdown-divider"></div>
+
+                    {#if withQueueActions}
+                    <a class="dropdown-item" href="#enqueue">
+                        Add to queue
+                    </a>
+                    <a class="dropdown-item" href="#next">
+                        Play next
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+                    {/if}
+
+                    <a class="dropdown-item" href="#like">
+                        Like
+                    </a>
                 </Dropdown>
             </div>
             <div class="p-col artist">

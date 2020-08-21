@@ -23,14 +23,16 @@
 
 <div class="p-drop">
     <div class="p-drop-toggle" on:click={showDropdown}>
-        <slot name="toggle" />
+        <slot name="toggle">
+            <i class="fas fa-caret-down p-2"></i>
+        </slot>
     </div>
 
     {#if visible}
     <BoxDropshadow size={dropshadowSize}>
         <div class="p-drop-bg" on:click|stopPropagation={() => visible = false}></div>
 
-        <div class="p-drop-menu pt-2 pb-1" style="top: {top}px; left: {left}px;" on:click={hideWithDelay} >
+        <div class="p-drop-menu py-2" style="top: {top}px; left: {left}px;" on:click={hideWithDelay} >
             <slot />
         </div>
     </BoxDropshadow>
@@ -49,7 +51,7 @@
     .p-drop-menu {
         position: absolute;
         min-width: 200px;
-        min-height: 100px;
+        min-height: 50px;
         color: #000;
         background-color: #fff;
         border: 1px solid #a5a5a5;

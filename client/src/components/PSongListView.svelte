@@ -23,4 +23,5 @@
     heading="Songs"
     subheading="{$songs.data.length} songs"
     data={$songs.data}
+    withEnqueuAction
     on:rowDblClick={e => player.play(e.detail)} />

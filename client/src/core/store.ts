@@ -7,6 +7,7 @@ export const currentView = writable(Views.Songs);
 export const artists = writable({ready: false, data: []});
 export const albums = writable({ready: false, data: []});
 export const songs = writable({ready: false, data: []});
+export const queue = writable({ready: false, data: []});
 
 export const playerState = writable({
     loaded: false,

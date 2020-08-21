@@ -1,5 +1,7 @@
 <script lang="ts">
-    export let size: "smallest" | "small" | "normal" | "big" | "biggest" = "normal";
+    import type { DropshadowSize } from "./enums/DropshadowSize";
+
+    export let size: DropshadowSize = "normal";
 </script>
 
 <div class="dropshadow {size}">

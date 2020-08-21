@@ -4,10 +4,12 @@
     import type { ITrack } from "../core/interfaces/ITrack";
 
     import ScrolledView from "./common/ScrolledView.svelte";
+    import Dropdown from './common/Dropdown.svelte';
 
     export let heading = "";
     export let subheading = "";
     export let data: ITrack[] = [];
+    export let withEnqueuAction: boolean = false;
 
     const dispatch = createEventDispatcher();
 
@@ -28,19 +30,36 @@
     <div class="list px-2 py-4">
         {#each data as item}
         <div class="item d-flex py-2 {item.id === currentId ? 'playing' : ''}" tabindex="0" on:dblclick={() => dispatch('rowDblClick', item)}>
+            <div class="p-col playing">
+                {#if item.id === currentId}
+                    <i class="fas fa-play pr-1"></i>
+                {/if}
+            </div>
             <div class="p-col liked">
-                <a href="#like" on:click|preventDefault={() => false} title="Like">
-                    <i class="{item.liked ? "fas" : "far"} fa-heart"></i>
-                </a>
+                {#if item.liked}
+                    <i class="fas fa-heart"></i>
+                {/if}
             </div>
             <div class="p-col number">
                 {item.number}
             </div>
             <div class="p-col name">
-                {#if item.id === currentId}
-                    <i class="fas fa-play pr-1"></i>
-                {/if}
                 {item.name}
+            </div>
+            <div class="p-col meatballs">
+                <Dropdown>
+                    <big slot="toggle">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </big>
+
+                    <a class="dropdown-item" href="#play">Play</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#enqueue">Add to queue</a>
+                    <a class="dropdown-item" href="#next">Play next</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#like">Like</a>
+
+                </Dropdown>
             </div>
             <div class="p-col artist">
                 {item.artist_credit}
@@ -66,13 +85,14 @@
     }
     .item {
         width: 100%;
+        height: 37px;
         margin: 0;
         padding-right: 24px;
         text-align: left;
         background: transparent;
         border: 0;
         outline: 0;
-        font-size: small;
+        font-size: 14px;
     }
     .item.playing {
         font-weight: bold;
@@ -89,43 +109,40 @@
         text-overflow: ellipsis;
         white-space: nowrap;
     }
-    .item > .liked {
+    .item > .playing {
         width: 24px;
         text-align: right;
     }
-    .item > .liked > a {
-        outline: 0;
-    }
-    .item > .liked > a > .far {
-        opacity: 0;
-    }
-    .item:hover > .liked > a > .far {
-        opacity: .5;
-    }
-    .item:focus > .liked > a > .far,
-    .item > .liked > a > .fas,
-    .item > .liked > a:focus .far,
-    .item > .liked > a:focus .fas {
-        opacity: 1 !important;
+    .item > .liked {
+        width: 24px;
+        text-align: right;
     }
     .item > .number {
         width: 42px;
         text-align: center;
     }
-    .item > .liked > a,
-    .item > .number {
+    .item i {
         color: #6c757d;
     }
-    .item:focus > .liked > a,
-    .item:focus > .number {
-        color: #fff;
+    .item.playing i {
+        color: #212529;
     }
-    .item:not(:focus) > .liked > a:focus .far,
-    .item:not(:focus) > .liked > a:focus .fas {
-        color: #ff2a2aff;
+    .item:focus i,
+    .item.playing:focus i {
+        color: #fff;
     }
     .item > .name {
         flex-grow: 1;
+    }
+    .item > .meatballs {
+        width: 32px;
+    }
+    .item > .meatballs i {
+        opacity: 0;
+        transition: opacity .3s;
+    }
+    .item:hover > .meatballs i {
+        opacity: 1;
     }
     .item > .artist {
         width: 27%;

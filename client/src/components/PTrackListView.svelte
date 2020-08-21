@@ -29,7 +29,7 @@
         {#each data as item}
         <div class="item d-flex py-2 {item.id === currentId ? 'playing' : ''}" tabindex="0" on:dblclick={() => dispatch('rowDblClick', item)}>
             <div class="p-col liked">
-                <a href="#like" on:click|preventDefault={() => false}>
+                <a href="#like" on:click|preventDefault={() => false} title="Like">
                     <i class="{item.liked ? "fas" : "far"} fa-heart"></i>
                 </a>
             </div>
@@ -93,6 +93,9 @@
         width: 24px;
         text-align: right;
     }
+    .item > .liked > a {
+        outline: 0;
+    }
     .item > .liked > a > .far {
         opacity: 0;
     }
@@ -100,8 +103,10 @@
         opacity: .5;
     }
     .item:focus > .liked > a > .far,
-    .item > .liked > a > .fas {
-        opacity: 1;
+    .item > .liked > a > .fas,
+    .item > .liked > a:focus .far,
+    .item > .liked > a:focus .fas {
+        opacity: 1 !important;
     }
     .item > .number {
         width: 42px;
@@ -114,6 +119,10 @@
     .item:focus > .liked > a,
     .item:focus > .number {
         color: #fff;
+    }
+    .item:not(:focus) > .liked > a:focus .far,
+    .item:not(:focus) > .liked > a:focus .fas {
+        color: #ff2a2aff;
     }
     .item > .name {
         flex-grow: 1;

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import { currentTrack } from '../core/store';
+    import { currentTrack, playerState } from '../core/store';
+    import { PlaybackState } from '../core/enums/PlaybackState';
     import type { ITrack } from "../core/interfaces/ITrack";
 
     import ScrolledView from "./common/ScrolledView.svelte";
@@ -32,7 +33,7 @@
         <div class="item d-flex py-2 {item.id === currentId ? 'playing' : ''}" tabindex="0" on:dblclick={() => dispatch('play', item)}>
             <div class="p-col playing">
                 {#if item.id === currentId}
-                    <i class="fas fa-play pr-1"></i>
+                    <i class="fas {$playerState.state === PlaybackState.Playing ? 'fa-play' : 'fa-pause'} pr-1"></i>
                 {/if}
             </div>
             <div class="p-col liked">

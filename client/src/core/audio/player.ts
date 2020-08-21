@@ -1,5 +1,6 @@
 import { playerState, currentTrack, queue } from '../store';
 import { getDownload } from '../api/queries';
+import { PlaybackState } from '../enums/PlaybackState';
 import type { ITrack } from '../interfaces/ITrack';
 
 const TIMER_INTERVAL = 1000;
@@ -41,7 +42,7 @@ export class AudioPlayer {
         if (playlist.length) {
             this.playNext(playlist);
         } else {
-            this.setPaused(true);
+            this.setStopped();
         }
     }
 
@@ -69,12 +70,12 @@ export class AudioPlayer {
     }
 
     private setPlaying() {
-        playerState.update(cur => ({ ...cur, playing: true }));
+        playerState.update(cur => ({ ...cur, state: PlaybackState.Playing }));
         this._player.play();
         this.newTimeout();
     }
 
-    private setPaused(ended: boolean = false) {
+    private setPaused() {
         if (!this._player.paused) {
             this._player.pause();
         }
@@ -82,9 +83,18 @@ export class AudioPlayer {
         clearTimeout(this._timer);
 
         playerState.update(cur => (
-            ended ?
-                { ...cur, playing: false, position: ms(this._player.duration) } :
-                { ...cur, playing: false }));
+                { ...cur, state: PlaybackState.Paused }));
+    }
+
+    private setStopped() {
+        if (!this._player.paused) {
+            this._player.pause();
+        }
+
+        clearTimeout(this._timer);
+
+        playerState.update(cur => (
+            { ...cur, state: PlaybackState.Stopped, position: ms(this._player.duration) }));
     }
 
     async play(track: ITrack) {
@@ -98,7 +108,6 @@ export class AudioPlayer {
         const res = await getDownload(track.id);
         const data = await res.json();
 
-        this.setPaused();
         this._player.src = data.download;
         this._player.load();
     }

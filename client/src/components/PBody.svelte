@@ -4,18 +4,18 @@
     import type { AudioPlayer } from "../core/audio/player";
 
     import FluidContainer from "./common/FluidContainer.svelte";
-    import PArtistGridView from "./PArtistGridView.svelte";
-    import PAlbumGridView from "./PAlbumGridView.svelte";
-    import PSongListView from "./PSongListView.svelte";
-    import PQueueListView from "./PQueueListView.svelte";
+    import PArtistView from "./PArtistView.svelte";
+    import PAlbumView from "./PAlbumView.svelte";
+    import PSongView from "./PSongView.svelte";
+    import PQueueView from "./PQueueView.svelte";
 
     export let player: AudioPlayer;
 
     const views = {
-        [Views.Artists]: { component: PArtistGridView, props: {} },
-        [Views.Albums]: { component: PAlbumGridView, props: {} },
-        [Views.Songs]: { component: PSongListView, props: { player } },
-        [Views.NowPlaying]: { component: PQueueListView, props: {} }
+        [Views.Artists]: { component: PArtistView, props: {} },
+        [Views.Albums]: { component: PAlbumView, props: {} },
+        [Views.Songs]: { component: PSongView, props: { player } },
+        [Views.NowPlaying]: { component: PQueueView, props: {} }
     }
 
     $: view = views[$currentView];

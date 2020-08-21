@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import { songs, queue, playerState } from '../core/store';
     import { getSongs } from '../core/api/queries';
+    import { PlaybackState } from "../core/enums/PlaybackState";
     import type { AudioPlayer } from "../core/audio/player";
     import type { ITrack } from "../core/interfaces/ITrack";
 
@@ -20,7 +21,7 @@
     });
 
     const _enqueue = (track: ITrack, method: (data: ITrack[]) => void) => {
-        if (!$playerState.playing) {
+        if ($playerState.state === PlaybackState.Stopped) {
             player.play(track);
         } else {
             queue.update(q => {

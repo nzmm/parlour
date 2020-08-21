@@ -16,4 +16,8 @@
     });
 </script>
 
-<PCoverArtGridView heading="Albums" subheading="{$albums.data.length} albums" data={$albums.data} />
+<PCoverArtGridView
+    heading="Albums"
+    subheading="{$albums.data.length} albums"
+    data={$albums.data}
+    on:details={e => console.log(e.detail)} />

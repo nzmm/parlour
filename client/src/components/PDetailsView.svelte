@@ -4,6 +4,7 @@
     import Page from './common/Page.svelte';
     import PCoverArt from './PCoverArt.svelte';
 
+    export let context: string;
     export let heading: string = "";
     export let subheading1: string = "";
     export let subheading2: string | number = "";
@@ -26,7 +27,7 @@
             </h2>
         </div>
 
-        <a href="#back" title="Back to albums" on:click|preventDefault={() => dispatch("back", {})}>
+        <a href="#back" title="Back to {context}s" on:click|preventDefault={() => dispatch("back", {})}>
             <i class="fas fa-times"></i>
         </a>
     </div>

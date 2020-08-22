@@ -24,6 +24,7 @@
 </script>
 
 <PDetailsView
+    context="album"
     heading={album.name}
     subheading1={album.artist_name}
     subheading2={album.year}

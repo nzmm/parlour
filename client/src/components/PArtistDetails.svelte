@@ -25,6 +25,7 @@
 </script>
 
 <PDetailsView
+    context="album"
     heading={artist.name}
     thumbnail={artist.thumbnail}
     on:back>

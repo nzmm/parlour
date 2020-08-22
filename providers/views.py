@@ -9,7 +9,7 @@ from providers.common import serializers
 from providers.common.encoders import ParlourJSONEncoder
 from providers.graph.content import get_download_url, get_thumbnail_url
 from providers.common.utils import get_body_json
-from providers.models import Release, Track
+from providers.models import Artist, Release, Track
 
 
 @login_required
@@ -71,6 +71,22 @@ def get_album_details(request):
     data = {
         'album': serializers.serialize_album(album),
         'tracks': serializers.serialize_songs(tracks)
+    }
+    return JsonResponse(data, encoder=ParlourJSONEncoder)
+
+
+def get_artist_details(request):
+    artist_id = request.GET.get('id')
+    artist = get_object_or_404(Artist, pk=artist_id, user=request.user)
+
+    releases = [{
+        **serializers.serialize_album(release),
+        'tracks': serializers.serialize_songs(release.tracks.all())
+    } for release in artist.releases.all()]
+
+    data = {
+        'artist': serializers.serialize_artist(artist),
+        'releases': releases
     }
     return JsonResponse(data, encoder=ParlourJSONEncoder)
 

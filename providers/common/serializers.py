@@ -11,13 +11,6 @@ DEFAULT_ALBUM_FIELDS = (
     'name',
     'thumbnail')
 
-DEFAULT_ALBUM_DETAIL_FIELDS = (
-    'id',
-    'name',
-    'thumbnail',
-    'year',
-    'artist__name')
-
 DEFAULT_SONG_FIELDS = (
     'id',
     'number',
@@ -28,6 +21,17 @@ DEFAULT_SONG_FIELDS = (
     'length_display',
     'thumbnail',
     'liked')
+
+DEFAULT_ARTIST_DETAIL_FIELDS = (
+    'id',
+    'name')
+
+DEFAULT_ALBUM_DETAIL_FIELDS = (
+    'id',
+    'name',
+    'thumbnail',
+    'year',
+    'artist__name')
 
 
 def getattr_nested(obj, field):
@@ -54,6 +58,10 @@ def serialize_albums(queryset, fields=DEFAULT_ALBUM_FIELDS):
 
 def serialize_songs(queryset, fields=DEFAULT_SONG_FIELDS):
     return [get_fields(o, fields) for o in queryset]
+
+
+def serialize_artist(obj, fields=DEFAULT_ARTIST_DETAIL_FIELDS):
+    return get_fields(obj, fields)
 
 
 def serialize_album(obj, fields=DEFAULT_ALBUM_DETAIL_FIELDS):

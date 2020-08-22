@@ -7,6 +7,7 @@
     import type { AudioPlayer } from "../core/audio/player";
 
     import PDetailsView from './PDetailsView.svelte';
+    import PTrackListView from './PTrackListView.svelte';
 
     export let player: AudioPlayer;
     export let album: IAlbum;
@@ -23,12 +24,17 @@
 </script>
 
 <PDetailsView
-    {tracks}
     heading={album.name}
     subheading1={album.artist_name}
     subheading2={album.year}
     thumbnail={album.thumbnail}
-    on:back
-    on:play={e => playNow(player, e.detail)}
-    on:enqueue={e => enqueue(player, e.detail)}
-    on:enqueueNext={e => enqueueNext(player, e.detail)} />
+    on:back>
+
+    <PTrackListView
+        data={tracks}
+        withQueueActions
+        on:play={e => playNow(player, e.detail)}
+        on:enqueue={e => enqueue(player, e.detail)}
+        on:enqueueNext={e => enqueueNext(player, e.detail)}/>
+
+</PDetailsView>

@@ -25,7 +25,10 @@
 </script>
 
 {#if album}
-    <PAlbumDetails {player} {album} on:back={() => album = null} />
+    <PAlbumDetails
+        {player}
+        {album}
+        on:back={() => album = null} />
 {:else}
     <PCoverArtGridView
         heading="Albums"

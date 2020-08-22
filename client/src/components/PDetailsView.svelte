@@ -1,16 +1,13 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import type { ITrack } from '../core/interfaces/ITrack';
 
     import Page from './common/Page.svelte';
     import PCoverArt from './PCoverArt.svelte';
-    import PTrackListView from './PTrackListView.svelte';
 
     export let heading: string = "";
     export let subheading1: string = "";
     export let subheading2: string | number = "";
     export let thumbnail: string = "";
-    export let tracks: ITrack[] = [];
 
     const dispatch = createEventDispatcher();
 </script>
@@ -18,7 +15,7 @@
 <Page>
     <div class="d-flex justify-content-between align-items-top" slot="header">
         <div class="d-flex">
-            <PCoverArt src={thumbnail} size="170px" />
+            <PCoverArt src={thumbnail} size="150px" />
 
             <h2 class="pl-4">
                 {heading}
@@ -36,12 +33,7 @@
 
     <hr/>
 
-    <PTrackListView
-        data={tracks}
-        withQueueActions
-        on:play
-        on:enqueue
-        on:enqueueNext />
+    <slot/>
 </Page>
 
 <style>

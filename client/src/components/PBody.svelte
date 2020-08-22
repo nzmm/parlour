@@ -12,7 +12,7 @@
     export let player: AudioPlayer;
 
     const views = {
-        [Views.Artists]: { component: PArtistView, props: {} },
+        [Views.Artists]: { component: PArtistView, props: { player } },
         [Views.Albums]: { component: PAlbumView, props: { player } },
         [Views.Songs]: { component: PSongView, props: { player } },
         [Views.PlayQueue]: { component: PQueueView, props: {} }

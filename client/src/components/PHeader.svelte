@@ -5,11 +5,14 @@
     import NavBar from './common/NavBar.svelte';
     import NavLink from './common/NavLink.svelte';
     import TextDropshadow from './common/TextDropshadow.svelte';
+    import SearchInput from "./common/SearchInput.svelte";
 
     const setView = (view: Views) => {
         currentView.set(view);
         sessionStorage.setItem('view', view.toString());
     }
+
+    let searchResults = [];
 </script>
 
 <NavBar class="top-nav border-bottom">
@@ -48,6 +51,10 @@
         </ul>
     </div>
 
+    <SearchInput
+        matches={searchResults}
+        on:input={() => searchResults = [1,2,3,4,5]} />
+
     <button class="user btn p-0">
         <TextDropshadow size="smallest">
             <strong>MM</strong>
@@ -57,7 +64,7 @@
 
 <style>
     :global(.top-nav) {
-        box-shadow: 0 3px 6px rgba(0,0,0,0.11), 0 3px 6px rgba(0,0,0,0.18);
+        box-shadow: 0 -0.4rem 0.9rem 0.2rem rgba(0,0,0,.175);
     }
     .user {
         width: 36px;

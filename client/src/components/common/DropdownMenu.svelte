@@ -5,18 +5,21 @@
     import type { DropshadowSize } from "./enums/DropshadowSize";
 
     export let visible: boolean = false;
-    export let top: number = 0;
-    export let left: number = 0;
+    export let top: number = null;
+    export let left: number = null;
     export let dropshadowSize: DropshadowSize = "big";
 
     const dispatch = createEventDispatcher();
 </script>
 
 {#if visible}
-<BoxDropshadow size={dropshadowSize}>
-    <div class="p-drop-bg" on:click|stopPropagation={() => dispatch("hide")}></div>
+<div class="p-drop-bg" on:click|stopPropagation={() => dispatch("hide")}></div>
 
-    <div class="p-drop-menu py-2" style="top: {top}px; left: {left}px;" on:click={() => dispatch("hide")} >
+<BoxDropshadow size={dropshadowSize}>
+    <div
+        class="p-drop-menu py-2"
+        style="{top == null ? '' : `top: ${top}px;`}{left == null ? '' : `left: ${left}px;`}"
+        on:click={() => dispatch("hide")}>
         <slot />
     </div>
 </BoxDropshadow>

@@ -8,3 +8,9 @@
 <nav class="navbar {placement} navbar-expand-lg navbar-light bg-light {className}">
   <slot></slot>
 </nav>
+
+<style>
+  .navbar {
+    z-index: 1020;
+  }
+</style>

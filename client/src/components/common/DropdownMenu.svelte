@@ -8,12 +8,15 @@
     export let top: number = null;
     export let left: number = null;
     export let dropshadowSize: DropshadowSize = "big";
+    export let interceptor: boolean = true;
 
     const dispatch = createEventDispatcher();
 </script>
 
 {#if visible}
+{#if interceptor}
 <div class="p-drop-bg" on:click|stopPropagation={() => dispatch("hide")}></div>
+{/if}
 
 <BoxDropshadow size={dropshadowSize}>
     <div

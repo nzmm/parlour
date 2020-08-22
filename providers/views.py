@@ -1,5 +1,6 @@
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
 from providers.graph.auth import get_sign_in_url, get_token_from_code, get_token, store_token, remove_token
@@ -32,24 +33,28 @@ def graph_callback(request):
     return HttpResponseRedirect(reverse('home'))
 
 
+@login_required
 def get_artists(request):
     artists = queries.get_artists_query(request.user)
     data = {'artists': serializers.serialize_artists(artists)}
     return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 
+@login_required
 def get_albums(request):
     albums = queries.get_albums_query(request.user)
     data = {'albums': serializers.serialize_albums(albums)}
     return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 
+@login_required
 def get_songs(request):
     songs = queries.get_songs_query(request.user)
     data = {'songs': serializers.serialize_songs(songs)}
     return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 
+@login_required
 def get_download(request):
     track_id = request.GET.get('id')
     track = get_object_or_404(Track, pk=track_id, user=request.user)
@@ -57,6 +62,7 @@ def get_download(request):
     return JsonResponse({'download': url})
 
 
+@login_required
 def get_thumbnail(request):
     track_id = request.GET.get('id')
     track = get_object_or_404(Track, pk=track_id, user=request.user)
@@ -64,6 +70,7 @@ def get_thumbnail(request):
     return JsonResponse({'thumbnail': url})
 
 
+@login_required
 def get_album_details(request):
     album_id = request.GET.get('id')
     album = get_object_or_404(Release, pk=album_id, user=request.user)
@@ -75,6 +82,7 @@ def get_album_details(request):
     return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 
+@login_required
 def get_artist_details(request):
     artist_id = request.GET.get('id')
     artist = get_object_or_404(Artist, pk=artist_id, user=request.user)
@@ -91,6 +99,8 @@ def get_artist_details(request):
     return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 
+@require_POST
+@login_required
 def set_liked(request):
     data = get_body_json(request)
     matches = commands.set_track_liked(request.user, data.get('id'), data.get('liked'))

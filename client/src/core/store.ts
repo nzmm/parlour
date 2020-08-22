@@ -5,7 +5,12 @@ import type { ITrackArray } from './interfaces/ITrackArray';
 import type { IAlbumArray } from './interfaces/IAlbumArray';
 import { PlaybackState } from './enums/PlaybackState';
 
-const initView = parseInt(sessionStorage.getItem("view")) ?? Views.Artists;
+const getInitialView = () => {
+    const view = parseInt(sessionStorage.getItem("view"));
+    return Views[view] != null ? view : Views.Artists;
+}
+
+const initView = getInitialView();
 export const currentView = writable(initView);
 
 export const artists = writable({ready: false, data: []});

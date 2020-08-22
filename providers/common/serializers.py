@@ -1,5 +1,7 @@
 from json import loads
 
+ATTR_SPLITTER = '__'
+
 DEFAULT_ARTIST_FIELDS = (
     'id',
     'name')
@@ -8,6 +10,13 @@ DEFAULT_ALBUM_FIELDS = (
     'id',
     'name',
     'thumbnail')
+
+DEFAULT_ALBUM_DETAIL_FIELDS = (
+    'id',
+    'name',
+    'thumbnail',
+    'year',
+    'artist__name')
 
 DEFAULT_SONG_FIELDS = (
     'id',
@@ -19,6 +28,16 @@ DEFAULT_SONG_FIELDS = (
     'length_display',
     'thumbnail',
     'liked')
+
+
+def getattr_nested(obj, field):
+    attrs = field.split(ATTR_SPLITTER)
+    for a in attrs[:-1]: obj = getattr(obj, a)
+    return  getattr(obj, attrs[-1])
+
+
+def get_nested_fields(obj, fields):
+    return {f.replace(ATTR_SPLITTER, '_'): getattr_nested(obj, f) for f in fields}
 
 
 def get_fields(obj, fields):
@@ -35,3 +54,7 @@ def serialize_albums(queryset, fields=DEFAULT_ALBUM_FIELDS):
 
 def serialize_songs(queryset, fields=DEFAULT_SONG_FIELDS):
     return [get_fields(o, fields) for o in queryset]
+
+
+def serialize_album(obj, fields=DEFAULT_ALBUM_DETAIL_FIELDS):
+    return get_nested_fields(obj, fields)

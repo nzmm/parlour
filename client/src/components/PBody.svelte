@@ -13,7 +13,7 @@
 
     const views = {
         [Views.Artists]: { component: PArtistView, props: {} },
-        [Views.Albums]: { component: PAlbumView, props: {} },
+        [Views.Albums]: { component: PAlbumView, props: { player } },
         [Views.Songs]: { component: PSongView, props: { player } },
         [Views.NowPlaying]: { component: PQueueView, props: {} }
     }

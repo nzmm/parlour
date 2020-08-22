@@ -8,7 +8,7 @@ from providers.common import serializers
 from providers.common.encoders import ParlourJSONEncoder
 from providers.graph.content import get_download_url, get_thumbnail_url
 from providers.common.utils import get_body_json
-from providers.models import Track
+from providers.models import Release, Track
 
 
 def graph_sign_in(request):
@@ -59,6 +59,17 @@ def get_thumbnail(request):
     track = get_object_or_404(Track, pk=track_id, user=request.user)
     url = get_thumbnail_url(track)
     return JsonResponse({'thumbnail': url})
+
+
+def get_album_details(request):
+    album_id = request.GET.get('id')
+    album = get_object_or_404(Release, pk=album_id, user=request.user)
+    tracks = album.tracks.all()
+    data = {
+        'album': serializers.serialize_album(album),
+        'tracks': serializers.serialize_songs(tracks)
+    }
+    return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 
 def set_liked(request):

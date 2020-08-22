@@ -61,6 +61,6 @@
         font-weight: bold;
     }
     h2 > small {
-        font-size: 16px;
+        font-size: 18px;
     }
 </style>

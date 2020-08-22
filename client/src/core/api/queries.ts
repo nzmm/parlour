@@ -19,3 +19,7 @@ export async function getDownload(id: number) {
 export async function getThumbnail(id: number) {
     return GET("/providers/get_thumbnail", { id });
 }
+
+export async function getAlbumDetails(id: number) {
+    return GET("/providers/get_album_details", { id });
+}

@@ -11,12 +11,15 @@ export class AudioPlayer {
 
     private _player = new Audio();
     private _playlist: ITrack[];
+    private _state: PlaybackState = PlaybackState.Stopped;
 
     private _timer = 0;
     private _track_id = 0;
 
     constructor() {
         queue.subscribe(value => this._playlist = value.data);
+        playerState.subscribe(value => this._state = value.state);
+
         this.initEvents(this._player, this._playlist);
     }
 
@@ -95,6 +98,10 @@ export class AudioPlayer {
 
         playerState.update(cur => (
             { ...cur, state: PlaybackState.Stopped, position: ms(this._player.duration) }));
+    }
+
+    public get state(): PlaybackState {
+        return this._state;
     }
 
     async play(track: ITrack) {

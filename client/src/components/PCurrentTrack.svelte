@@ -1,7 +1,7 @@
 <script lang="ts">
     import { currentTrack } from '../core/store';
     import { getThumbnail } from '../core/api/queries';
-    import { setLiked } from '../core/api/commands';
+    import { likeTrack } from '../core/actions';
 
     import BoxDropshadow from './common/BoxDropshadow.svelte';
     import TextDropshadow from './common/TextDropshadow.svelte';
@@ -20,19 +20,6 @@
         currentTrack.update(cur => ({
             ...cur,
             thumbnail: data.thumbnail
-        }));
-    };
-
-    const onSetLiked = async (id: number, liked: boolean) => {
-        const res = await setLiked(id, liked);
-        const data = await res.json();
-
-        if (!data.success) {
-            return;
-        }
-
-        currentTrack.update(cur => ({
-            ...cur, liked
         }));
     };
 
@@ -57,7 +44,7 @@
                 </strong>
 
                 {#if track.id}
-                <a href="#like" class="px-1" on:click|preventDefault={() => onSetLiked(track.id, !track.liked)}>
+                <a href="#like" class="px-1" on:click|preventDefault={() => likeTrack(track)}>
                     <i class="{track.liked ? "fas" : "text-muted far"} fa-heart"></i>
                 </a>
                 {/if}

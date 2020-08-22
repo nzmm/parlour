@@ -46,11 +46,4 @@
     .grid > .item > button {
         padding: 2px;
     }
-    h2 {
-        padding-left: 24px;
-        font-weight: bold;
-    }
-    h2 > small {
-        font-size: 18px;
-    }
 </style>

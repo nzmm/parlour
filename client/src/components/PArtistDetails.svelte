@@ -30,7 +30,7 @@
     on:back>
 
     {#each releases as release}
-        <section class="mb-4">
+        <section class="mb-4 pt-3">
 
             <div class="d-flex mb-3">
                 <PCoverArt src={release.thumbnail} size="100px" />
@@ -49,6 +49,7 @@
                 on:play={e => playNow(player, e.detail)}
                 on:enqueue={e => enqueue(player, e.detail)}
                 on:enqueueNext={e => enqueueNext(player, e.detail)}/>
+
         </section>
     {/each}
 

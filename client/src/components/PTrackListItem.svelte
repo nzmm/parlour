@@ -67,7 +67,7 @@
     .item.playing {
         font-weight: bold;
     }
-    .item:nth-child(odd) {
+    .item:nth-child(even) {
         background-color: #eee;
     }
     .item:focus {

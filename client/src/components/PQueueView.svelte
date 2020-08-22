@@ -1,10 +1,10 @@
 <script lang="ts">
     import { queue } from '../core/store';
 
-    import PTrackListView from "./PTrackListView.svelte";
+    import PTrackView from "./PTrackView.svelte";
 </script>
 
-<PTrackListView
+<PTrackView
     heading="Play Queue"
     subheading="{$queue.data.length} songs queued"
     data={$queue.data} />

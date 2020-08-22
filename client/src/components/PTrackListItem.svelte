@@ -1,20 +1,28 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import { playerState } from '../core/store';
-    import { PlaybackState } from '../core/enums/PlaybackState';
     import type { ITrack } from "../core/interfaces/ITrack";
-
-    import Dropdown from './common/Dropdown.svelte';
 
     export let item: ITrack;
     export let current: boolean = false;
     export let playing: boolean = false;
-    export let withQueueActions: boolean = false;
 
     const dispatch = createEventDispatcher();
+
+    const onContextMenu = (event: MouseEvent) => {
+        //const element = event.currentTarget as HTMLElement;
+        //const rect = element.getBoundingClientRect();
+        //const top = rect.top + rect.height - 5;
+        //const left = rect.left;
+        dispatch("dropdown", { item, top: event.clientY, left: event.clientX });
+    }
 </script>
 
-<div class="item d-flex py-2 {current ? 'playing' : ''}" tabindex="0" on:dblclick={() => dispatch('play', item)}>
+<div
+    class="item d-flex py-2 {current ? 'playing' : ''}"
+    tabindex="0"
+    on:dblclick={() => dispatch('play', item)}
+    on:contextmenu|preventDefault={onContextMenu}>
+
     <div class="p-col number">
         {#if current}
             <i class="fas {playing ? 'fa-play' : 'fa-pause'} pr-1"></i>
@@ -31,34 +39,6 @@
     </div>
     <div class="p-col name">
         {item.name}
-    </div>
-    <div class="p-col meatballs">
-        <Dropdown>
-            <big slot="toggle">
-                <i class="fas fa-ellipsis-h"></i>
-            </big>
-
-            <a class="dropdown-item" href="#play" on:click|preventDefault={() => dispatch('play', item)}>
-                Play
-            </a>
-
-            <div class="dropdown-divider"></div>
-
-            {#if withQueueActions}
-            <a class="dropdown-item" href="#enqueue" on:click|preventDefault={() => dispatch('enqueue', item)}>
-                Add to queue
-            </a>
-            <a class="dropdown-item" href="#next" on:click|preventDefault={() => dispatch('enqueueNext', item)}>
-                Play next
-            </a>
-
-            <div class="dropdown-divider"></div>
-            {/if}
-
-            <a class="dropdown-item" href="#like" on:click|preventDefault={() => dispatch("liked", item)}>
-                Like
-            </a>
-        </Dropdown>
     </div>
     <div class="p-col artist">
         {item.artist_credit || '-'}
@@ -118,15 +98,6 @@
     }
     .item > .name {
         flex-grow: 1;
-    }
-    .item > .meatballs {
-        width: 32px;
-    }
-    .item > .meatballs i {
-        opacity: 0;
-    }
-    .item:hover > .meatballs i {
-        opacity: 1;
     }
     .item > .artist {
         width: 27%;

@@ -1,12 +1,10 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import { currentTrack, playerState } from '../core/store';
-    import { PlaybackState } from '../core/enums/PlaybackState';
     import type { ITrack } from '../core/interfaces/ITrack';
 
     import ScrolledView from './common/ScrolledView.svelte';
     import PCoverArt from './PCoverArt.svelte';
-    import PTrackListItem from './PTrackListItem.svelte';
+    import PTrackListView from './PTrackListView.svelte';
 
     export let heading: string = "";
     export let subheading1: string = "";
@@ -15,9 +13,6 @@
     export let tracks: ITrack[] = [];
 
     const dispatch = createEventDispatcher();
-
-    $: currentId = $currentTrack.id;
-    $: playbackState = $playerState.state;
 </script>
 
 <ScrolledView overflowX="hidden" overflowY="scroll">
@@ -43,16 +38,9 @@
         <hr/>
 
         <section>
-            {#each tracks as item}
-            <PTrackListItem
-                {item}
-                withQueueActions
-                current={item.id === currentId}
-                playing={playbackState === PlaybackState.Playing}
-                on:play
-                on:enqueue
-                on:enqueueNext />
-            {/each}
+            <PTrackListView
+                data={tracks}
+                withQueueActions />
         </section>
     </div>
 </ScrolledView>

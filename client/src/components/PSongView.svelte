@@ -5,7 +5,7 @@
     import { getSongs } from '../core/api/queries';
     import type { AudioPlayer } from "../core/audio/player";
 
-    import PTrackListView from "./PTrackListView.svelte";
+    import PTrackView from "./PTrackView.svelte";
 
     export let player: AudioPlayer;
 
@@ -20,7 +20,7 @@
     });
 </script>
 
-<PTrackListView
+<PTrackView
     heading="Songs"
     subheading="{$songs.data.length} songs"
     data={$songs.data}

@@ -34,7 +34,8 @@
     {item}
     current={item.id === currentId}
     playing={playbackState === PlaybackState.Playing}
-    on:dropdown={showDropdown} />
+    on:dropdown={showDropdown}
+    on:play />
 {/each}
 
 <DropdownMenu {visible} {top} {left} on:hide={() => visible = false}>

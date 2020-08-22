@@ -103,5 +103,7 @@ def get_artist_details(request):
 @login_required
 def set_liked(request):
     data = get_body_json(request)
-    matches = commands.set_track_liked(request.user, data.get('id'), data.get('liked'))
-    return JsonResponse({'success': matches > 0})
+    track_id = data.get('id')
+    liked = data.get('liked')
+    success = commands.set_track_liked(request.user, track_id, liked)
+    return JsonResponse({'success': success})

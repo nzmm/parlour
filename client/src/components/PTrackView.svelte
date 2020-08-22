@@ -8,10 +8,9 @@
     export let subheading = "";
     export let data: ITrack[] = [];
     export let withQueueActions: boolean = false;
-
 </script>
 
-<Page {heading} {subheading}>
+<Page {heading} {subheading} wideBody>
     <section class="list">
         <PTrackListView
             {data}

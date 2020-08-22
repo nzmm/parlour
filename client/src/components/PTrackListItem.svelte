@@ -79,7 +79,8 @@
         white-space: nowrap;
     }
     .item > .liked {
-        width: 28px;
+        width: 36px;
+        padding-left: 5px;
         text-align: left;
     }
     .item > .number {

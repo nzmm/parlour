@@ -30,7 +30,7 @@
     <div class="p-col liked">
         {#if item.liked}
             <i class="fas fa-heart"></i>
-            {:else}
+        {:else}
             <i class="far fa-heart"></i>
         {/if}
     </div>

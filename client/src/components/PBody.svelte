@@ -15,7 +15,7 @@
         [Views.Artists]: { component: PArtistView, props: {} },
         [Views.Albums]: { component: PAlbumView, props: { player } },
         [Views.Songs]: { component: PSongView, props: { player } },
-        [Views.NowPlaying]: { component: PQueueView, props: {} }
+        [Views.PlayQueue]: { component: PQueueView, props: {} }
     }
 
     $: view = views[$currentView];

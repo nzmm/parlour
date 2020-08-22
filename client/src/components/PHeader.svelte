@@ -5,6 +5,11 @@
     import NavBar from './common/NavBar.svelte';
     import NavLink from './common/NavLink.svelte';
     import TextDropshadow from './common/TextDropshadow.svelte';
+
+    const setView = (view: Views) => {
+        currentView.set(view);
+        sessionStorage.setItem('view', view.toString());
+    }
 </script>
 
 <NavBar class="top-nav border-bottom">
@@ -18,26 +23,26 @@
                 label="Artists"
                 href="#artists"
                 active={$currentView === Views.Artists}
-                on:click={() => currentView.set(Views.Artists)}/>
+                on:click={() => setView(Views.Artists)}/>
 
             <NavLink
                 label="Albums"
                 href="#albums"
                 active={$currentView === Views.Albums}
-                on:click={() => currentView.set(Views.Albums)}/>
+                on:click={() => setView(Views.Albums)}/>
 
             <NavLink
                 label="Songs"
                 href="#songs"
                 active={$currentView === Views.Songs}
-                on:click={() => currentView.set(Views.Songs)}/>
+                on:click={() => setView(Views.Songs)}/>
 
             <NavLink
                 label="Play Queue{$queue.data.length ? ` (${$queue.data.length})` : ''}"
                 href="#play-queue"
                 class="ml-3"
-                active={$currentView === Views.NowPlaying}
-                on:click={() => currentView.set(Views.NowPlaying)}/>
+                active={$currentView === Views.PlayQueue}
+                on:click={() => setView(Views.PlayQueue)}/>
         </ul>
     </div>
 

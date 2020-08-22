@@ -21,7 +21,7 @@
         </header>
     </div>
 
-    <div class="wrapper mx-2 {wideBody ? "wide" : ""}">
+    <div class="wrapper mx-2 pb-3 {wideBody ? "wide" : ""}">
         <slot />
     </div>
 </ScrolledView>

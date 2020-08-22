@@ -9,10 +9,6 @@
     const dispatch = createEventDispatcher();
 
     const onContextMenu = (event: MouseEvent) => {
-        //const element = event.currentTarget as HTMLElement;
-        //const rect = element.getBoundingClientRect();
-        //const top = rect.top + rect.height - 5;
-        //const left = rect.left;
         dispatch("dropdown", { item, top: event.clientY, left: event.clientX });
     }
 </script>

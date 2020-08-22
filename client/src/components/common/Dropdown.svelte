@@ -8,7 +8,6 @@
     const showDropdown = (event: MouseEvent) => {
         const element = event.currentTarget as HTMLElement;
         const rect = element.getBoundingClientRect();
-
         visible = true;
         top = rect.top + rect.height - 5;
         left = rect.left;

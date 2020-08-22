@@ -31,11 +31,13 @@
                 active={$currentView === Views.Albums}
                 on:click={() => setView(Views.Albums)}/>
 
+            <!--
             <NavLink
                 label="Songs"
                 href="#songs"
                 active={$currentView === Views.Songs}
                 on:click={() => setView(Views.Songs)}/>
+            -->
 
             <NavLink
                 label="Play Queue{$queue.data.length ? ` (${$queue.data.length})` : ''}"

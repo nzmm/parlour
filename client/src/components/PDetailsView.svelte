@@ -40,7 +40,10 @@
         <section>
             <PTrackListView
                 data={tracks}
-                withQueueActions />
+                withQueueActions
+                on:play
+                on:enqueue
+                on:enqueueNext />
         </section>
     </div>
 </ScrolledView>

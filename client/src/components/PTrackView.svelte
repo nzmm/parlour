@@ -23,7 +23,12 @@
         </header>
 
         <section class="list py-4">
-            <PTrackListView {data} {withQueueActions} />
+            <PTrackListView
+                {data}
+                {withQueueActions}
+                on:play
+                on:enqueue
+                on:enqueueNext />
         </section>
     </div>
 </ScrolledView>

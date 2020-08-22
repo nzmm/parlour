@@ -26,6 +26,7 @@
             {item.number || '-'}
         {/if}
     </div>
+
     <div class="p-col liked">
         {#if item.liked}
             <i class="fas fa-heart"></i>
@@ -33,15 +34,19 @@
             <i class="far fa-heart"></i>
         {/if}
     </div>
+
     <div class="p-col name">
         {item.name}
     </div>
+
     <div class="p-col artist">
         {item.artist_credit || '-'}
     </div>
+
     <div class="p-col release">
         {item.release_name  || '-'}
     </div>
+
     <div class="p-col length">
         {item.length_display}
     </div>

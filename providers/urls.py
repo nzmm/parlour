@@ -28,6 +28,7 @@ urlpatterns = [
     path('get_thumbnail', views.get_thumbnail, name='get_thumbnail'),
     path('get_artist_details', views.get_artist_details, name='get_artist_details'),
     path('get_album_details', views.get_album_details, name='get_album_details'),
+    path('search', views.search, name='search'),
 
     path('set_liked', views.set_liked, name='set_liked')
 ]

@@ -99,6 +99,17 @@ def get_artist_details(request):
     return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 
+@login_required
+def search(request):
+    terms = request.GET.get('q', ''.strip())
+    if len(terms) < 3:
+        return JsonResponse({'matches': []})
+
+    tracks = queries.get_search_query(request.user, terms)
+    data = {'matches': serializers.serialize_songs(tracks)}
+    return JsonResponse(data)
+
+
 @require_POST
 @login_required
 def set_liked(request):

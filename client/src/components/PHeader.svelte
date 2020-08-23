@@ -5,7 +5,7 @@
     import NavBar from './common/NavBar.svelte';
     import NavLink from './common/NavLink.svelte';
     import TextDropshadow from './common/TextDropshadow.svelte';
-    import SearchInput from "./common/SearchInput.svelte";
+    import PSearchMusicInput from "./PSearchMusicInput.svelte";
 
     const setView = (view: Views) => {
         currentView.set(view);
@@ -51,10 +51,7 @@
         </ul>
     </div>
 
-    <SearchInput
-        matches={searchResults}
-        class={"mx-2"}
-        on:input={() => searchResults = [1,2,3,4,5]} />
+    <PSearchMusicInput />
 
     <button class="user btn p-0" style="margin-top: 1px;">
         <TextDropshadow size="smallest">

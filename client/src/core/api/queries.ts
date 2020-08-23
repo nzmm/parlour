@@ -27,3 +27,7 @@ export async function getArtistDetails(id: number) {
 export async function getAlbumDetails(id: number) {
     return GET("/providers/get_album_details", { id });
 }
+
+export async function search(q: string) {
+    return GET("/providers/search", { q });
+}

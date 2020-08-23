@@ -1,33 +1,34 @@
 <script lang="ts">
-    import { createEventDispatcher } from 'svelte';
+    import { createEventDispatcher, SvelteComponent } from 'svelte';
     import DropdownMenu from './DropdownMenu.svelte';
 
     let className = "";
-
-    export { className as class };
-    export let matches = [];
-
     let value = '';
     let focus = false;
 
     let container: HTMLElement;
     let input: HTMLElement;
-    let matchElements: HTMLElement[] = [];
+    let items: HTMLElement[] = [];
 
-    const dispatch = createEventDispatcher();
+    export { className as class };
+    export let matches = [];
 
     $: visible = focus && value.length > 0 && matches.length > 0;
+
+    const dispatch = createEventDispatcher();
 
     const onKeyDown = (event: KeyboardEvent) => {
         if (!event.shiftKey && (event.keyCode === 9 || event.keyCode === 40)) {
             // tab or down-arrow
             event.preventDefault();
-            matchElements[0].focus();
+            items[0].focus();
             return false;
         }
     }
 
     const cycle = (event: KeyboardEvent, i: number) => {
+        console.log(items);
+
         const up = event.keyCode === 38;
         const down = event.keyCode === 40;
 
@@ -48,7 +49,7 @@
             j = up ? i-1 : i+1;
         }
 
-        matchElements[j]?.focus();
+        items[j]?.focus();
     }
 
     const onBlur = () => {
@@ -95,11 +96,12 @@
         <a tabindex="0"
             class="dropdown-item"
             href="#match"
-            bind:this={matchElements[i]}
-            on:blur={onBlur}
-            on:keydown={e => cycle(e, i)}>
+            bind:this={items[i]}
+            on:click={() => dispatch("select", match)}
+            on:keydown={e => cycle(e, i)}
+            on:blur={onBlur}>
 
-            {match}
+            <slot {match} />
         </a>
         {/each}
     </DropdownMenu>

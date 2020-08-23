@@ -53,9 +53,10 @@
 
     <SearchInput
         matches={searchResults}
+        class={"mx-2"}
         on:input={() => searchResults = [1,2,3,4,5]} />
 
-    <button class="user btn p-0">
+    <button class="user btn p-0" style="margin-top: 1px;">
         <TextDropshadow size="smallest">
             <strong>MM</strong>
         </TextDropshadow>

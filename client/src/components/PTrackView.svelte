@@ -20,6 +20,3 @@
             on:enqueueNext />
     </section>
 </Page>
-
-<style>
-</style>

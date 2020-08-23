@@ -1,12 +1,10 @@
 <script lang="ts">
     import { createDebouncer } from '../core/utils';
-    import { currentView } from '../core/store';
-    import { enqueue, setDetailsView } from '../core/actions';
+    import { enqueue, setArtistDetailsView, setAlbumDetailsView } from '../core/actions';
     import { search } from '../core/api/queries';
     import { SearchGroups } from '../core/enums/SearchGroups';
     import type { ITrack } from '../core/interfaces/ITrack';
     import type { AudioPlayer } from '../core/audio/player';
-    import { SublevelViews } from '../core/enums/SublevelViews';
     import SearchInput from "./common/SearchInput.svelte";
 
     export let player: AudioPlayer;
@@ -28,10 +26,10 @@
 
         switch (data.group) {
             case SearchGroups.Artists:
-                setDetailsView(SublevelViews.ArtistDetails, data);
+                setArtistDetailsView(data);
                 break;
             case SearchGroups.Releases:
-                setDetailsView(SublevelViews.AlbumDetails, data);
+                setAlbumDetailsView(data);
                 break;
             case SearchGroups.Tracks:
                 enqueue(player, event.detail);

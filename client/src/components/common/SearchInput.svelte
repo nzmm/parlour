@@ -28,8 +28,6 @@
     }
 
     const cycle = (event: KeyboardEvent, i: number) => {
-        console.log(items);
-
         const up = event.keyCode === 38;
         const down = event.keyCode === 40;
 

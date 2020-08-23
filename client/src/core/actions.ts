@@ -1,9 +1,12 @@
 import { queue, currentTrack, currentView } from './store';
 import { setLiked } from '../core/api/commands';
 import { PlaybackState } from "./enums/PlaybackState";
+import { SublevelViews } from './enums/SublevelViews';
+import { ToplevelViews } from './enums/ToplevelViews';
+import type { IArtist } from './interfaces/IArtist';
+import type { IAlbum } from './interfaces/IAlbum';
 import type { ITrack } from "./interfaces/ITrack";
 import type { AudioPlayer } from "./audio/player";
-import type { SublevelViews } from './enums/SublevelViews';
 
 
 const enqueueWithMethod = (player: AudioPlayer, track: ITrack, method: (data: ITrack[]) => void) => {
@@ -44,12 +47,27 @@ export const likeTrack = async (track: ITrack) => {
     });
 }
 
-export const setDetailsView = (sublevel: SublevelViews, data: any) => {
-    currentView.update(cur => ({
-        ...cur,
+const setDetailsView = (toplevel: ToplevelViews, sublevel: SublevelViews, data: any) => {
+    console.log(toplevel, sublevel, data);
+    currentView.update(() => ({
+        toplevel,
         sublevel,
         data
     }));
 }
 
-export const goBack = () => setDetailsView(null, null);
+export const goBack = () => {
+    currentView.update(cur => ({
+        ...cur,
+        sublevel: null,
+        data: null
+    }));
+};
+
+export const setArtistDetailsView = (data: IArtist) => {
+    return setDetailsView(ToplevelViews.Artists, SublevelViews.ArtistDetails, data);
+}
+
+export const setAlbumDetailsView = (data: IAlbum) => {
+    return setDetailsView(ToplevelViews.Albums, SublevelViews.AlbumDetails, data);
+}

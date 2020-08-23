@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import { getAlbums } from '../core/api/queries';
     import { albums, currentView } from '../core/store';
-    import { setDetailsView, goBack } from '../core/actions';
+    import { setAlbumDetailsView, goBack } from '../core/actions';
     import { SublevelViews } from "../core/enums/SublevelViews";
     import type { AudioPlayer } from "../core/audio/player";
 
@@ -22,7 +22,7 @@
     });
 
     const onDetails = (event: CustomEvent) => {
-        setDetailsView(SublevelViews.AlbumDetails, event.detail);
+        setAlbumDetailsView(event.detail);
     }
 
     $: view = $currentView;

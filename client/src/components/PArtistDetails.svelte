@@ -15,13 +15,14 @@
 
     let releases: IAlbum[] = [];
 
-    onMount(async () => {
+    const getDetails = async (artist: IArtist) => {
         const res = await getArtistDetails(artist.id);
         const data = await res.json();
         artist = data.artist;
         releases = data.releases;
-    });
+    }
 
+    $: { getDetails(artist); }
 </script>
 
 <PDetailsView

@@ -1,23 +1,26 @@
 <script lang="ts">
-    import { Views } from "../core/enums/Views";
+    import { ToplevelViews } from "../core/enums/ToplevelViews";
     import { currentView } from "../core/store";
     import type { AudioPlayer } from "../core/audio/player";
     import FluidContainer from "./common/FluidContainer.svelte";
     import PArtistView from "./PArtistView.svelte";
     import PAlbumView from "./PAlbumView.svelte";
-    import PSongView from "./PSongView.svelte";
+    //import PSongView from "./PSongView.svelte";
     import PQueueView from "./PQueueView.svelte";
 
     export let player: AudioPlayer;
 
     const views = {
-        [Views.Artists]: { component: PArtistView, props: { player } },
-        [Views.Albums]: { component: PAlbumView, props: { player } },
-        [Views.Songs]: { component: PSongView, props: { player } },
-        [Views.PlayQueue]: { component: PQueueView, props: {} }
+        [ToplevelViews.Artists]: { component: PArtistView, props: { player } },
+        [ToplevelViews.Albums]: { component: PAlbumView, props: { player } },
+        //[ToplevelViews.Songs]: { component: PSongView, props: { player } },
+        [ToplevelViews.PlayQueue]: { component: PQueueView, props: {} }
     }
 
-    $: view = views[$currentView];
+    $: view = views[$currentView.toplevel];
+    $: {
+        console.log($currentView);
+    }
 </script>
 
 <div class="content-view w-100 h-100">

@@ -52,11 +52,11 @@ def serialize_artists(queryset, fields=DEFAULT_ARTIST_FIELDS):
     return [get_fields(o, fields) for o in queryset]
 
 
-def serialize_albums(queryset, fields=DEFAULT_ALBUM_FIELDS):
+def serialize_releases(queryset, fields=DEFAULT_ALBUM_FIELDS):
     return [get_fields(o, fields) for o in queryset]
 
 
-def serialize_songs(queryset, fields=DEFAULT_SONG_FIELDS):
+def serialize_tracks(queryset, fields=DEFAULT_SONG_FIELDS):
     return [get_fields(o, fields) for o in queryset]
 
 
@@ -64,5 +64,5 @@ def serialize_artist(obj, fields=DEFAULT_ARTIST_DETAIL_FIELDS):
     return get_fields(obj, fields)
 
 
-def serialize_album(obj, fields=DEFAULT_ALBUM_DETAIL_FIELDS):
+def serialize_release(obj, fields=DEFAULT_ALBUM_DETAIL_FIELDS):
     return get_nested_fields(obj, fields)

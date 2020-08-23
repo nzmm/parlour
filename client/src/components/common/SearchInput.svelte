@@ -12,6 +12,7 @@
 
     export { className as class };
     export let matches = [];
+    export let grouper: string = null;
 
     $: visible = focus && value.length > 0 && matches.length > 0;
 
@@ -93,6 +94,15 @@
         on:hide={() => focus = false}>
 
         {#each matches as match, i}
+
+        {#if grouper && match[grouper] !== matches[i-1]?.[grouper]}
+        <h6 class="dropdown-header">
+            <slot name="grouper">
+                {match[grouper]}
+            </slot>
+        </h6>
+        {/if}
+
         <a tabindex="0"
             class="dropdown-item"
             href="#match"
@@ -111,10 +121,6 @@
     .p-search {
         position: relative;
     }
-    .form-control::placeholder {
-        font-style: italic;
-        color: #aaa;
-    }
     .p-search :global(.p-drop-menu) {
         top: calc(100% - 4px);
         width: 100%;
@@ -131,6 +137,13 @@
     }
     i::before {
         vertical-align: -65%;
+    }
+    .form-control {
+        width: 350px;
+    }
+    .form-control::placeholder {
+        font-style: italic;
+        color: #aaa;
     }
     .dropdown-item:focus {
         outline: 0;

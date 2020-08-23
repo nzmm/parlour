@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Views } from "../core/enums/Views";
+    import { ToplevelViews } from "../core/enums/ToplevelViews";
     import { currentView, queue } from "../core/store";
     import type { AudioPlayer } from "../core/audio/player";
     import NavBar from './common/NavBar.svelte';
@@ -9,9 +9,9 @@
 
     export let player: AudioPlayer;
 
-    const setView = (view: Views) => {
-        currentView.set(view);
-        sessionStorage.setItem('view', view.toString());
+    const setView = (toplevel: ToplevelViews) => {
+        currentView.set({ toplevel });
+        sessionStorage.setItem('view', toplevel.toString());
     }
 </script>
 
@@ -25,14 +25,14 @@
             <NavLink
                 label="Artists"
                 href="#artists"
-                active={$currentView === Views.Artists}
-                on:click={() => setView(Views.Artists)}/>
+                active={$currentView.toplevel === ToplevelViews.Artists}
+                on:click={() => setView(ToplevelViews.Artists)}/>
 
             <NavLink
                 label="Albums"
                 href="#albums"
-                active={$currentView === Views.Albums}
-                on:click={() => setView(Views.Albums)}/>
+                active={$currentView.toplevel === ToplevelViews.Albums}
+                on:click={() => setView(ToplevelViews.Albums)}/>
 
             <!--
             <NavLink
@@ -46,8 +46,8 @@
                 label="Play Queue{$queue.data.length ? ` (${$queue.data.length})` : ''}"
                 href="#play-queue"
                 class="ml-3"
-                active={$currentView === Views.PlayQueue}
-                on:click={() => setView(Views.PlayQueue)}/>
+                active={$currentView.toplevel === ToplevelViews.PlayQueue}
+                on:click={() => setView(ToplevelViews.PlayQueue)}/>
         </ul>
     </div>
 

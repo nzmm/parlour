@@ -1,4 +1,4 @@
-export enum Views {
+export enum ToplevelViews {
     Artists,
     Albums,
     Songs,

@@ -1,17 +1,18 @@
 import { writable } from 'svelte/store';
-import { Views } from './enums/Views';
+import { ToplevelViews } from './enums/ToplevelViews';
 import type { ITrack } from './interfaces/ITrack';
 import type { ITrackArray } from './interfaces/ITrackArray';
 import type { IAlbumArray } from './interfaces/IAlbumArray';
+import type { IView } from './interfaces/IView';
 import { PlaybackState } from './enums/PlaybackState';
 
 const getInitialView = () => {
     const view = parseInt(sessionStorage.getItem("view"));
-    return Views[view] != null ? view : Views.Artists;
+    return ToplevelViews[view] != null ? view : ToplevelViews.Artists;
 }
 
-const initView = getInitialView();
-export const currentView = writable(initView);
+const toplevel = getInitialView();
+export const currentView = writable<IView>({ toplevel });
 
 export const artists = writable({ready: false, data: []});
 export const albums = writable<IAlbumArray>({ready: false, data: []});

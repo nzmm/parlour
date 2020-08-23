@@ -42,15 +42,15 @@ def get_artists(request):
 
 @login_required
 def get_albums(request):
-    albums = queries.get_albums_query(request.user)
-    data = {'albums': serializers.serialize_albums(albums)}
+    albums = queries.get_releases_query(request.user)
+    data = {'albums': serializers.serialize_releases(albums)}
     return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 
 @login_required
 def get_songs(request):
-    songs = queries.get_songs_query(request.user)
-    data = {'songs': serializers.serialize_songs(songs)}
+    songs = queries.get_tracks_query(request.user)
+    data = {'songs': serializers.serialize_tracks(songs)}
     return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 
@@ -76,8 +76,8 @@ def get_album_details(request):
     album = get_object_or_404(Release, pk=album_id, user=request.user)
     tracks = album.tracks.all()
     data = {
-        'album': serializers.serialize_album(album),
-        'tracks': serializers.serialize_songs(tracks)
+        'album': serializers.serialize_release(album),
+        'tracks': serializers.serialize_tracks(tracks)
     }
     return JsonResponse(data, encoder=ParlourJSONEncoder)
 
@@ -88,8 +88,8 @@ def get_artist_details(request):
     artist = get_object_or_404(Artist, pk=artist_id, user=request.user)
 
     releases = [{
-        **serializers.serialize_album(release),
-        'tracks': serializers.serialize_songs(release.tracks.all())
+        **serializers.serialize_release(release),
+        'tracks': serializers.serialize_tracks(release.tracks.all())
     } for release in artist.releases.all()]
 
     data = {
@@ -102,12 +102,20 @@ def get_artist_details(request):
 @login_required
 def search(request):
     terms = request.GET.get('q', ''.strip())
-    if len(terms) < 3:
-        return JsonResponse({'matches': []})
+    data = {'matches': []}
 
-    tracks = queries.get_search_query(request.user, terms)
-    data = {'matches': serializers.serialize_songs(tracks)}
-    return JsonResponse(data)
+    if len(terms) < 2:
+        return JsonResponse(data)
+
+    artists = queries.get_search_artists_query(request.user, terms)[:5]
+    releases = queries.get_search_releases_query(request.user, terms)[:5]
+    tracks = queries.get_search_tracks_query(request.user, terms)[:5]
+
+    data['matches'].extend([{**t, 'group': 0} for t in serializers.serialize_artists(artists)])
+    data['matches'].extend([{**t, 'group': 1} for t in serializers.serialize_releases(releases)])
+    data['matches'].extend([{**t, 'group': 2} for t in serializers.serialize_tracks(tracks)])
+
+    return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 
 @require_POST

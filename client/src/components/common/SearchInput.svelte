@@ -61,6 +61,7 @@
 
     const clear = () => {
         value = "";
+        items = [];
         dispatch("clear");
     }
 </script>

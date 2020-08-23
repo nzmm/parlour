@@ -18,9 +18,6 @@
     }
 
     $: view = views[$currentView.toplevel];
-    $: {
-        console.log($currentView);
-    }
 </script>
 
 <div class="content-view w-100 h-100">

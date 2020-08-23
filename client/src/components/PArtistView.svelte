@@ -1,10 +1,10 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { getArtists } from '../core/api/queries';
+    import { setDetailsView, goBack } from '../core/actions';
     import { artists, currentView } from '../core/store';
     import { SublevelViews } from "../core/enums/SublevelViews";
     import type { AudioPlayer } from "../core/audio/player";
-    import type { IView } from "../core/interfaces/IView";
 
     import PCoverArtGridView from "./PCoverArtGridView.svelte";
     import PArtistDetails from "./PArtistDetails.svelte";
@@ -22,19 +22,7 @@
     });
 
     const onDetails = (event: CustomEvent) => {
-        currentView.update(cur => ({
-            ...cur,
-            sublevel: SublevelViews.ArtistDetails,
-            data: event.detail
-        }));
-    }
-
-    const onBack = () => {
-        currentView.update(cur => ({
-            ...cur,
-            sublevel: null,
-            data: null
-        }));
+        setDetailsView(SublevelViews.ArtistDetails, event.detail);
     }
 
     $: view = $currentView;
@@ -44,7 +32,7 @@
     <PArtistDetails
         {player}
         artist={view.data}
-        on:back={onBack} />
+        on:back={goBack} />
 {:else}
     <PCoverArtGridView
         heading="Artists"

@@ -1,14 +1,13 @@
 <script lang="ts">
     import { createDebouncer } from '../core/utils';
     import { currentView } from '../core/store';
-    import { enqueue } from '../core/actions';
+    import { enqueue, setDetailsView } from '../core/actions';
     import { search } from '../core/api/queries';
     import { SearchGroups } from '../core/enums/SearchGroups';
     import type { ITrack } from '../core/interfaces/ITrack';
     import type { AudioPlayer } from '../core/audio/player';
+    import { SublevelViews } from '../core/enums/SublevelViews';
     import SearchInput from "./common/SearchInput.svelte";
-import type App from '../App.svelte';
-import { SublevelViews } from '../core/enums/SublevelViews';
 
     export let player: AudioPlayer;
 
@@ -29,15 +28,10 @@ import { SublevelViews } from '../core/enums/SublevelViews';
 
         switch (data.group) {
             case SearchGroups.Artists:
-                console.log('artists');
-                currentView.update(cur => ({
-                    ...cur,
-                    data,
-                    sublevel: SublevelViews.ArtistDetails
-                }));
+                setDetailsView(SublevelViews.ArtistDetails, data);
                 break;
             case SearchGroups.Releases:
-                console.log('releases');
+                setDetailsView(SublevelViews.AlbumDetails, data);
                 break;
             case SearchGroups.Tracks:
                 enqueue(player, event.detail);

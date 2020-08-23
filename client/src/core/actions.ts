@@ -1,8 +1,9 @@
-import { queue, currentTrack } from './store';
+import { queue, currentTrack, currentView } from './store';
 import { setLiked } from '../core/api/commands';
 import { PlaybackState } from "./enums/PlaybackState";
 import type { ITrack } from "./interfaces/ITrack";
 import type { AudioPlayer } from "./audio/player";
+import type { SublevelViews } from './enums/SublevelViews';
 
 
 const enqueueWithMethod = (player: AudioPlayer, track: ITrack, method: (data: ITrack[]) => void) => {
@@ -41,3 +42,13 @@ export const likeTrack = async (track: ITrack) => {
         ...cur, liked
     }));
 }
+
+export const setDetailsView = (sublevel: SublevelViews, data: any) => {
+    currentView.update(cur => ({
+        ...cur,
+        sublevel,
+        data
+    }));
+}
+
+export const goBack = () => setDetailsView(null, null);

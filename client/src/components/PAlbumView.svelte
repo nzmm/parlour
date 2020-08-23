@@ -1,8 +1,9 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { getAlbums } from '../core/api/queries';
-    import { albums } from '../core/store';
-    import type { IAlbum } from "../core/interfaces/IAlbum";
+    import { albums, currentView } from '../core/store';
+    import { setDetailsView, goBack } from '../core/actions';
+    import { SublevelViews } from "../core/enums/SublevelViews";
     import type { AudioPlayer } from "../core/audio/player";
 
     import PCoverArtGridView from "./PCoverArtGridView.svelte";
@@ -20,19 +21,22 @@
         albums.set({ ready: true, data: data.albums });
     });
 
-    let album: IAlbum;
+    const onDetails = (event: CustomEvent) => {
+        setDetailsView(SublevelViews.AlbumDetails, event.detail);
+    }
 
+    $: view = $currentView;
 </script>
 
-{#if album}
+{#if view.sublevel === SublevelViews.AlbumDetails && view.data}
     <PAlbumDetails
         {player}
-        {album}
-        on:back={() => album = null} />
+        album={view.data}
+        on:back={goBack} />
 {:else}
     <PCoverArtGridView
         heading="Albums"
         subheading="{$albums.data.length} albums"
         data={$albums.data}
-        on:details={e => album = e.detail} />
+        on:details={onDetails} />
 {/if}

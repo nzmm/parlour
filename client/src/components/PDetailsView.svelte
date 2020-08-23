@@ -22,7 +22,11 @@
                 {heading}
 
                 <p class="text-muted">
-                    <small>{subheading1}<br/>{subheading2}</small>
+                    <small>
+                        {subheading1}
+                        <br/>
+                        {subheading2}
+                    </small>
                 </p>
             </h2>
         </div>
@@ -31,8 +35,6 @@
             <i class="fas fa-times"></i>
         </a>
     </div>
-
-    <hr/>
 
     <slot/>
 </Page>

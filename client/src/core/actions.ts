@@ -38,9 +38,10 @@ export const likeTrack = async (track: ITrack) => {
         return;
     }
 
-    currentTrack.update(cur => ({
-        ...cur, liked
-    }));
+    currentTrack.update(cur => {
+        cur.liked = liked;
+        return cur;
+    });
 }
 
 export const setDetailsView = (sublevel: SublevelViews, data: any) => {

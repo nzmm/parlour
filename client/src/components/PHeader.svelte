@@ -1,18 +1,18 @@
 <script lang="ts">
     import { Views } from "../core/enums/Views";
     import { currentView, queue } from "../core/store";
-
+    import type { AudioPlayer } from "../core/audio/player";
     import NavBar from './common/NavBar.svelte';
     import NavLink from './common/NavLink.svelte';
     import TextDropshadow from './common/TextDropshadow.svelte';
     import PSearchMusicInput from "./PSearchMusicInput.svelte";
 
+    export let player: AudioPlayer;
+
     const setView = (view: Views) => {
         currentView.set(view);
         sessionStorage.setItem('view', view.toString());
     }
-
-    let searchResults = [];
 </script>
 
 <NavBar class="top-nav border-bottom">
@@ -51,7 +51,7 @@
         </ul>
     </div>
 
-    <PSearchMusicInput />
+    <PSearchMusicInput {player} />
 
     <button class="user btn p-0" style="margin-top: 1px;">
         <TextDropshadow size="smallest">

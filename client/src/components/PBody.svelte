@@ -2,7 +2,6 @@
     import { Views } from "../core/enums/Views";
     import { currentView } from "../core/store";
     import type { AudioPlayer } from "../core/audio/player";
-
     import FluidContainer from "./common/FluidContainer.svelte";
     import PArtistView from "./PArtistView.svelte";
     import PAlbumView from "./PAlbumView.svelte";

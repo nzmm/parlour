@@ -4,9 +4,10 @@
     export let heading: string = "";
     export let subheading: string = "";
     export let wideBody: boolean = false;
+    export let root: HTMLElement = null;
 </script>
 
-<ScrolledView overflowX="hidden" overflowY="scroll">
+<ScrolledView overflowX="hidden" overflowY="scroll" bind:root>
     <div class="wrapper mx-2 pt-5 pb-4">
         <header>
             <slot name="header">

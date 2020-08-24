@@ -22,6 +22,7 @@
 
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
+            <!--
             <NavLink
                 label="Artists"
                 href="#artists"
@@ -34,13 +35,18 @@
                 active={$currentView.toplevel === ToplevelViews.Albums}
                 on:click={() => setView(ToplevelViews.Albums)}/>
 
-            <!--
             <NavLink
                 label="Songs"
                 href="#songs"
                 active={$currentView === Views.Songs}
                 on:click={() => setView(Views.Songs)}/>
             -->
+
+            <NavLink
+                label="Library"
+                href="#library"
+                active={$currentView.toplevel === ToplevelViews.Library}
+                on:click={() => setView(ToplevelViews.Library)}/>
 
             <NavLink
                 label="Play Queue{$queue.data.length ? ` (${$queue.data.length})` : ''}"

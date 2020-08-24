@@ -11,6 +11,13 @@ DEFAULT_ALBUM_FIELDS = (
     'name',
     'thumbnail')
 
+DEFAULT_LIBRARY_FIELDS = (
+    'id',
+    'name',
+    'artist_name',
+    'year',
+    'thumbnail')
+
 DEFAULT_SONG_FIELDS = (
     'id',
     'number',
@@ -66,3 +73,7 @@ def serialize_artist(obj, fields=DEFAULT_ARTIST_DETAIL_FIELDS):
 
 def serialize_release(obj, fields=DEFAULT_ALBUM_DETAIL_FIELDS):
     return get_nested_fields(obj, fields)
+
+
+def serialize_library(queryset, fields=DEFAULT_LIBRARY_FIELDS):
+    return [get_fields(o, fields) for o in queryset]

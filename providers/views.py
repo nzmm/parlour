@@ -1,3 +1,4 @@
+from itertools import groupby
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
@@ -51,6 +52,20 @@ def get_albums(request):
 def get_songs(request):
     songs = queries.get_tracks_query(request.user)
     data = {'songs': serializers.serialize_tracks(songs)}
+    return JsonResponse(data, encoder=ParlourJSONEncoder)
+
+
+@login_required
+def get_library(request):
+    library = serializers.serialize_library(queries.get_library_query(request.user))
+    grouped_tracks = {k: tuple(tracks) for k, tracks in groupby(queries.get_tracks_query(request.user), lambda t: t.release_id)}
+
+    for r in library:
+        release_tracks = grouped_tracks[r['id']]
+        r['tracks'] = serializers.serialize_tracks(release_tracks)
+        r['track_count'] = len(release_tracks)
+
+    data = {'library': library}
     return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 

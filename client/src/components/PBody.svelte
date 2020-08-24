@@ -3,17 +3,19 @@
     import { currentView } from "../core/store";
     import type { AudioPlayer } from "../core/audio/player";
     import FluidContainer from "./common/FluidContainer.svelte";
-    import PArtistView from "./PArtistView.svelte";
-    import PAlbumView from "./PAlbumView.svelte";
+    //import PArtistView from "./PArtistView.svelte";
+    //import PAlbumView from "./PAlbumView.svelte";
     //import PSongView from "./PSongView.svelte";
+    import PLibraryView from "./PLibraryView.svelte";
     import PQueueView from "./PQueueView.svelte";
 
     export let player: AudioPlayer;
 
     const views = {
-        [ToplevelViews.Artists]: { component: PArtistView, props: { player } },
-        [ToplevelViews.Albums]: { component: PAlbumView, props: { player } },
+        //[ToplevelViews.Artists]: { component: PArtistView, props: { player } },
+        //[ToplevelViews.Albums]: { component: PAlbumView, props: { player } },
         //[ToplevelViews.Songs]: { component: PSongView, props: { player } },
+        [ToplevelViews.Library]: { component: PLibraryView, props: { player } },
         [ToplevelViews.PlayQueue]: { component: PQueueView, props: {} }
     }
 

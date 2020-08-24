@@ -2,5 +2,6 @@ export enum ToplevelViews {
     Artists,
     Albums,
     Songs,
-    PlayQueue
+    PlayQueue,
+    Library
 }

@@ -12,6 +12,10 @@ export async function getSongs() {
     return GET("/providers/get_songs");
 }
 
+export async function getLibrary() {
+    return GET("/providers/get_library");
+}
+
 export async function getDownload(id: number) {
     return GET("/providers/get_download", { id });
 }

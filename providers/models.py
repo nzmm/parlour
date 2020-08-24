@@ -28,7 +28,7 @@ class Artist(models.Model):
 
 class Release(models.Model):
     class Meta:
-        ordering = ('year',)
+        ordering = ('artist__name', 'name')
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_releases")
     name = models.CharField(max_length=255)
@@ -42,7 +42,7 @@ class Release(models.Model):
 
 class Track(models.Model):
     class Meta:
-        ordering = ('artist__name', 'release__name', 'disc', 'position')
+        ordering = ('artist__name', 'release_name', 'disc', 'position')
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_tracks")
     disc = models.PositiveSmallIntegerField(default=0)

@@ -1,3 +1,4 @@
+from django.db.models import F, Count
 from providers.models import Artist, Release, Track
 
 
@@ -11,6 +12,11 @@ def get_releases_query(user):
 
 def get_tracks_query(user):
     return Track.objects.filter(user=user)
+
+
+def get_library_query(user):
+    return Release.objects.all().annotate(
+        artist_name=F('artist__name'))
 
 
 def get_search_artists_query(user, term):

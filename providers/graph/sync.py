@@ -4,23 +4,30 @@ from providers.models import Artist, Release, Track
 from providers.common.utils import get_display_length
 
 
-def get_track_name(f, audio):
-    name = audio.get('title', '').strip()
+def get_name(k, f, audio):
+    name = audio.get(k, '').strip()
     if not name:
         name = f.get('name', f"Untitled ({f['id']})").strip()
     return name
 
 
-def store_audio(user, f, audio):
+def store_audio(user, parent, f, audio):
+    parentitem_id = parent.get('id')
+
+    artist_name = audio.get('albumArtist', audio.get('artist', '')).strip()
     artist, _ = Artist.objects.get_or_create(
         user=user,
-        name=audio.get('albumArtist', ''))
+        name=artist_name)
 
     release, _ = Release.objects.update_or_create(
         user=user,
-        name=audio.get('album'),
-        year=audio.get('year'),
-        artist=artist)
+        provider=PROVIDER_GRAPH,
+        provider_id=parentitem_id,
+        defaults={
+            'name': get_name('album', parent, audio),
+            'year': audio.get('year'),
+            'artist': artist
+        })
 
     driveitem_id = f.get('id')
     length = audio.get('duration', 0)
@@ -33,7 +40,7 @@ def store_audio(user, f, audio):
             'disc': audio.get('disc', 0),
             'position': audio.get('track', 0),
             'number': audio.get('track', ''),
-            'name': get_track_name(f, audio),
+            'name': get_name('title', f, audio),
             'release_name': audio.get('album'),
             'artist_credit': audio.get('artist', ''),
             'genre': audio.get('genre', ''),
@@ -49,12 +56,12 @@ def store_audio(user, f, audio):
     return
 
 
-def handle_file(user, f):
+def handle_file(user, parent, f):
     audio = f.get('audio')
     if not audio:
         return
 
-    store_audio(user, f, audio)
+    store_audio(user, parent, f, audio)
     return
 
 
@@ -77,7 +84,7 @@ def walk(user, parent, children):
 
     for item in children:
         if item.get('file'):
-            handle_file(user, item)
+            handle_file(user, parent, item)
         elif item.get('folder'):
             children = handle_folder(user, item)
             walk(user, item, children)

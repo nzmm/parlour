@@ -34,6 +34,8 @@ class Release(models.Model):
     name = models.CharField(max_length=255)
     year = models.PositiveSmallIntegerField(null=True)
     thumbnail = models.FileField(max_length=255, null=True, upload_to=release_thumbnail_upload_to)
+    provider = models.CharField(max_length=8)
+    provider_id = models.CharField(max_length=255, default="")
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name="releases")
 
     def __str__(self):

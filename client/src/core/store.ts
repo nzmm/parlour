@@ -8,10 +8,11 @@ import { PlaybackState } from './enums/PlaybackState';
 
 const getInitialView = () => {
     const view = parseInt(sessionStorage.getItem("view"));
-    return ToplevelViews[view] != null ? view : ToplevelViews.Artists;
+    return ToplevelViews[view] != null ? view : ToplevelViews.Library;
 }
 
 const toplevel = getInitialView();
+console.log(toplevel);
 export const currentView = writable<IView>({ toplevel });
 
 export const artists = writable({ready: false, data: []});

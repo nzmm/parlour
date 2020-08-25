@@ -13,44 +13,44 @@
     }
 </script>
 
-<div
+<tr
     class="item d-flex py-2 {current ? 'playing' : ''}"
     tabindex="0"
     on:dblclick={() => dispatch('play', item)}
     on:contextmenu|preventDefault={onContextMenu}>
 
-    <div class="p-col number">
+    <td class="p-col number">
         {#if current}
             <i class="fas {playing ? 'fa-play' : 'fa-pause'} pr-1"></i>
         {:else}
             {item.number || '-'}
         {/if}
-    </div>
+    </td>
 
-    <div class="p-col liked">
+    <td class="p-col liked">
         {#if item.liked}
             <i class="fas fa-heart"></i>
         {:else}
             <i class="far fa-heart"></i>
         {/if}
-    </div>
+    </td>
 
-    <div class="p-col name">
+    <td class="p-col name">
         {item.name}
-    </div>
+    </td>
 
-    <div class="p-col artist">
+    <td class="p-col artist">
         {item.artist_credit || '-'}
-    </div>
+    </td>
 
-    <div class="p-col release">
+    <td class="p-col release">
         {item.release_name  || '-'}
-    </div>
+    </td>
 
-    <div class="p-col length">
+    <td class="p-col length">
         {item.length_display}
-    </div>
-</div>
+    </td>
+</tr>
 
 <style>
     .item {

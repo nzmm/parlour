@@ -67,6 +67,10 @@ def serialize_tracks(queryset, fields=DEFAULT_SONG_FIELDS):
     return [get_fields(o, fields) for o in queryset]
 
 
+def serialize_track(obj, fields=DEFAULT_SONG_FIELDS):
+    return get_fields(obj, fields)
+
+
 def serialize_artist(obj, fields=DEFAULT_ARTIST_DETAIL_FIELDS):
     return get_fields(obj, fields)
 

@@ -29,14 +29,18 @@
 
 </script>
 
-{#each data as item}
-<PTrackListItem
-    {item}
-    current={item.id === currentId}
-    playing={playbackState === PlaybackState.Playing}
-    on:dropdown={showDropdown}
-    on:play />
-{/each}
+<table class="w-100">
+    <tbody>
+        {#each data as item}
+        <PTrackListItem
+            {item}
+            current={item.id === currentId}
+            playing={playbackState === PlaybackState.Playing}
+            on:dropdown={showDropdown}
+            on:play />
+        {/each}
+    </tbody>
+</table>
 
 <DropdownMenu {visible} {top} {left} on:hide={() => visible = false}>
     <a class="dropdown-item" href="#play" on:click|preventDefault={() => dispatch('play', track)}>

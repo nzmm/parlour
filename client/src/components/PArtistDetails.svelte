@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from "svelte";
     import { enqueue, enqueueNext, playNow } from '../core/actions';
     import { getArtistDetails } from "../core/api/queries";
     import type { IArtist } from "../core/interfaces/IArtist";

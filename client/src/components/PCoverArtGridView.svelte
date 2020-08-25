@@ -12,15 +12,15 @@
     const dispatch = createEventDispatcher();
 
     let w: number;
-    $: columnTemplate = "1fr ".repeat(Math.max(1, Math.floor(w / 180))).trimEnd();
+    $: columnTemplate = "1fr ".repeat(Math.max(1, Math.floor(w / 190))).trimEnd();
 </script>
 
-<Page {heading} {subheading} wideBody>
+<Page {heading} {subheading}>
     <section class="grid" bind:clientWidth={w} style="--col-template:{columnTemplate}">
         {#each data as item}
         <div class="item">
             <button class="btn" on:click={() => dispatch("details", item)}>
-                <PCoverArt size="120px" src={item.thumbnail} />
+                <PCoverArt size="150px" src={item.thumbnail} />
             </button>
             <div>
                 <small>{item.name}</small>
@@ -35,8 +35,8 @@
         width: 100%;
         display: grid;
         grid-template-columns: var(--col-template);
-        grid-auto-rows: 180px;
-        column-gap: 15px;
+        grid-auto-rows: 230px;
+        column-gap: 40px;
     }
     .grid > .item {
         line-height: 1;

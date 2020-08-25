@@ -56,7 +56,7 @@
     {#each library as release}
     <section class="mb-5 pb-3" data-release={release.id}>
         <div class="d-flex mb-3">
-            <PCoverArt src={release.thumbnail} size="110px" />
+            <PCoverArt src={release.thumbnail} size="80px" />
 
             <h4 class="pl-4">
                 {release.name}

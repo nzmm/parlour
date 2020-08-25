@@ -7,18 +7,24 @@
     export let active: boolean = false;
 </script>
 
-<li class="nav-item mx-2 {className}" class:active>
+<li class="px-3 {className}" class:active>
     <a class="nav-link px-0" {href} on:click|preventDefault>
         {label}
     </a>
 </li>
 
 <style>
-    .nav-link {
-	    padding-top: 12px;
-	    padding-bottom: 4px;
+    li {
+        list-style-type: none;
+        font-size: 14px;
     }
-    .nav-item.active {
-	    border-bottom: 3px solid #ff2a2aff;
+    li.active {
+       background-color: #ff2a2aff;
+    }
+    li a {
+        color: #333;
+    }
+    li.active a {
+        color: #fff;
     }
 </style>

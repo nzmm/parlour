@@ -1,18 +1,19 @@
 <script lang="ts">
-    import { ToplevelViews } from "../core/enums/ToplevelViews";
-    import { currentView, queue } from "../core/store";
+    //import { ToplevelViews } from "../core/enums/ToplevelViews";
+    //import { currentView, queue } from "../core/store";
     import type { AudioPlayer } from "../core/audio/player";
     import NavBar from './common/NavBar.svelte';
-    import NavLink from './common/NavLink.svelte';
+    //import NavLink from './common/NavLink.svelte';
     import TextDropshadow from './common/TextDropshadow.svelte';
     import PSearchMusicInput from "./PSearchMusicInput.svelte";
 
     export let player: AudioPlayer;
 
+    /*
     const setView = (toplevel: ToplevelViews) => {
         currentView.set({ toplevel });
         sessionStorage.setItem('view', toplevel.toString());
-    }
+    }*/
 </script>
 
 <NavBar class="top-nav border-bottom">
@@ -21,6 +22,7 @@
     </a>
 
     <div class="collapse navbar-collapse">
+        <!--
         <ul class="navbar-nav mr-auto">
             <NavLink
                 label="Artists"
@@ -47,6 +49,7 @@
                 active={$currentView.toplevel === ToplevelViews.PlayQueue}
                 on:click={() => setView(ToplevelViews.PlayQueue)}/>
         </ul>
+        -->
     </div>
 
     <PSearchMusicInput {player} />

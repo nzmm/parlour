@@ -32,7 +32,6 @@ def release_thumbnail_upload_to(release, _):
     return get_coverart_cache_path(release)
 
 
-
 def release_cache_thumbnail(release, url):
     f = fetch_file(url)
 

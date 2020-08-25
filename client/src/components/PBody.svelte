@@ -2,11 +2,11 @@
     import { ToplevelViews } from "../core/enums/ToplevelViews";
     import { currentView } from "../core/store";
     import type { AudioPlayer } from "../core/audio/player";
-    import FluidContainer from "./common/FluidContainer.svelte";
     import PArtistView from "./PArtistView.svelte";
     import PAlbumView from "./PAlbumView.svelte";
     import PLibraryView from "./PLibraryView.svelte";
     import PQueueView from "./PQueueView.svelte";
+    import PSidebar from "./PSidebar.svelte";
 
     export let player: AudioPlayer;
 
@@ -20,14 +20,15 @@
     $: view = views[$currentView.toplevel];
 </script>
 
-<div class="content-view w-100 h-100">
-    <FluidContainer>
+<div class="container-fluid h-100 px-0">
+    <div class="d-flex h-100 w-100">
+        <PSidebar />
         <svelte:component this={view.component} {...view.props} />
-    </FluidContainer>
+    </div>
 </div>
 
 <style>
-    .content-view {
+    .container-fluid {
         padding-top: 60px;
         padding-bottom: 87px;
     }

@@ -12,7 +12,7 @@
     const dispatch = createEventDispatcher();
 
     let w: number;
-    $: columnTemplate = "1fr ".repeat(Math.max(1, Math.floor(w / 190))).trimEnd();
+    $: columnTemplate = "1fr ".repeat(Math.max(1, Math.floor(w / 200))).trimEnd();
 </script>
 
 <Page {heading} {subheading}>

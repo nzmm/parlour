@@ -4,10 +4,8 @@
     import NavLink from './common/NavLink.svelte';
 
     const setView = (toplevel: ToplevelViews) => {
-        setTimeout(() => {
-            currentView.set({ toplevel });
-            sessionStorage.setItem('view', toplevel.toString());
-        }, 100);
+        currentView.set({ toplevel });
+        sessionStorage.setItem('view', toplevel.toString());
     }
 
 </script>

@@ -1,5 +1,6 @@
 from providers.graph.auth import PROVIDER_GRAPH, get_token
 from providers.graph.requests import get_music_children, get_children
+from providers.graph.content import get_release_thumbnail_url
 from providers.models import Artist, Release, Track
 from providers.common.utils import get_display_length
 
@@ -98,4 +99,25 @@ def sync_music(user):
 
     music = get_music_children(token)
     walk(user, {}, music.get('value', []))
+    return True
+
+
+def sync_thumbnails(user, force=False):
+    queryset = Release.objects.filter(user=user, provider=PROVIDER_GRAPH)
+    if not force:
+        queryset = queryset.filter(thumbnail='')
+
+    if not queryset.exists():
+        return False
+
+    for release in queryset:
+        # the caching mechanism will save any thumbnail to the release object
+        thumb_url = get_release_thumbnail_url(release, force)
+        if not thumb_url:
+            continue
+
+        # we still need to store the url against the track obj
+        release.tracks.update(thumbnail=thumb_url)
+        print(f'[{user.email}] Thumbnail cached: {thumb_url}')
+
     return True

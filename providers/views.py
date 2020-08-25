@@ -9,7 +9,7 @@ from providers.common import queries
 from providers.common import commands
 from providers.common import serializers
 from providers.common.encoders import ParlourJSONEncoder
-from providers.graph.content import get_download_url, get_thumbnail_url
+from providers.graph.content import get_track_download_url, get_track_thumbnail_url
 from providers.common.utils import get_body_json
 from providers.models import Artist, Release, Track
 
@@ -73,7 +73,7 @@ def get_library(request):
 def get_download(request):
     track_id = request.GET.get('id')
     track = get_object_or_404(Track, pk=track_id, user=request.user)
-    url = get_download_url(track)
+    url = get_track_download_url(track)
     return JsonResponse({'download': url})
 
 
@@ -81,7 +81,7 @@ def get_download(request):
 def get_thumbnail(request):
     track_id = request.GET.get('id')
     track = get_object_or_404(Track, pk=track_id, user=request.user)
-    url = get_thumbnail_url(track)
+    url = get_track_thumbnail_url(track)
     return JsonResponse({'thumbnail': url})
 
 

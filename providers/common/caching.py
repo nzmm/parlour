@@ -32,10 +32,10 @@ def release_thumbnail_upload_to(release, _):
     return get_coverart_cache_path(release)
 
 
-def track_cache_thumbnail(track, url):
+
+def release_cache_thumbnail(release, url):
     f = fetch_file(url)
 
-    release = track.release
     release.thumbnail.save('coverart.jpg', f)
     release.save()
 

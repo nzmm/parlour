@@ -9,7 +9,8 @@ DEFAULT_ARTIST_FIELDS = (
 DEFAULT_ALBUM_FIELDS = (
     'id',
     'name',
-    'thumbnail')
+    'thumbnail',
+    'artist_name')
 
 DEFAULT_LIBRARY_FIELDS = (
     'id',

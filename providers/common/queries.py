@@ -7,16 +7,11 @@ def get_artists_query(user):
 
 
 def get_releases_query(user):
-    return Release.objects.filter(user=user)
+    return Release.objects.filter(user=user).annotate(artist_name=F('artist__name'))
 
 
 def get_tracks_query(user):
     return Track.objects.filter(user=user)
-
-
-def get_library_query(user):
-    return Release.objects.all().annotate(
-        artist_name=F('artist__name'))
 
 
 def get_search_artists_query(user, term):

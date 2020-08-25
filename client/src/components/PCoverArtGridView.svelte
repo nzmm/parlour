@@ -19,12 +19,14 @@
     <section class="grid" bind:clientWidth={w} style="--col-template:{columnTemplate}">
         {#each data as item}
         <div class="item">
-            <button class="btn" on:click={() => dispatch("details", item)}>
+            <button class="btn" id="item-{item.id}" on:click={() => dispatch("details", item)}>
                 <PCoverArt size="150px" src={item.thumbnail} />
             </button>
-            <div>
-                <small>{item.name}</small>
-            </div>
+            <label for="item-{item.id}">
+                <slot {item} name="label">
+                    {item.name}
+                </slot>
+            </label>
         </div>
         {/each}
     </section>
@@ -45,5 +47,8 @@
     }
     .grid > .item > button {
         padding: 2px;
+    }
+    .grid > .item > label {
+        font-size: 14px;
     }
 </style>

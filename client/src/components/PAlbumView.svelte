@@ -38,5 +38,12 @@
         heading="Albums"
         subheading="{$albums.data.length} albums"
         data={$albums.data}
-        on:details={onDetails} />
+        on:details={onDetails}>
+
+        <span let:item slot="label">
+            <div class="pb-1">{item.name}</div>
+            <small class="text-muted">{item.artist_name}</small>
+        </span>
+
+    </PCoverArtGridView>
 {/if}

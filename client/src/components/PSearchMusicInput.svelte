@@ -62,3 +62,9 @@
     <span>{match.name}</span>
 
 </SearchInput>
+
+<style>
+    :global(.form-control) {
+        width: 35vw;
+    }
+</style>

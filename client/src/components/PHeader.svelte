@@ -17,12 +17,22 @@
 </script>
 
 <NavBar class="top-nav border-bottom">
-    <a class="navbar-brand pr-2" href="/">
-        <img src="/static/data/im/parlour-brand-32.png" alt="Parlour" height="32" />
-    </a>
+    <div class="d-flex w-100 justify-content-between align-items-center">
+        <a class="navbar-brand pr-2" href="/">
+            <img src="/static/data/im/parlour-brand-32.png" alt="Parlour" height="32" />
+        </a>
 
+        <PSearchMusicInput {player} />
+
+        <button class="user btn p-0" style="margin-top: 1px;">
+            <TextDropshadow size="smallest">
+                <strong>MM</strong>
+            </TextDropshadow>
+        </button>
+    </div>
+
+    <!--
     <div class="collapse navbar-collapse">
-        <!--
         <ul class="navbar-nav mr-auto">
             <NavLink
                 label="Artists"
@@ -49,16 +59,8 @@
                 active={$currentView.toplevel === ToplevelViews.PlayQueue}
                 on:click={() => setView(ToplevelViews.PlayQueue)}/>
         </ul>
-        -->
     </div>
-
-    <PSearchMusicInput {player} />
-
-    <button class="user btn p-0" style="margin-top: 1px;">
-        <TextDropshadow size="smallest">
-            <strong>MM</strong>
-        </TextDropshadow>
-    </button>
+    -->
 </NavBar>
 
 <style>

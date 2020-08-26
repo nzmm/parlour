@@ -19,7 +19,7 @@ def get_search_artists_query(user, term):
 
 
 def get_search_releases_query(user, term):
-    return Release.objects.filter(user=user, name__icontains=term)
+    return get_releases_query(user).filter(name__icontains=term)
 
 
 def get_search_tracks_query(user, term):

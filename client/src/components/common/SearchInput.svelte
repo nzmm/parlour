@@ -28,6 +28,10 @@
     }
 
     const cycle = (event: KeyboardEvent, i: number) => {
+        if (!visible) {
+            return;
+        }
+
         const up = event.keyCode === 38;
         const down = event.keyCode === 40;
 
@@ -120,8 +124,12 @@
     .p-search {
         position: relative;
     }
+    .p-search.active .form-control {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
     .p-search :global(.p-drop-menu) {
-        top: calc(100% - 4px);
+        top: calc(100% - 1px);
         width: 100%;
         border-top-left-radius: 0 !important;
         border-top-right-radius: 0 !important;
@@ -136,9 +144,6 @@
     }
     i::before {
         vertical-align: -65%;
-    }
-    .form-control {
-        width: 350px;
     }
     .form-control::placeholder {
         font-style: italic;

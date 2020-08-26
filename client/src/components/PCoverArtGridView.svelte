@@ -22,9 +22,9 @@
             <button class="btn" id="item-{item.id}" on:click={() => dispatch("details", item)}>
                 <PCoverArt size="150px" src={item.thumbnail} />
             </button>
-            <label for="item-{item.id}">
+            <label class="pt-1" for="item-{item.id}">
                 <slot {item} name="label">
-                    {item.name}
+                    {item.name || '-'}
                 </slot>
             </label>
         </div>
@@ -49,6 +49,7 @@
         padding: 2px;
     }
     .grid > .item > label {
+        display: block;
         font-size: 14px;
     }
 </style>

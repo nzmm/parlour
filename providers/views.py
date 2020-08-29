@@ -57,16 +57,20 @@ def get_songs(request):
 
 @login_required
 def get_library(request):
-    library = serializers.serialize_library(queries.get_releases_query(request.user))
+    artists = serializers.serialize_artists(queries.get_artists_query(request.user))
+    releases = serializers.serialize_library(queries.get_releases_query(request.user))
     tracks = queries.get_tracks_query(request.user).order_by('release_id', 'position', 'name')
     grouped_tracks = {k: tuple(tracks) for k, tracks in groupby(tracks, lambda t: t.release_id)}
 
-    for r in library:
+    for r in releases:
         release_tracks = grouped_tracks[r['id']]
         r['tracks'] = serializers.serialize_tracks(release_tracks)
         r['track_count'] = len(release_tracks)
 
-    data = {'library': library}
+    data = {
+        'artists': artists,
+        'releases': releases
+    }
     return JsonResponse(data, encoder=ParlourJSONEncoder)
 
 

@@ -1,44 +1,19 @@
 <script lang="ts">
     import ScrolledView from './ScrolledView.svelte';
 
-    export let heading: string = "";
-    export let subheading: string = "";
-    export let wideBody: boolean = false;
     export let root: HTMLElement = null;
+    export let wide: boolean = false;
+    export let active: boolean = true;
 </script>
 
-<ScrolledView overflowX="hidden" overflowY="scroll" bind:root>
-    <div class="wrapper mx-2 pt-5 pb-4">
-        <header>
-            <slot name="header">
-                <h2>
-                    {heading}
-
-                    <small class="text-muted">
-                        {subheading}
-                    </small>
-                </h2>
-            </slot>
-        </header>
-    </div>
-
-    <div class="wrapper mx-2 pb-3 {wideBody ? "wide" : ""}">
+<ScrolledView overflowX="hidden" overflowY="scroll" class={active ? "" : "p-page-inactive"} bind:root>
+    <div class="wrapper mx-2" class:wide>
         <slot />
     </div>
 </ScrolledView>
 
 <style>
-    .wrapper {
-        padding-left: 24px;
-        padding-right: 24px;
-    }
-    .wrapper.wide {
-        padding: 0;
-    }
-    h2 {
-        font-weight: bold;
-    }
-    h2 > small {
-        font-size: 18px;
+    .wrapper:not(.wide) {
+        padding: 24px;
     }
 </style>

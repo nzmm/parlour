@@ -1,8 +1,9 @@
 import { writable } from 'svelte/store';
 import { ToplevelViews } from './enums/ToplevelViews';
+import type { IArtist } from './interfaces/IArtist';
 import type { ITrack } from './interfaces/ITrack';
 import type { ITrackArray } from './interfaces/ITrackArray';
-import type { IAlbumArray } from './interfaces/IAlbumArray';
+import type { ILibraryAlbum } from './interfaces/IAlbum';
 import type { IView } from './interfaces/IView';
 import { PlaybackState } from './enums/PlaybackState';
 
@@ -12,12 +13,10 @@ const getInitialView = () => {
 }
 
 const toplevel = getInitialView();
-console.log(toplevel);
 export const currentView = writable<IView>({ toplevel });
 
-export const artists = writable({ready: false, data: []});
-export const albums = writable<IAlbumArray>({ready: false, data: []});
-export const songs = writable<ITrackArray>({ready: false, data: []});
+export const artists = writable<IArtist[]>([]);
+export const library = writable<ILibraryAlbum[]>([]);
 export const queue = writable<ITrackArray>({ready: true, data: []});
 
 export const playerState = writable({

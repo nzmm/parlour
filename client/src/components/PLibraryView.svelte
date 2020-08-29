@@ -1,26 +1,36 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-    import { enqueue, enqueueNext, playNow } from '../core/actions';
-    import { getLibrary, getAlbumDetails } from "../core/api/queries";
-    import type { IArtist } from "../core/interfaces/IArtist";
+    import { currentView, library } from '../core/store';
+    import { enqueue, enqueueNext, playNow, likeTrack } from '../core/actions';
     import type { ILibraryAlbum } from "../core/interfaces/IAlbum";
     import type { AudioPlayer } from "../core/audio/player";
-
+    import type { ITrack } from "../core/interfaces/ITrack";
     import Page from './common/Page.svelte';
     import PTrackListView from "./PTrackListView.svelte";
     import PCoverArt from "./PCoverArt.svelte";
+    import DropdownMenu from "./common/DropdownMenu.svelte";
+import { ToplevelViews } from '../core/enums/ToplevelViews';
 
     export let player: AudioPlayer;
 
-    let library: ILibraryAlbum[] = [];
     let loaded = {};
 
     let root: HTMLElement;
+    let track: ITrack = null;
+    let visible: boolean = false;
+    let top: number = 0;
+    let left: number = 0;
 
-    const initLazyLoading = () => {
-        const sections = root.querySelectorAll('section');
-        if (sections.length !== library.length) {
-            setTimeout(initLazyLoading, 300);
+    const showDropdown = (event: CustomEvent) => {
+        visible = true;
+        top = event.detail.top;
+        left = event.detail.left;
+        track = event.detail.item;
+    };
+
+    const initLazyLoading = (releases: ILibraryAlbum[]) => {
+        const sections = root?.querySelectorAll('section');
+        if (!sections || sections.length !== releases.length) {
+            setTimeout(() => initLazyLoading(releases), 300);
             return;
         }
 
@@ -43,20 +53,18 @@
         sections.forEach(s => observer.observe(s));
     }
 
-    onMount(async () => {
-        const res = await getLibrary();
-        const data = await res.json();
-        library = data.library;
-        initLazyLoading();
-    });
+    $: {
+        console.log($library.length);
+        initLazyLoading($library);
+    }
 
 </script>
 
-<Page bind:root>
-    {#each library as release}
+<Page active={$currentView.toplevel === ToplevelViews.Library} bind:root>
+    {#each $library as release}
     <section class="mb-5 pb-3" data-release={release.id}>
         <div class="d-flex mb-3">
-            <PCoverArt src={release.thumbnail} size="80px" />
+            <PCoverArt src={loaded[release.id] ? release.thumbnail : ""} size="80px" />
 
             <h4 class="pl-4">
                 {release.name}
@@ -71,10 +79,7 @@
             {#if loaded[release.id]}
             <PTrackListView
                 data={release.tracks}
-                withQueueActions
-                on:play={e => playNow(player, e.detail)}
-                on:enqueue={e => enqueue(player, e.detail)}
-                on:enqueueNext={e => enqueueNext(player, e.detail)} />
+                on:dropdown={showDropdown} />
             {:else}
             <p class="text-muted">Loading...</p>
             {/if}
@@ -82,6 +87,27 @@
     </section>
     {/each}
 </Page>
+
+<DropdownMenu {visible} {top} {left} on:hide={() => visible = false}>
+    <a class="dropdown-item" href="#play" on:click|preventDefault={() => playNow(player, track)}>
+        Play
+    </a>
+
+    <div class="dropdown-divider"></div>
+
+    <a class="dropdown-item" href="#enqueue" on:click|preventDefault={() => enqueue(player, track)}>
+        Add to queue
+    </a>
+    <a class="dropdown-item" href="#next" on:click|preventDefault={() => enqueueNext(player, track)}>
+        Play next
+    </a>
+
+    <div class="dropdown-divider"></div>
+
+    <a class="dropdown-item" href="#like" on:click|preventDefault={() => likeTrack(track)}>
+        Like
+    </a>
+</DropdownMenu>
 
 <style>
     h4 > p {

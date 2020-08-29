@@ -65,6 +65,7 @@
 
 <style>
     :global(.form-control) {
-        width: 35vw;
+        width: 25vw;
+        min-width: 200px;
     }
 </style>

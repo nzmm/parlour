@@ -1,66 +1,47 @@
 <script lang="ts">
-    //import { ToplevelViews } from "../core/enums/ToplevelViews";
-    //import { currentView, queue } from "../core/store";
+    import { ToplevelViews } from "../core/enums/ToplevelViews";
+    import { currentView, queue } from "../core/store";
     import type { AudioPlayer } from "../core/audio/player";
     import NavBar from './common/NavBar.svelte';
-    //import NavLink from './common/NavLink.svelte';
+    import NavLink from './common/NavLink.svelte';
     import TextDropshadow from './common/TextDropshadow.svelte';
     import PSearchMusicInput from "./PSearchMusicInput.svelte";
 
     export let player: AudioPlayer;
 
-    /*
     const setView = (toplevel: ToplevelViews) => {
         currentView.set({ toplevel });
         sessionStorage.setItem('view', toplevel.toString());
-    }*/
+    }
 </script>
 
 <NavBar class="top-nav border-bottom">
-    <div class="d-flex w-100 justify-content-between align-items-center">
-        <a class="navbar-brand pr-2" href="/">
-            <img src="/static/data/im/parlour-brand-32.png" alt="Parlour" height="32" />
-        </a>
+    <a class="navbar-brand pr-2" href="/">
+        <img src="/static/data/im/parlour-brand-32.png" alt="Parlour" height="32" />
+    </a>
 
-        <PSearchMusicInput {player} />
+    <ul class="navbar-nav mr-auto">
+        <NavLink
+            label="Library"
+            href="#library"
+            active={$currentView.toplevel === ToplevelViews.Library}
+            on:click={() => setView(ToplevelViews.Library)}/>
 
-        <button class="user btn p-0" style="margin-top: 1px;">
-            <TextDropshadow size="smallest">
-                <strong>MM</strong>
-            </TextDropshadow>
-        </button>
-    </div>
+        <NavLink
+            label="Play Queue{$queue.data.length ? ` (${$queue.data.length})` : ''}"
+            href="#play-queue"
+            active={$currentView.toplevel === ToplevelViews.PlayQueue}
+            on:click={() => setView(ToplevelViews.PlayQueue)}/>
+    </ul>
 
-    <!--
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <NavLink
-                label="Artists"
-                href="#artists"
-                active={$currentView.toplevel === ToplevelViews.Artists}
-                on:click={() => setView(ToplevelViews.Artists)}/>
+    <PSearchMusicInput {player} />
 
-            <NavLink
-                label="Albums"
-                href="#albums"
-                active={$currentView.toplevel === ToplevelViews.Albums}
-                on:click={() => setView(ToplevelViews.Albums)}/>
+    <button class="user btn p-0" style="margin-top: 1px;">
+        <TextDropshadow size="smallest">
+            <strong>MM</strong>
+        </TextDropshadow>
+    </button>
 
-            <NavLink
-                label="Library"
-                href="#library"
-                active={$currentView.toplevel === ToplevelViews.Library}
-                on:click={() => setView(ToplevelViews.Library)}/>
-
-            <NavLink
-                label="Play Queue{$queue.data.length ? ` (${$queue.data.length})` : ''}"
-                href="#play-queue"
-                class="ml-3"
-                active={$currentView.toplevel === ToplevelViews.PlayQueue}
-                on:click={() => setView(ToplevelViews.PlayQueue)}/>
-        </ul>
-    </div>
-    -->
 </NavBar>
 
 <style>

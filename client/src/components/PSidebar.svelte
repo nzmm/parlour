@@ -1,45 +1,49 @@
 <script lang="ts">
-    import { ToplevelViews } from "../core/enums/ToplevelViews";
-    import { currentView, queue } from "../core/store";
-    import NavLink from './common/NavLink.svelte';
-
-    const setView = (toplevel: ToplevelViews) => {
-        currentView.set({ toplevel });
-        sessionStorage.setItem('view', toplevel.toString());
-    }
-
+    import { artists } from '../core/store';
+    import ScrolledView from './common/ScrolledView.svelte';
 </script>
 
-<aside class="border-right py-3">
-    <NavLink
-        label="Artists"
-        href="#artists"
-        active={$currentView.toplevel === ToplevelViews.Artists}
-        on:click={() => setView(ToplevelViews.Artists)}/>
+<aside class="border-right">
+    <ScrolledView overflowX="hidden" overflowY="auto">
+        <div class="wrapper">
+            <div class="text-muted d-flex justify-content-between align-items-center artist-nav">
+                <strong>
+                    All Artists
+                </strong>
+                <span class="badge badge-pill">{$artists.length}</span>
+            </div>
 
-    <NavLink
-        label="Albums"
-        href="#albums"
-        active={$currentView.toplevel === ToplevelViews.Albums}
-        on:click={() => setView(ToplevelViews.Albums)}/>
-
-    <NavLink
-        label="Library"
-        href="#library"
-        active={$currentView.toplevel === ToplevelViews.Library}
-        on:click={() => setView(ToplevelViews.Library)}/>
-
-    <NavLink
-        label="Play Queue{$queue.data.length ? ` (${$queue.data.length})` : ''}"
-        href="#play-queue"
-        active={$currentView.toplevel === ToplevelViews.PlayQueue}
-        on:click={() => setView(ToplevelViews.PlayQueue)}/>
+            {#each $artists as artist}
+            <div class="artist-nav" on:click={() => null}>{artist.name}</div>
+            {/each}
+        </div>
+    </ScrolledView>
 </aside>
 
 <style>
     aside {
-        width: 350px;
         height: 100%;
         background-color: #eee;
+        font-size: 13px;
+    }
+    .wrapper {
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+    .badge {
+        background-color: #6c757d;
+        color: #fff;
+        padding-top: 3px;
+        padding-bottom: 4px;
+    }
+    .artist-nav {
+        width: 280px;
+        padding-left: 10px;
+        padding-right: 5px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 </style>

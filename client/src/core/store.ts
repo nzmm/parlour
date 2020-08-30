@@ -18,7 +18,8 @@ export const artists = writable<IArtist[]>([]);
 export const library = writable<ILibraryAlbum[]>([]);
 export const queue = writable<ITrackArray>({ready: true, data: []});
 
-export const libraryFilter = writable<{ fn: (lib: ILibraryAlbum[]) => ILibraryAlbum[] }>({ fn: lib => lib });
+export const artistFilter = writable<{ fn: (x: IArtist[]) => IArtist[] }>({ fn: x => x });
+export const libraryFilter = writable<{ fn: (x: ILibraryAlbum[]) => ILibraryAlbum[] }>({ fn: x => x });
 
 export const playerState = writable({
     state: PlaybackState.Stopped,

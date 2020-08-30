@@ -15,7 +15,7 @@ def get_tracks_query(user):
 
 
 def get_search_artists_query(user, term):
-    return Artist.objects.filter(user=user, name__icontains=term)
+    return Artist.objects.filter(user=user, name__icontains=term).annotate(track_count=Count('artist_tracks'))
 
 
 def get_search_releases_query(user, term):

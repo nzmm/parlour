@@ -1,10 +1,10 @@
-import { queue, currentTrack, currentView, library, libraryFilter } from './store';
+import { queue, currentTrack, currentView, libraryFilter, artistFilter } from './store';
 import { setLiked } from '../core/api/commands';
 import { PlaybackState } from "./enums/PlaybackState";
 import { SublevelViews } from './enums/SublevelViews';
 import { ToplevelViews } from './enums/ToplevelViews';
 import type { IArtist } from './interfaces/IArtist';
-import type { IAlbum, ILibraryAlbum } from './interfaces/IAlbum';
+import type { IAlbum } from './interfaces/IAlbum';
 import type { ITrack } from "./interfaces/ITrack";
 import type { AudioPlayer } from "./audio/player";
 
@@ -72,12 +72,14 @@ export const setAlbumDetailsView = (data: IAlbum) => {
     return setDetailsView(ToplevelViews.Albums, SublevelViews.AlbumDetails, data);
 }
 
-
-export const libUnfilter = () => {
-    return libraryFilter.set({ fn: lib => lib });
+export const unfilterLibrary = () => {
+    return libraryFilter.set({ fn: x => x });
 }
 
+export const filterLibrary = (artist_id: number) => {
+    return libraryFilter.set({ fn: x => x.filter(r => r.artist_id === artist_id) });
+}
 
-export const libFilterByArtist = (artist_id: number) => {
-    return libraryFilter.set({ fn: lib => lib.filter(r => r.artist_id === artist_id) });
+export const filterArtists = (artist_id: number) => {
+    return artistFilter.set({ fn: x => x.filter(a => a.id === artist_id) });
 }

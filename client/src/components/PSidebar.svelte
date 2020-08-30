@@ -1,13 +1,17 @@
 <script lang="ts">
     import { artists } from '../core/store';
-    import { libFilterByArtist, libUnfilter } from '../core/actions';
+    import { unfilterLibrary, filterLibrary } from '../core/actions';
     import ScrolledView from './common/ScrolledView.svelte';
 </script>
 
 <aside class="border-right">
     <ScrolledView overflowX="hidden" overflowY="auto">
         <div class="wrapper">
-            <a href="#all" class="text-muted d-flex justify-content-between align-items-center artist-nav" on:click|preventDefault={() => libUnfilter()}>
+            <a
+                href="#all"
+                class="text-muted d-flex justify-content-between align-items-center artist-nav"
+                on:click|preventDefault={() => unfilterLibrary()}>
+
                 <strong>
                     All Artists
                 </strong>
@@ -15,7 +19,12 @@
             </a>
 
             {#each $artists as artist}
-            <a href="#artist" class="artist-nav" on:click|preventDefault={() => libFilterByArtist(artist.id)} title="{artist.track_count} tracks">
+            <a
+                href="#artist"
+                class="artist-nav"
+                on:click|preventDefault={() => filterLibrary(artist.id)}
+                title="{artist.track_count} tracks">
+
                 {artist.name}
             </a>
             {/each}

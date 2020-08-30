@@ -1,20 +1,23 @@
 <script lang="ts">
     import { artists } from '../core/store';
+    import { libFilterByArtist, libUnfilter } from '../core/actions';
     import ScrolledView from './common/ScrolledView.svelte';
 </script>
 
 <aside class="border-right">
     <ScrolledView overflowX="hidden" overflowY="auto">
         <div class="wrapper">
-            <div class="text-muted d-flex justify-content-between align-items-center artist-nav">
+            <a href="#all" class="text-muted d-flex justify-content-between align-items-center artist-nav" on:click|preventDefault={() => libUnfilter()}>
                 <strong>
                     All Artists
                 </strong>
                 <span class="badge badge-pill">{$artists.length}</span>
-            </div>
+            </a>
 
             {#each $artists as artist}
-            <div class="artist-nav" on:click={() => null}>{artist.name}</div>
+            <a href="#artist" class="artist-nav" on:click|preventDefault={() => libFilterByArtist(artist.id)} title="{artist.track_count} tracks">
+                {artist.name}
+            </a>
             {/each}
         </div>
     </ScrolledView>
@@ -45,5 +48,8 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        display: block;
+        color: #333;
+        text-decoration: none;
     }
 </style>

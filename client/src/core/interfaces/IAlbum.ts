@@ -1,5 +1,6 @@
 import type { ITrack } from "./ITrack";
 
+
 export interface IAlbum {
     id: number;
     name: string;
@@ -13,6 +14,7 @@ export interface ILibraryAlbum {
     id: number;
     name: string;
     thumbnail: string;
+    artist_id: number;
     artist_name: string;
     year: number;
     track_count: number;

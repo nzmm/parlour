@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { currentView, library } from '../core/store';
+    import { currentView, library, libraryFilter } from '../core/store';
     import { enqueue, enqueueNext, playNow, likeTrack } from '../core/actions';
+    import { ToplevelViews } from '../core/enums/ToplevelViews';
     import type { ILibraryAlbum } from "../core/interfaces/IAlbum";
     import type { AudioPlayer } from "../core/audio/player";
     import type { ITrack } from "../core/interfaces/ITrack";
@@ -8,10 +9,10 @@
     import PTrackListView from "./PTrackListView.svelte";
     import PCoverArt from "./PCoverArt.svelte";
     import DropdownMenu from "./common/DropdownMenu.svelte";
-import { ToplevelViews } from '../core/enums/ToplevelViews';
 
     export let player: AudioPlayer;
 
+    let releases: ILibraryAlbum[] = [];
     let loaded = {};
 
     let root: HTMLElement;
@@ -29,6 +30,8 @@ import { ToplevelViews } from '../core/enums/ToplevelViews';
 
     const initLazyLoading = (releases: ILibraryAlbum[]) => {
         const sections = root?.querySelectorAll('section');
+        console.log(releases.length, sections?.length);
+
         if (!sections || sections.length !== releases.length) {
             setTimeout(() => initLazyLoading(releases), 300);
             return;
@@ -54,17 +57,16 @@ import { ToplevelViews } from '../core/enums/ToplevelViews';
     }
 
     $: {
-        console.log($library.length);
-        initLazyLoading($library);
+        releases = $libraryFilter.fn($library);
+        setTimeout(() => initLazyLoading(releases), 150);
     }
-
 </script>
 
 <Page active={$currentView.toplevel === ToplevelViews.Library} bind:root>
-    {#each $library as release}
+    {#each releases as release}
     <section class="mb-5 pb-3" data-release={release.id}>
         <div class="d-flex mb-3">
-            <PCoverArt src={loaded[release.id] ? release.thumbnail : ""} size="80px" />
+            <PCoverArt src={loaded[release.id] ? release.thumbnail : ""} size="100px" />
 
             <h4 class="pl-4">
                 {release.name}

@@ -4,7 +4,8 @@ ATTR_SPLITTER = '__'
 
 DEFAULT_ARTIST_FIELDS = (
     'id',
-    'name')
+    'name',
+    'track_count')
 
 DEFAULT_ALBUM_FIELDS = (
     'id',
@@ -15,6 +16,7 @@ DEFAULT_ALBUM_FIELDS = (
 DEFAULT_LIBRARY_FIELDS = (
     'id',
     'name',
+    'artist_id',
     'artist_name',
     'year',
     'thumbnail')

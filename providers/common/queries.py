@@ -3,7 +3,7 @@ from providers.models import Artist, Release, Track
 
 
 def get_artists_query(user):
-    return Artist.objects.filter(user=user)
+    return Artist.objects.filter(user=user).annotate(track_count=Count('artist_tracks'))
 
 
 def get_releases_query(user):

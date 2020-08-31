@@ -127,9 +127,9 @@ def search(request):
     if len(terms) < 2:
         return JsonResponse(data)
 
-    artists = queries.get_search_artists_query(request.user, terms)[:5]
-    releases = queries.get_search_releases_query(request.user, terms)[:5]
-    tracks = queries.get_search_tracks_query(request.user, terms)[:5]
+    artists = queries.get_search_artists_query(request.user, terms)[:10]
+    releases = queries.get_search_releases_query(request.user, terms)[:10]
+    tracks = queries.get_search_tracks_query(request.user, terms)[:10]
 
     data['matches'].extend([{**t, 'group': 0} for t in serializers.serialize_artists(artists)])
     data['matches'].extend([{**t, 'group': 1} for t in serializers.serialize_releases(releases)])

@@ -1,13 +1,13 @@
 <script lang="ts">
-    import { currentView, queue } from '../core/store';
+    import { currentView, liked } from '../core/store';
     import { ToplevelViews } from '../core/enums/ToplevelViews';
     import PTrackView from "./PTrackView.svelte";
 </script>
 
-<PTrackView data={$queue.data} active={$currentView.toplevel === ToplevelViews.PlayQueue}>
+<PTrackView data={$liked} active={$currentView.toplevel === ToplevelViews.Liked}>
     <div class="header py-4">
-        <h2>Play Queue</h2>
-        <p class="text-muted">{$queue.data.length} tracks queued</p>
+        <h2>Liked</h2>
+        <p class="text-muted">{$liked.length} tracks</p>
     </div>
 </PTrackView>
 

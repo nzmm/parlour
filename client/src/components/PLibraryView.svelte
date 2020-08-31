@@ -56,13 +56,19 @@
         sections.forEach(s => observer.observe(s));
     }
 
-    $: {
+    libraryFilter.subscribe(() => {
+        loaded = {};
+    });
+
+    $: active = $currentView.toplevel === ToplevelViews.Songs;
+
+    $: if (active) {
         releases = $libraryFilter.fn($library);
         setTimeout(() => initLazyLoading(releases), 150);
     }
 </script>
 
-<Page active={$currentView.toplevel === ToplevelViews.Library} bind:root>
+<Page {active} bind:root>
     {#each releases as release}
     <section class="mb-5 pb-3" data-release={release.id}>
         <div class="d-flex mb-3">

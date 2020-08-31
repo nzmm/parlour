@@ -1,4 +1,4 @@
-import { queue, currentTrack, currentView, libraryFilter, artistFilter } from './store';
+import { queue, currentTrack, currentView, libraryFilter, artistFilter, library } from './store';
 import { setLiked } from '../core/api/commands';
 import { PlaybackState } from "./enums/PlaybackState";
 import { SublevelViews } from './enums/SublevelViews';
@@ -33,8 +33,9 @@ export const playNow = (player: AudioPlayer, track: ITrack) => {
 }
 
 export const likeTrack = async (track: ITrack) => {
+    const track_id = track.id;
     const liked = !track.liked;
-    const res = await setLiked(track.id, liked);
+    const res = await setLiked(track_id, liked);
     const data = await res.json();
 
     if (!data.success) {
@@ -44,6 +45,18 @@ export const likeTrack = async (track: ITrack) => {
     currentTrack.update(cur => {
         cur.liked = liked;
         return cur;
+    });
+
+    library.update(lib => {
+        for (const r of lib) {
+            for (const t of r.tracks) {
+                if (t.id === track_id) {
+                    t.liked = liked;
+                    return lib;
+                }
+            }
+        }
+        return lib;
     });
 }
 
@@ -84,6 +97,3 @@ export const filterLibraryByAlbum = (release_id: number) => {
     return libraryFilter.set({ fn: x => x.filter(r => r.id === release_id) });
 }
 
-export const filterArtists = (artist_id: number) => {
-    return artistFilter.set({ fn: x => x.filter(a => a.id === artist_id) });
-}

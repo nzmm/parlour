@@ -1,75 +1,56 @@
 <script lang="ts">
-    import { artists } from '../core/store';
-    //import { unfilterLibrary } from '../core/actions';
+    import { artists, currentView, queue, liked } from '../core/store';
+    import { ToplevelViews } from '../core/enums/ToplevelViews';
     import ScrolledView from './common/ScrolledView.svelte';
+import NavLink from './common/NavLink.svelte';
+
+    const setToplevel = (view: ToplevelViews) => {
+        $currentView = { toplevel: view }
+        sessionStorage.setItem("view", view.toString());
+    }
 </script>
 
 <aside class="border-right">
     <ScrolledView overflowX="hidden" overflowY="auto">
         <div class="wrapper">
-            <a
+            <NavLink
                 href="#artists"
-                class="d-flex justify-content-between align-items-center artist-nav">
+                label="Artists"
+                count={$artists.length}
+                on:click={() => setToplevel(ToplevelViews.Artists)} />
 
-                <strong>
-                    Artists
-                </strong>
-                <span class="badge badge-pill">{$artists.length}</span>
-            </a>
-
-            <a
+            <NavLink
                 href="#albums"
-                class="d-flex justify-content-between align-items-center artist-nav">
+                label="Albums"
+                count={$artists.length}
+                on:click={() => setToplevel(ToplevelViews.Albums)} />
 
-                <strong>
-                    Albums
-                </strong>
-                <span class="badge badge-pill">{$artists.length}</span>
-            </a>
-
-            <a
-                href="#albums"
-                class="d-flex justify-content-between align-items-center artist-nav">
-
-                <strong>
-                    Songs
-                </strong>
-                <span class="badge badge-pill">{$artists.length}</span>
-            </a>
+            <NavLink
+                href="#songs"
+                label="Songs"
+                count={$artists.length}
+                on:click={() => setToplevel(ToplevelViews.Songs)} />
 
             <hr>
 
-            <a
+            <NavLink
                 href="#queue"
-                class="d-flex justify-content-between align-items-center artist-nav">
+                label="Play Queue"
+                count={$queue.data.length}
+                on:click={() => setToplevel(ToplevelViews.PlayQueue)} />
 
-                <strong>
-                    Play Queue
-                </strong>
-                <span class="badge badge-pill">{$artists.length}</span>
-            </a>
-
-            <a
+            <NavLink
                 href="#liked"
-                class="d-flex justify-content-between align-items-center artist-nav">
-
-                <strong>
-                    Liked
-                </strong>
-                <span class="badge badge-pill">{$artists.length}</span>
-            </a>
+                label="Liked"
+                count={$liked.length}
+                on:click={() => setToplevel(ToplevelViews.Liked)}/>
 
             <hr>
 
-            <a
+            <NavLink
                 href="#channels"
-                class="d-flex justify-content-between align-items-center artist-nav">
-
-                <strong>
-                    Channels
-                </strong>
-                <span class="badge badge-pill">{$artists.length}</span>
-            </a>
+                label="Channels"
+                count={0} />
 
         </div>
     </ScrolledView>
@@ -84,24 +65,5 @@
     .wrapper {
         padding-top: 24px;
         padding-bottom: 24px;
-    }
-    .badge {
-        background-color: #9d9ea0;
-        color: #fff;
-        padding-top: 3px;
-        padding-bottom: 4px;
-    }
-    .artist-nav {
-        width: 280px;
-        padding-left: 14px;
-        padding-right: 8px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: block;
-        color: #333;
-        text-decoration: none;
     }
 </style>

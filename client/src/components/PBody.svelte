@@ -1,11 +1,11 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { getLibrary } from "../core/api/queries";
-    import { ToplevelViews } from "../core/enums/ToplevelViews";
-    import { currentView, library, artists, currentTrack } from "../core/store";
+    import { library, artists } from "../core/store";
     import type { AudioPlayer } from "../core/audio/player";
     import PLibraryView from "./PLibraryView.svelte";
     import PQueueView from "./PQueueView.svelte";
+    import PLikedView from "./PLikedView.svelte";
     import PSidebar from "./PSidebar.svelte";
 
     export let player: AudioPlayer;
@@ -24,6 +24,7 @@
         <PSidebar />
         <PLibraryView {player} />
         <PQueueView />
+        <PLikedView />
     </div>
 </div>
 

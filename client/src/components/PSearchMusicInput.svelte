@@ -43,9 +43,7 @@
     }
 
     const onClear = () => {
-        debounce(async () => {
-            unfilterLibrary();
-        });
+        setTimeout(() => unfilterLibrary(), 100);
     }
 
     const groups = {

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { artists } from '../core/store';
-    import { unfilterLibrary, filterLibrary } from '../core/actions';
+    //import { unfilterLibrary } from '../core/actions';
     import ScrolledView from './common/ScrolledView.svelte';
 </script>
 
@@ -8,26 +8,69 @@
     <ScrolledView overflowX="hidden" overflowY="auto">
         <div class="wrapper">
             <a
-                href="#all"
-                class="text-muted d-flex justify-content-between align-items-center artist-nav"
-                on:click|preventDefault={() => unfilterLibrary()}>
+                href="#artists"
+                class="d-flex justify-content-between align-items-center artist-nav">
 
                 <strong>
-                    All Artists
+                    Artists
                 </strong>
                 <span class="badge badge-pill">{$artists.length}</span>
             </a>
 
-            {#each $artists as artist}
             <a
-                href="#artist"
-                class="artist-nav"
-                on:click|preventDefault={() => filterLibrary(artist.id)}
-                title="{artist.track_count} tracks">
+                href="#albums"
+                class="d-flex justify-content-between align-items-center artist-nav">
 
-                {artist.name}
+                <strong>
+                    Albums
+                </strong>
+                <span class="badge badge-pill">{$artists.length}</span>
             </a>
-            {/each}
+
+            <a
+                href="#albums"
+                class="d-flex justify-content-between align-items-center artist-nav">
+
+                <strong>
+                    Songs
+                </strong>
+                <span class="badge badge-pill">{$artists.length}</span>
+            </a>
+
+            <hr>
+
+            <a
+                href="#queue"
+                class="d-flex justify-content-between align-items-center artist-nav">
+
+                <strong>
+                    Play Queue
+                </strong>
+                <span class="badge badge-pill">{$artists.length}</span>
+            </a>
+
+            <a
+                href="#liked"
+                class="d-flex justify-content-between align-items-center artist-nav">
+
+                <strong>
+                    Liked
+                </strong>
+                <span class="badge badge-pill">{$artists.length}</span>
+            </a>
+
+            <hr>
+
+            <a
+                href="#channels"
+                class="d-flex justify-content-between align-items-center artist-nav">
+
+                <strong>
+                    Channels
+                </strong>
+                <span class="badge badge-pill">{$artists.length}</span>
+            </a>
+
         </div>
     </ScrolledView>
 </aside>
@@ -43,17 +86,17 @@
         padding-bottom: 24px;
     }
     .badge {
-        background-color: #6c757d;
+        background-color: #9d9ea0;
         color: #fff;
         padding-top: 3px;
         padding-bottom: 4px;
     }
     .artist-nav {
         width: 280px;
-        padding-left: 10px;
-        padding-right: 5px;
-        padding-top: 3px;
-        padding-bottom: 3px;
+        padding-left: 14px;
+        padding-right: 8px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

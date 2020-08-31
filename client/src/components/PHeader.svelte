@@ -15,26 +15,12 @@
     }
 </script>
 
-<NavBar class="top-nav border-bottom">
+<NavBar class="top-nav border-bottom d-flex justify-content-between align-items-center">
     <a class="navbar-brand pr-2" href="/">
         <img src="/static/data/im/parlour-brand-32.png" alt="Parlour" height="32" />
     </a>
 
-    <ul class="navbar-nav mr-auto">
-        <NavLink
-            label="Library"
-            href="#library"
-            active={$currentView.toplevel === ToplevelViews.Library}
-            on:click={() => setView(ToplevelViews.Library)}/>
-
-        <NavLink
-            label="Play Queue{$queue.data.length ? ` (${$queue.data.length})` : ''}"
-            href="#play-queue"
-            active={$currentView.toplevel === ToplevelViews.PlayQueue}
-            on:click={() => setView(ToplevelViews.PlayQueue)}/>
-    </ul>
-
-    <PSearchMusicInput {player} />
+    <PSearchMusicInput />
 
     <button class="user btn p-0" style="margin-top: 1px;">
         <TextDropshadow size="smallest">

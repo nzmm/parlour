@@ -1,6 +1,6 @@
 <script lang="ts">
     import { createDebouncer } from '../core/utils';
-    import { filterArtists } from '../core/actions';
+    import { filterLibraryByArtist, filterLibraryByAlbum, unfilterLibrary } from '../core/actions';
     import { search } from '../core/api/queries';
     import { SearchGroups } from '../core/enums/SearchGroups';
     import type { ITrack } from '../core/interfaces/ITrack';
@@ -11,23 +11,28 @@
 
     const onInput = (event: InputEvent) => {
         const target = event.currentTarget as HTMLInputElement;
+
         debounce(async () => {
+            if (!target.value.length) {
+                return;
+            }
+
             const res = await search(target.value);
             const data = await res.json();
             matches = data.matches;
-            console.log(data);
         });
     }
 
     const onSelect = (event: CustomEvent) => {
         const data = event.detail;
+        console.log(data);
 
         switch (data.group) {
             case SearchGroups.Artists:
-                //setArtistDetailsView(data);
+                filterLibraryByArtist(data.id);
                 break;
             case SearchGroups.Releases:
-                //setAlbumDetailsView(data);
+                filterLibraryByAlbum(data.id);
                 break;
             case SearchGroups.Tracks:
                 //enqueue(player, event.detail);
@@ -35,6 +40,12 @@
             default:
                 break;
         }
+    }
+
+    const onClear = () => {
+        debounce(async () => {
+            unfilterLibrary();
+        });
     }
 
     const groups = {
@@ -51,7 +62,8 @@
     class="mx-1"
     grouper="group"
     on:input={onInput}
-    on:select={onSelect}>
+    on:select={onSelect}
+    on:clear={onClear}>
 
     <span slot="grouper">
         {groups[match.group]}
@@ -63,7 +75,7 @@
 
 <style>
     :global(.form-control) {
-        width: 25vw;
+        width: 30vw;
         min-width: 200px;
     }
 </style>

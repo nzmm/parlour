@@ -76,8 +76,12 @@ export const unfilterLibrary = () => {
     return libraryFilter.set({ fn: x => x });
 }
 
-export const filterLibrary = (artist_id: number) => {
+export const filterLibraryByArtist = (artist_id: number) => {
     return libraryFilter.set({ fn: x => x.filter(r => r.artist_id === artist_id) });
+}
+
+export const filterLibraryByAlbum = (release_id: number) => {
+    return libraryFilter.set({ fn: x => x.filter(r => r.id === release_id) });
 }
 
 export const filterArtists = (artist_id: number) => {

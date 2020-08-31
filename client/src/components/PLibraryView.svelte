@@ -87,7 +87,8 @@
             {#if loaded[release.id]}
             <PTrackListView
                 data={release.tracks}
-                on:dropdown={showDropdown} />
+                on:dropdown={showDropdown}
+                on:play={e => playNow(player, e.detail)} />
             {:else}
             <p class="text-muted">Loading...</p>
             {/if}

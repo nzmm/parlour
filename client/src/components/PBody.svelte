@@ -24,7 +24,7 @@
         <PSidebar />
         <PLibraryView {player} />
         <PQueueView />
-        <PLikedView />
+        <PLikedView {player} />
     </div>
 </div>
 

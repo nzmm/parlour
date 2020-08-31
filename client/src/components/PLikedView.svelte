@@ -1,10 +1,17 @@
 <script lang="ts">
     import { currentView, liked } from '../core/store';
     import { ToplevelViews } from '../core/enums/ToplevelViews';
+    import type { AudioPlayer } from '../core/audio/player';
     import PTrackView from "./PTrackView.svelte";
+
+    export let player: AudioPlayer;
 </script>
 
-<PTrackView data={$liked} active={$currentView.toplevel === ToplevelViews.Liked}>
+<PTrackView
+    {player}
+    data={$liked}
+    active={$currentView.toplevel === ToplevelViews.Liked}>
+
     <div class="header py-4">
         <h2>Liked</h2>
         <p class="text-muted">{$liked.length} tracks</p>

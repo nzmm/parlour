@@ -10,20 +10,21 @@ const ms = (sec: number) => sec * 1000;
 export class AudioPlayer {
 
     private _player = new Audio();
-    private _playlist: ITrack[];
+    private _queue: ITrack[];
     private _state: PlaybackState = PlaybackState.Stopped;
 
     private _timer = 0;
     private _track_id = 0;
 
     constructor() {
-        queue.subscribe(value => this._playlist = value.data);
+        queue.subscribe(value => this._queue = value.data);
         playerState.subscribe(value => this._state = value.state);
 
-        this.initEvents(this._player, this._playlist);
+        this.initEvents(this._player, this._queue);
     }
 
     private initEvents(player: HTMLAudioElement, playlist: ITrack[]) {
+
         player.addEventListener("loadedmetadata", () => {
             playerState.update(cur => ({
                 ...cur,
@@ -39,11 +40,16 @@ export class AudioPlayer {
         player.addEventListener("ended", () => {
             this.onEnded(playlist);
         });
+
+        player.addEventListener("error", () => {
+            this.onEnded(playlist);
+        });
+
     }
 
-    private onEnded(playlist: ITrack[]) {
-        if (playlist.length) {
-            this.playNext(playlist);
+    private onEnded(queue: ITrack[]) {
+        if (queue.length) {
+            this.playNext(queue);
         } else {
             this.setStopped();
         }
@@ -102,6 +108,10 @@ export class AudioPlayer {
 
     public get state(): PlaybackState {
         return this._state;
+    }
+
+    public get queue(): ITrack[] {
+        return this._queue;
     }
 
     async play(track: ITrack) {

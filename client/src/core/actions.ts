@@ -1,4 +1,4 @@
-import { queue, currentTrack, currentView, libraryFilter, library } from './store';
+import { queue, currentTrack, currentView, libraryFilter, library, playerState } from './store';
 import { setLiked } from '../core/api/commands';
 import { PlaybackState } from "./enums/PlaybackState";
 import { SublevelViews } from './enums/SublevelViews';
@@ -29,6 +29,9 @@ export const enqueueNext = (player: AudioPlayer, track: ITrack) => {
 }
 
 export const playNow = (player: AudioPlayer, track: ITrack) => {
+    if (!player.queue.length) {
+        // check shuffle mode, source, then build play queue
+    }
     player.play(track);
 }
 

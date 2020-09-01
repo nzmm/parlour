@@ -1,4 +1,4 @@
-import { queue, currentTrack, currentView, libraryFilter, artistFilter, library } from './store';
+import { queue, currentTrack, currentView, libraryFilter, library } from './store';
 import { setLiked } from '../core/api/commands';
 import { PlaybackState } from "./enums/PlaybackState";
 import { SublevelViews } from './enums/SublevelViews';
@@ -97,3 +97,7 @@ export const filterLibraryByAlbum = (release_id: number) => {
     return libraryFilter.set({ fn: x => x.filter(r => r.id === release_id) });
 }
 
+export const setToplevel = (view: ToplevelViews) => {
+    currentView.set({ toplevel: view });
+    sessionStorage.setItem("view", view.toString());
+}

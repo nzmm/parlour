@@ -110,7 +110,7 @@
             class="dropdown-item"
             href="#match"
             bind:this={items[i]}
-            on:click={() => dispatch("select", match)}
+            on:click|preventDefault={() => dispatch("select", match)}
             on:keydown={e => cycle(e, i)}
             on:blur={onBlur}>
 

@@ -69,7 +69,8 @@ def get_library(request):
 
     data = {
         'artists': artists,
-        'releases': releases
+        'releases': releases,
+        'track_count': tracks.count()
     }
     return JsonResponse(data, encoder=ParlourJSONEncoder)
 

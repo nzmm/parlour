@@ -4,11 +4,16 @@
     import PTrackView from "./PTrackView.svelte";
 </script>
 
-<PTrackView data={$queue.data} active={$currentView.toplevel === ToplevelViews.PlayQueue}>
-    <div class="header py-4">
+<PTrackView
+    class="pb-5"
+    data={$queue.data}
+    active={$currentView.toplevel === ToplevelViews.PlayQueue}>
+
+    <div class="header pt-4 pb-3">
         <h2>Play Queue</h2>
         <p class="text-muted">{$queue.data.length} tracks queued</p>
     </div>
+
 </PTrackView>
 
 <style>

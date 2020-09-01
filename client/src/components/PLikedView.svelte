@@ -8,11 +8,12 @@
 </script>
 
 <PTrackView
+    class="pb-5"
     {player}
     data={$liked}
     active={$currentView.toplevel === ToplevelViews.Liked}>
 
-    <div class="header py-4">
+    <div class="header pt-4 pb-3">
         <h2>Liked</h2>
         <p class="text-muted">{$liked.length} tracks</p>
     </div>

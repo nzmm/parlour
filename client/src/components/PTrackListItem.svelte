@@ -14,6 +14,7 @@
 </script>
 
 <tr
+    id="track:{item.id}"
     class="item d-flex py-2 {current ? 'playing' : ''}"
     tabindex="0"
     on:dblclick={() => dispatch('play', item)}
@@ -72,6 +73,10 @@
     }
     .item:focus {
         background-color: #ff2a2aff;
+        color: #fff;
+    }
+    .item:target {
+        background-color: rgb(255, 131, 131);
         color: #fff;
     }
     .item > .p-col {

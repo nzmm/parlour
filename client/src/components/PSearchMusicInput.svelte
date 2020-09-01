@@ -1,10 +1,11 @@
 <script lang="ts">
     import { createDebouncer } from '../core/utils';
-    import { filterLibraryByArtist, filterLibraryByAlbum, unfilterLibrary } from '../core/actions';
+    import { filterLibraryByArtist, filterLibraryByAlbum, unfilterLibrary, setToplevel } from '../core/actions';
     import { search } from '../core/api/queries';
     import { SearchGroups } from '../core/enums/SearchGroups';
     import type { ITrack } from '../core/interfaces/ITrack';
     import SearchInput from "./common/SearchInput.svelte";
+import { ToplevelViews } from '../core/enums/ToplevelViews';
 
     let matches: ITrack[] = [];
     const debounce = createDebouncer();
@@ -25,7 +26,7 @@
 
     const onSelect = (event: CustomEvent) => {
         const data = event.detail;
-        console.log(data);
+        setToplevel(ToplevelViews.Songs);
 
         switch (data.group) {
             case SearchGroups.Artists:
@@ -35,7 +36,10 @@
                 filterLibraryByAlbum(data.id);
                 break;
             case SearchGroups.Tracks:
-                //enqueue(player, event.detail);
+                filterLibraryByAlbum(data.release_id);
+                setTimeout(() => {
+                    document.getElementById(`track:${data.id}`)?.focus();
+                }, 350);
                 break;
             default:
                 break;

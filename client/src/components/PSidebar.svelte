@@ -1,13 +1,11 @@
 <script lang="ts">
-    import { artists, currentView, queue, liked } from '../core/store';
+    import { artists, queue, liked, library } from '../core/store';
+    import { setToplevel } from '../core/actions';
     import { ToplevelViews } from '../core/enums/ToplevelViews';
     import ScrolledView from './common/ScrolledView.svelte';
-import NavLink from './common/NavLink.svelte';
+    import NavLink from './common/NavLink.svelte';
 
-    const setToplevel = (view: ToplevelViews) => {
-        $currentView = { toplevel: view }
-        sessionStorage.setItem("view", view.toString());
-    }
+    export let trackCount: number = 0;
 </script>
 
 <aside class="border-right">
@@ -22,13 +20,13 @@ import NavLink from './common/NavLink.svelte';
             <NavLink
                 href="#albums"
                 label="Albums"
-                count={$artists.length}
+                count={$library.length}
                 on:click={() => setToplevel(ToplevelViews.Albums)} />
 
             <NavLink
                 href="#songs"
                 label="Songs"
-                count={$artists.length}
+                count={trackCount}
                 on:click={() => setToplevel(ToplevelViews.Songs)} />
 
             <hr>

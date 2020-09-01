@@ -27,6 +27,7 @@ DEFAULT_SONG_FIELDS = (
     'name',
     'artist_credit',
     'release_name',
+    'release_id',
     'year',
     'length_display',
     'thumbnail',

@@ -1,7 +1,9 @@
-import { playerState, currentTrack, queue } from '../store';
+import { playerState, currentTrack, queue, library } from '../store';
 import { getDownload } from '../api/queries';
 import { PlaybackState } from '../enums/PlaybackState';
+import { pickRandom } from '../actions';
 import type { ITrack } from '../interfaces/ITrack';
+import type { ILibraryAlbum } from '../interfaces/IAlbum';
 
 const TIMER_INTERVAL = 1000;
 const ms = (sec: number) => sec * 1000;
@@ -11,6 +13,7 @@ export class AudioPlayer {
 
     private _player = new Audio();
     private _queue: ITrack[];
+    private _library: ILibraryAlbum[];
     private _state: PlaybackState = PlaybackState.Stopped;
 
     private _timer = 0;
@@ -18,12 +21,13 @@ export class AudioPlayer {
 
     constructor() {
         queue.subscribe(value => this._queue = value.data);
+        library.subscribe(value => this._library = value);
         playerState.subscribe(value => this._state = value.state);
 
-        this.initEvents(this._player, this._queue);
+        this.initEvents(this._player);
     }
 
-    private initEvents(player: HTMLAudioElement, playlist: ITrack[]) {
+    private initEvents(player: HTMLAudioElement) {
 
         player.addEventListener("loadedmetadata", () => {
             playerState.update(cur => ({
@@ -38,6 +42,7 @@ export class AudioPlayer {
         });
 
         player.addEventListener("ended", () => {
+            console.log("ended");
             this.onEnded();
         });
 
@@ -51,12 +56,20 @@ export class AudioPlayer {
         if (this._queue.length) {
             this.playNext();
         } else {
-            this.setStopped();
+            this.playNext();
         }
     }
 
     public playNext() {
-        const track = this._queue.shift();
+        let track: ITrack;
+        console.log('Play next');
+
+        if (this._queue.length) {
+            track = this._queue.shift();
+        } else {
+            track = pickRandom(this._library);
+        }
+
         this.play(track);
         queue.set({ ready: true, data: this._queue });
     }

@@ -2,7 +2,6 @@
     import { playerState } from '../core/store';
     import { PlaybackState } from '../core/enums/PlaybackState';
     import type { AudioPlayer } from '../core/audio/player';
-
     import GlyphButton from "./common/GlyphButton.svelte";
     import TextDropshadow from "./common/TextDropshadow.svelte";
     import PPlaybackProgressbar from './PPlaybackProgressbar.svelte';
@@ -27,7 +26,9 @@
         </TextDropshadow>
 
         <TextDropshadow>
-            <GlyphButton glyphName="fas fa-fast-forward" />
+            <GlyphButton
+                glyphName="fas fa-fast-forward"
+                on:click={() => player.playNext()} />
         </TextDropshadow>
 
         <TextDropshadow>

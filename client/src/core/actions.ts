@@ -4,7 +4,7 @@ import { PlaybackState } from "./enums/PlaybackState";
 import { SublevelViews } from './enums/SublevelViews';
 import { ToplevelViews } from './enums/ToplevelViews';
 import type { IArtist } from './interfaces/IArtist';
-import type { IAlbum } from './interfaces/IAlbum';
+import type { IAlbum, ILibraryAlbum } from './interfaces/IAlbum';
 import type { ITrack } from "./interfaces/ITrack";
 import type { AudioPlayer } from "./audio/player";
 
@@ -100,4 +100,10 @@ export const filterLibraryByAlbum = (release_id: number) => {
 export const setToplevel = (view: ToplevelViews) => {
     currentView.set({ toplevel: view });
     sessionStorage.setItem("view", view.toString());
+}
+
+export const pickRandom = (library: ILibraryAlbum[]) => {
+    console.log('Picking random track from...', library.length);
+    const rndRelease = library[Math.floor(Math.random() * library.length)];
+    return rndRelease.tracks[Math.floor(Math.random() * rndRelease.tracks.length)];
 }

@@ -14,7 +14,9 @@
 <section class="d-flex justify-content-end">
     <TextDropshadow>
         {#if pipable}
+        <!--
         <PPictureInPicture />
+        -->
         {/if}
         <GlyphButton glyphName="fas fa-volume-up" />
     </TextDropshadow>

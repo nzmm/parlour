@@ -6,7 +6,6 @@
     import BoxDropshadow from './common/BoxDropshadow.svelte';
     import TextDropshadow from './common/TextDropshadow.svelte';
     import PCoverArt from './PCoverArt.svelte';
-import PPictureInPicture from './PPictureInPicture.svelte';
 
     const getThumb = async (id: number) => {
         console.log('Fetching thumbnail...',  id);

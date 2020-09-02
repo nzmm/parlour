@@ -54,4 +54,5 @@
 
 <GlyphButton
     glyphName="far fa-image"
+    title="Picture-in-Picture"
     on:click={showPictureInPictureWindow} />

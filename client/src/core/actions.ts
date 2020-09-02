@@ -29,9 +29,6 @@ export const enqueueNext = (player: AudioPlayer, track: ITrack) => {
 }
 
 export const playNow = (player: AudioPlayer, track: ITrack) => {
-    if (!player.queue.length) {
-        // check shuffle mode, source, then build play queue
-    }
     player.play(track);
 }
 

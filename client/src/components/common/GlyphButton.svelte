@@ -2,9 +2,10 @@
     import Button from "./Button.svelte";
 
     export let glyphName: string;
+    export let title: string = "";
 </script>
 
-<Button on:click>
+<Button on:click bind:title >
     <i class="{glyphName}"></i>
 </Button>
 

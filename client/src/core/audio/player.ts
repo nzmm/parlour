@@ -38,27 +38,27 @@ export class AudioPlayer {
         });
 
         player.addEventListener("ended", () => {
-            this.onEnded(playlist);
+            this.onEnded();
         });
 
         player.addEventListener("error", () => {
-            this.onEnded(playlist);
+            this.onEnded();
         });
 
     }
 
-    private onEnded(queue: ITrack[]) {
-        if (queue.length) {
-            this.playNext(queue);
+    private onEnded() {
+        if (this._queue.length) {
+            this.playNext();
         } else {
             this.setStopped();
         }
     }
 
-    private playNext(playlist: ITrack[]) {
-        const track = playlist.shift();
+    public playNext() {
+        const track = this._queue.shift();
         this.play(track);
-        queue.update(q => ({ ready: true, data: playlist }));
+        queue.set({ ready: true, data: this._queue });
     }
 
     private updateProgress() {
@@ -114,6 +114,10 @@ export class AudioPlayer {
         return this._queue;
     }
 
+    public get element(): HTMLAudioElement {
+        return this._player;
+    }
+
     async play(track: ITrack) {
         if (!track.id) {
             return;
@@ -127,6 +131,17 @@ export class AudioPlayer {
 
         this._player.src = data.download;
         this._player.load();
+
+        if (!navigator.mediaSession) {
+            return;
+        }
+
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: track.name,
+            artist: track.artist_credit,
+            album: track.release_name,
+            artwork: [{src: track.thumbnail}]
+        });
     }
 
     toggle() {

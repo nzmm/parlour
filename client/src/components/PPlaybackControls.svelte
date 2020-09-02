@@ -13,25 +13,25 @@
 <section class="d-flex flex-column align-items-center">
     <div class="d-flex align-items-center">
         <TextDropshadow>
-            <GlyphButton glyphName="fa-random" />
+            <GlyphButton glyphName="fas fa-random" />
         </TextDropshadow>
 
         <TextDropshadow>
-            <GlyphButton glyphName="fa-fast-backward" />
+            <GlyphButton glyphName="fas fa-fast-backward" />
         </TextDropshadow>
 
         <TextDropshadow>
             <GlyphButton
-                glyphName={$playerState.state === PlaybackState.Playing  ? 'fa-pause' : 'fa-play'}
+                glyphName={$playerState.state === PlaybackState.Playing  ? 'fas fa-pause' : 'fas fa-play'}
                 on:click={() => player.toggle()} />
         </TextDropshadow>
 
         <TextDropshadow>
-            <GlyphButton glyphName="fa-fast-forward" />
+            <GlyphButton glyphName="fas fa-fast-forward" />
         </TextDropshadow>
 
         <TextDropshadow>
-            <GlyphButton glyphName="fa-redo" />
+            <GlyphButton glyphName="fas fa-redo" />
         </TextDropshadow>
     </div>
 

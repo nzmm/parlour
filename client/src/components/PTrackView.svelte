@@ -32,12 +32,12 @@
         <PTrackListView
             {data}
             on:dropdown={showDropdown}
-            on:play={e => playNow(player, e.detail)} />
+            on:play={e => playNow(player, e.detail, data)} />
     </section>
 </Page>
 
 <DropdownMenu {visible} {top} {left} on:hide={() => visible = false}>
-    <a class="dropdown-item" href="#play" on:click|preventDefault={() => playNow(player, track)}>
+    <a class="dropdown-item" href="#play" on:click|preventDefault={() => playNow(player, track, data)}>
         Play
     </a>
 

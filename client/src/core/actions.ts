@@ -1,4 +1,4 @@
-import { queue, currentTrack, currentView, libraryFilter, library, playerState } from './store';
+import { queue, currentTrack, currentView, libraryFilter, library } from './store';
 import { setLiked } from '../core/api/commands';
 import { PlaybackState } from "./enums/PlaybackState";
 import { SublevelViews } from './enums/SublevelViews';
@@ -28,7 +28,23 @@ export const enqueueNext = (player: AudioPlayer, track: ITrack) => {
     enqueueWithMethod(player, track, data => data.splice(0, 0, track));
 }
 
-export const playNow = (player: AudioPlayer, track: ITrack) => {
+function shuffleArray<T>(array: T[]): T[] {
+    // Fisher-Yates shuffle
+    const shuffled = [...array];
+    for(let i = shuffled.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * i)
+        const temp = shuffled[i]
+        shuffled[i] = shuffled[j]
+        shuffled[j] = temp
+    }
+    return shuffled;
+}
+
+export const playNow = (player: AudioPlayer, track: ITrack, playlist: ITrack[] = []) => {
+    if (player.state === PlaybackState.Stopped && !player.queue.length && playlist.length) {
+        console.log(track.id, playlist);
+        queue.set(shuffleArray(playlist.filter(t => t.id !== track.id)));
+    }
     player.play(track);
 }
 

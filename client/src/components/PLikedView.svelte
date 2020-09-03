@@ -9,6 +9,7 @@
 
 <PTrackView
     class="pb-5"
+    indexed
     {player}
     data={$liked}
     active={$currentView.toplevel === ToplevelViews.Liked}>

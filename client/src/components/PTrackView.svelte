@@ -12,6 +12,7 @@
     export let active: boolean = true;
     export { className as class };
     export let data: ITrack[] = [];
+    export let indexed: boolean = false;
 
     let track: ITrack = null;
     let visible: boolean = false;
@@ -31,6 +32,7 @@
     <section class="list {className}">
         <PTrackListView
             {data}
+            bind:indexed
             on:dropdown={showDropdown}
             on:play={e => playNow(player, e.detail, data)} />
     </section>

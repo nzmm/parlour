@@ -2,9 +2,11 @@
     import { createEventDispatcher } from 'svelte';
     import type { ITrack } from "../core/interfaces/ITrack";
 
+    export let number: number | string;
     export let item: ITrack;
     export let current: boolean = false;
     export let playing: boolean = false;
+    export let indexed: boolean = false;
 
     const dispatch = createEventDispatcher();
 
@@ -15,7 +17,9 @@
 
 <tr
     id="track:{item.id}"
-    class="item d-flex py-2 {current ? 'playing' : ''}"
+    class="item d-flex py-2"
+    class:playing={current}
+    class:indexed
     tabindex="0"
     on:dblclick={() => dispatch('play', item)}
     on:contextmenu|preventDefault={onContextMenu}>
@@ -24,7 +28,7 @@
         {#if current}
             <i class="fas {playing ? 'fa-play' : 'fa-pause'} pr-1"></i>
         {:else}
-            {item.number || '-'}
+            {number || '-'}
         {/if}
     </td>
 
@@ -64,9 +68,13 @@
         border: 0;
         outline: 0;
         font-size: 14px;
+        cursor: default;
     }
     .item.playing {
         font-weight: bold;
+    }
+    .item.indexed > .number {
+        font-style: italic;
     }
     .item:nth-child(odd) {
         background-color: #eee;

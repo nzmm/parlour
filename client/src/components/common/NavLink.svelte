@@ -28,12 +28,17 @@
         padding-right: 8px;
         padding-top: 5px;
         padding-bottom: 5px;
+        margin-bottom: 3px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         display: block;
         color: #333;
         text-decoration: none;
+        transition: background-color .3s;
+    }
+    .side-nav:hover {
+        background-color: rgb(231, 230, 230);
     }
     .side-nav.active {
         background-color: #ff2a2aff;

@@ -34,7 +34,7 @@
             <NavLink
                 href="#queue"
                 label="Play Queue"
-                count={$queue.data.length}
+                count={$queue.length}
                 on:click={() => setToplevel(ToplevelViews.PlayQueue)} />
 
             <NavLink

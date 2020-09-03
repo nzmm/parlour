@@ -9,7 +9,7 @@
 </script>
 
 <main>
-	<PHeader {player} />
+	<PHeader />
 	<PBody {player} />
 	<PFooter {player} />
 </main>

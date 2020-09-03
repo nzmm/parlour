@@ -26,7 +26,7 @@
     <div class="d-flex h-100 w-100">
         <PSidebar {trackCount} />
         <PLibraryView {player} />
-        <PQueueView />
+        <PQueueView {player} />
         <PLikedView {player} />
     </div>
 </div>

@@ -14,7 +14,7 @@ const enqueueWithMethod = (player: AudioPlayer, track: ITrack, method: (data: IT
         player.play(track);
     } else {
         queue.update(q => {
-            method(q.data);
+            method(q);
             return q;
         });
     }

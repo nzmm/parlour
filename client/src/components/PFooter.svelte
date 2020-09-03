@@ -13,6 +13,6 @@
     <div class="d-flex justify-content-between align-items-center w-100">
         <PCurrentTrack />
         <PPlaybackControls {player} />
-        <PMiscControls />
+        <PMiscControls {player} />
     </div>
 </NavBar>

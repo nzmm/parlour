@@ -1,4 +1,4 @@
-import { playerState, currentTrack, queue, library } from '../store';
+import { playerState, currentTrack, queue, history, library } from '../store';
 import { getDownload } from '../api/queries';
 import { PlaybackState } from '../enums/PlaybackState';
 import { pickRandom } from '../actions';
@@ -20,7 +20,7 @@ export class AudioPlayer {
     private _track_id = 0;
 
     constructor() {
-        queue.subscribe(value => this._queue = value.data);
+        queue.subscribe(value => this._queue = value);
         library.subscribe(value => this._library = value);
         playerState.subscribe(value => this._state = value.state);
 
@@ -42,7 +42,6 @@ export class AudioPlayer {
         });
 
         player.addEventListener("ended", () => {
-            console.log("ended");
             this.onEnded();
         });
 
@@ -53,25 +52,28 @@ export class AudioPlayer {
     }
 
     private onEnded() {
-        if (this._queue.length) {
-            this.playNext();
-        } else {
-            this.playNext();
-        }
+        this.playNext();
     }
 
     public playNext() {
         let track: ITrack;
-        console.log('Play next');
 
         if (this._queue.length) {
             track = this._queue.shift();
+            queue.set(this._queue);
         } else {
             track = pickRandom(this._library);
         }
 
-        this.play(track);
-        queue.set({ ready: true, data: this._queue });
+        if (track) {
+            this.play(track);
+            history.update(hist => {
+                hist.push(track);
+                return hist;
+            });
+        } else {
+            this.setStopped();
+        }
     }
 
     private updateProgress() {

@@ -3,23 +3,24 @@
     import GlyphButton from "./common/GlyphButton.svelte";
 
     export let player: AudioPlayer;
+    console.log(player);
 
     /* Picture in Picture */
     // https://googlechrome.github.io/samples/picture-in-picture/audio-playlist
 
     /* Picture-in-Picture Canvas */
 
-    const canvas = document.createElement('canvas');
-    canvas.width = canvas.height = 170;
-
-    const video = document.createElement('video');
-    video.srcObject = canvas.captureStream();
-    video.muted = true;
-
     const showPictureInPictureWindow = async () => {
         if (!navigator?.mediaSession?.metadata) {
             return;
         }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = canvas.height = 170;
+
+        const video = document.createElement('video');
+        video.srcObject = canvas.captureStream();
+        video.muted = true;
 
         const image = new Image();
         image.src = [...navigator.mediaSession.metadata.artwork].pop().src;
@@ -32,6 +33,13 @@
 
     /* Previous Track & Next Track */
 
+
+    navigator.mediaSession.setActionHandler('play', () => {
+    });
+
+    navigator.mediaSession.setActionHandler('pause', () => {
+    });
+
     navigator.mediaSession.setActionHandler('previoustrack', () => {
     });
 
@@ -39,17 +47,6 @@
         player.playNext();
     });
 
-    /* Play & Pause */
-
-    navigator.mediaSession.setActionHandler('play', () => {
-    if (document.pictureInPictureElement)
-        document.pictureInPictureElement.play();
-    });
-
-    navigator.mediaSession.setActionHandler('pause', () => {
-    if (document.pictureInPictureElement)
-        document.pictureInPictureElement.pause();
-    });
 </script>
 
 <GlyphButton

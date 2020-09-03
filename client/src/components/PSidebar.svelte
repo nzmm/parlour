@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { artists, queue, liked, library } from '../core/store';
+    import { artists, queue, liked, library, currentView } from '../core/store';
     import { setToplevel } from '../core/actions';
     import { ToplevelViews } from '../core/enums/ToplevelViews';
     import ScrolledView from './common/ScrolledView.svelte';
@@ -15,18 +15,21 @@
                 href="#artists"
                 label="Artists"
                 count={$artists.length}
+                active={$currentView.toplevel === ToplevelViews.Artists}
                 on:click={() => setToplevel(ToplevelViews.Artists)} />
 
             <NavLink
                 href="#albums"
                 label="Albums"
                 count={$library.length}
+                active={$currentView.toplevel === ToplevelViews.Albums}
                 on:click={() => setToplevel(ToplevelViews.Albums)} />
 
             <NavLink
                 href="#songs"
                 label="Songs"
                 count={trackCount}
+                active={$currentView.toplevel === ToplevelViews.Songs}
                 on:click={() => setToplevel(ToplevelViews.Songs)} />
 
             <hr>
@@ -35,12 +38,14 @@
                 href="#queue"
                 label="Play Queue"
                 count={$queue.length}
+                active={$currentView.toplevel === ToplevelViews.PlayQueue}
                 on:click={() => setToplevel(ToplevelViews.PlayQueue)} />
 
             <NavLink
                 href="#liked"
                 label="Liked"
                 count={$liked.length}
+                active={$currentView.toplevel === ToplevelViews.Liked}
                 on:click={() => setToplevel(ToplevelViews.Liked)}/>
 
             <hr>

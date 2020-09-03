@@ -5,27 +5,23 @@
     export let label = "";
     export let href = "#";
     export let count = null;
-    //export let active: boolean = false;
+    export let active: boolean = false;
 </script>
 
 <a
     {href}
     class="d-flex justify-content-between align-items-center side-nav {className}"
-    on:click
-    >
+    class:active
+    on:click>
+
     <strong>{label}</strong>
     {#if count != null}
     <span class="badge badge-pill">{count}</span>
     {/if}
+
 </a>
 
 <style>
-    .badge {
-        background-color: #9d9ea0;
-        color: #fff;
-        padding-top: 3px;
-        padding-bottom: 4px;
-    }
     .side-nav {
         width: 280px;
         padding-left: 14px;
@@ -38,5 +34,20 @@
         display: block;
         color: #333;
         text-decoration: none;
+    }
+    .side-nav.active {
+        background-color: #ff2a2aff;
+        color: #fff;
+    }
+    .badge {
+        background-color: #9d9ea0;
+        color: #fff;
+        padding-top: 3px;
+        padding-bottom: 4px;
+        min-width: 20px;
+    }
+    .side-nav.active .badge {
+        background-color: #fff;
+        color: #ff2a2aff;
     }
 </style>

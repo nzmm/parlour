@@ -1,6 +1,7 @@
 <script lang="ts">
     import { currentView, library, libraryFilter } from '../core/store';
-    import { enqueue, enqueueNext, playNow, likeTrack } from '../core/actions';
+    import { likeTrack } from '../core/actions';
+    import { enqueue, enqueueNext, playNow } from '../core/playlist';
     import { ToplevelViews } from '../core/enums/ToplevelViews';
     import type { ILibraryAlbum } from "../core/interfaces/IAlbum";
     import type { AudioPlayer } from "../core/audio/player";
@@ -56,6 +57,11 @@
         sections.forEach(s => observer.observe(s));
     }
 
+    const onPlayAlbum = (release: ILibraryAlbum) => {
+        playNow(player, release.tracks[0], release.tracks);
+    }
+
+
     libraryFilter.subscribe(() => {
         loaded = {};
     });
@@ -78,7 +84,10 @@
                 {release.name}
 
                 <p class="text-muted">
-                    <small>{release.artist_name}<br/>{release.year}</small>
+                    <small>
+                        {release.artist_name || '?'} &middot; {release.year || '?'}<br/>
+                        <a href="#play-album" on:click={() => onPlayAlbum(release)}>Play album</a>
+                    </small>
                 </p>
             </h4>
         </div>

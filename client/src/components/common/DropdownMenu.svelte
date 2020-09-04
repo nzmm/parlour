@@ -1,6 +1,5 @@
 <script lang="ts">
-    import { createEventDispatcher } from 'svelte';
-
+    import { createEventDispatcher, onMount } from 'svelte';
     import BoxDropshadow from "./BoxDropshadow.svelte";
     import type { DropshadowSize } from "./enums/DropshadowSize";
 
@@ -11,6 +10,21 @@
     export let interceptor: boolean = true;
 
     const dispatch = createEventDispatcher();
+
+    const onKeyPress = (event: KeyboardEvent) => {
+        if (event.key !== "Escape") {
+            return;
+        }
+        dispatch("hide");
+    };
+
+    $: if (top >= 0 && left >= 0) {
+        if (visible) {
+            document.addEventListener("keyup", onKeyPress);
+        } else {
+            document.removeEventListener("keyup", onKeyPress);
+        }
+    }
 </script>
 
 {#if visible}

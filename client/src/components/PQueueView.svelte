@@ -10,6 +10,7 @@
 <PTrackView
     class="pb-5"
     {player}
+    indexed
     data={$queue}
     active={$currentView.toplevel === ToplevelViews.PlayQueue}>
 

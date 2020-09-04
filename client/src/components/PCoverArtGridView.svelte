@@ -1,13 +1,11 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
     import type { IAlbum } from "../core/interfaces/IAlbum";
-
     import Page from './common/Page.svelte';
     import PCoverArt from "./PCoverArt.svelte";
 
-    export let heading = "";
-    export let subheading = "";
     export let data: IAlbum[] = [];
+    export let active: boolean = false;
 
     const dispatch = createEventDispatcher();
 
@@ -15,7 +13,7 @@
     $: columnTemplate = "1fr ".repeat(Math.max(1, Math.floor(w / 200))).trimEnd();
 </script>
 
-<Page {heading} {subheading}>
+<Page bind:active>
     <section class="grid" bind:clientWidth={w} style="--col-template:{columnTemplate}">
         {#each data as item}
         <div class="item">

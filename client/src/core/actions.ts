@@ -1,52 +1,11 @@
-import { queue, currentTrack, currentView, libraryFilter, library } from './store';
+import { currentTrack, currentView, libraryFilter, library } from './store';
 import { setLiked } from '../core/api/commands';
-import { PlaybackState } from "./enums/PlaybackState";
 import { SublevelViews } from './enums/SublevelViews';
 import { ToplevelViews } from './enums/ToplevelViews';
 import type { IArtist } from './interfaces/IArtist';
 import type { IAlbum, ILibraryAlbum } from './interfaces/IAlbum';
 import type { ITrack } from "./interfaces/ITrack";
-import type { AudioPlayer } from "./audio/player";
 
-
-const enqueueWithMethod = (player: AudioPlayer, track: ITrack, method: (data: ITrack[]) => void) => {
-    if (player.state === PlaybackState.Stopped) {
-        player.play(track);
-    } else {
-        queue.update(q => {
-            method(q);
-            return q;
-        });
-    }
-}
-
-export const enqueue = (player: AudioPlayer, track: ITrack) => {
-    enqueueWithMethod(player, track, data => data.push(track));
-}
-
-export const enqueueNext = (player: AudioPlayer, track: ITrack) => {
-    enqueueWithMethod(player, track, data => data.splice(0, 0, track));
-}
-
-function shuffleArray<T>(array: T[]): T[] {
-    // Fisher-Yates shuffle
-    const shuffled = [...array];
-    for(let i = shuffled.length - 1; i > 0; i--){
-        const j = Math.floor(Math.random() * i)
-        const temp = shuffled[i]
-        shuffled[i] = shuffled[j]
-        shuffled[j] = temp
-    }
-    return shuffled;
-}
-
-export const playNow = (player: AudioPlayer, track: ITrack, playlist: ITrack[] = []) => {
-    if (player.state === PlaybackState.Stopped && !player.queue.length && playlist.length) {
-        console.log(track.id, playlist);
-        queue.set(shuffleArray(playlist.filter(t => t.id !== track.id)));
-    }
-    player.play(track);
-}
 
 export const likeTrack = async (track: ITrack) => {
     const track_id = track.id;
@@ -102,15 +61,21 @@ export const setAlbumDetailsView = (data: IAlbum) => {
 }
 
 export const unfilterLibrary = () => {
-    return libraryFilter.set({ fn: x => x });
+    return libraryFilter.set({ key: null, fn: x => x });
 }
 
 export const filterLibraryByArtist = (artist_id: number) => {
-    return libraryFilter.set({ fn: x => x.filter(r => r.artist_id === artist_id) });
+    return libraryFilter.set({
+        key: `artist:${artist_id}`,
+        fn: x => x.filter(r => r.artist_id === artist_id)
+    });
 }
 
 export const filterLibraryByAlbum = (release_id: number) => {
-    return libraryFilter.set({ fn: x => x.filter(r => r.id === release_id) });
+    return libraryFilter.set({
+        key: `album:${release_id}`,
+        fn: x => x.filter(r => r.id === release_id)
+    });
 }
 
 export const setToplevel = (view: ToplevelViews) => {

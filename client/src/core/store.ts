@@ -28,7 +28,7 @@ export const liked = readable([], function start(set) {
 });
 
 export const artistFilter = writable<{ fn: (x: IArtist[]) => IArtist[] }>({ fn: x => x });
-export const libraryFilter = writable<{ fn: (x: ILibraryAlbum[]) => ILibraryAlbum[] }>({ fn: x => x });
+export const libraryFilter = writable<{ key: string, fn: (x: ILibraryAlbum[]) => ILibraryAlbum[] }>({ key: null, fn: x => x });
 
 export const playerState = writable({
     state: PlaybackState.Stopped,

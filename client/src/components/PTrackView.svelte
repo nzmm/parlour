@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { enqueue, enqueueNext, playNow, likeTrack } from '../core/actions';
+    import { likeTrack } from '../core/actions';
+    import { enqueue, enqueueNext, playNow } from '../core/playlist';
     import type { AudioPlayer } from '../core/audio/player';
     import type { ITrack } from "../core/interfaces/ITrack";
     import Page from "./common/Page.svelte";

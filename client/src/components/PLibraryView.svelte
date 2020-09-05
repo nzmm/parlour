@@ -55,31 +55,50 @@
 <Page {active} bind:root>
     {#each releases as release}
     <section class="mb-5 pb-3" data-release={release.id}>
+        {#if loaded[release.id]}
         <div class="d-flex mb-3">
-            <PCoverArt src={loaded[release.id] ? release.thumbnail : ""} size="100px" />
+            <PCoverArt src={release.thumbnail} size="100px">
+                <button on:click={() => onPlayAlbum(release)} title="Play album">
+                    <i class="fas fa-play"></i>
+                </button>
+            </PCoverArt>
 
-            <h4 class="pl-4">
+            <h4 class="pl-4 pt-2">
                 {release.name}
 
                 <p class="text-muted">
                     <small>
                         {release.artist_name || '?'} &middot; {release.year || '?'}<br/>
-                        <a href="#play-album" on:click={() => onPlayAlbum(release)}>Play album</a>
+                    </small>
+                </p>
+            </h4>
+        </div>
+
+        <PTrackListView
+            data={release.tracks}
+            on:dropdown={showDropdown}
+            on:play={e => playNow(player, e.detail)} />
+
+        {:else}
+        <!-- Placeholder -->
+        <div class="d-flex mb-3">
+            <PCoverArt size="100px" />
+
+            <h4 class="pl-4 pt-2">
+                {release.name}
+
+                <p class="text-muted">
+                    <small>
+                        {release.artist_name || '?'} &middot; {release.year || '?'}<br/>
                     </small>
                 </p>
             </h4>
         </div>
 
         <div style="height: {37 * release.track_count}px">
-            {#if loaded[release.id]}
-            <PTrackListView
-                data={release.tracks}
-                on:dropdown={showDropdown}
-                on:play={e => playNow(player, e.detail)} />
-            {:else}
             <p class="text-muted">Loading...</p>
-            {/if}
         </div>
+        {/if}
     </section>
     {/each}
 </Page>
@@ -111,5 +130,26 @@
     }
     h4 small {
         font-size: 14px;
+    }
+    button {
+        border: 0;
+        outline: 0;
+        font-size: 200%;
+        position: absolute;
+        left: -3px;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        color: #fff;
+        background-color: rgba(0, 0, 0, .25);
+        opacity: 0;
+        transition: opacity .5s;
+        overflow: hidden;
+    }
+    button:hover {
+        opacity: 1;
+    }
+    .d-flex {
+        height: 100px;
     }
 </style>

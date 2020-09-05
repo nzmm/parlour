@@ -3,11 +3,12 @@
 
     export let glyphName: string;
     export let title: string = "";
+    export let active: boolean = false;
 </script>
 
-<Button on:click bind:title >
+<button {title} class="btn" class:active on:click>
     <i class="{glyphName}"></i>
-</Button>
+</button>
 
 <style>
     :global(button) {

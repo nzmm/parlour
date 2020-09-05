@@ -11,8 +11,13 @@
     <slot/>
 </button>
 
-<style>
+<style type="text/scss">
+    @import "../../scss/vars";
+
     button {
         position: relative;
+    }
+    .active {
+        color: $colour-primary;
     }
 </style>

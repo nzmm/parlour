@@ -1,7 +1,9 @@
-import { playerState, currentTrack, queue, history, library } from '../store';
+import { playerState, currentTrack, queue, history, library, playbackMode } from '../store';
 import { getDownload } from '../api/queries';
 import { PlaybackState } from '../enums/PlaybackState';
 import { pickRandom } from '../actions';
+import { ShuffleMode } from '../enums/ShuffleMode';
+import { RepeatMode } from '../enums/RepeatMode';
 import type { ITrack } from '../interfaces/ITrack';
 import type { ILibraryAlbum } from '../interfaces/IAlbum';
 
@@ -11,11 +13,13 @@ const ms = (sec: number) => sec * 1000;
 
 export class AudioPlayer {
 
-    private _player = new Audio();
     private _queue: ITrack[];
     private _library: ILibraryAlbum[];
     private _state: PlaybackState = PlaybackState.Stopped;
+    private _shuffle: ShuffleMode = ShuffleMode.None;
+    private _repeat: RepeatMode = RepeatMode.None;
 
+    private _player = new Audio();
     private _timer = 0;
     private _track_id = 0;
 
@@ -23,6 +27,10 @@ export class AudioPlayer {
         queue.subscribe(value => this._queue = value);
         library.subscribe(value => this._library = value);
         playerState.subscribe(value => this._state = value.state);
+        playbackMode.subscribe(({ shuffle, repeat }) => {
+            this._shuffle = shuffle;
+            this._repeat = repeat;
+        })
 
         this.initEvents(this._player);
     }
@@ -133,7 +141,25 @@ export class AudioPlayer {
         return this._player;
     }
 
-    async play(track: ITrack) {
+    public get shuffle(): ShuffleMode {
+        return this._shuffle;
+    }
+
+    public get repeat(): RepeatMode {
+        return this._repeat;
+    }
+
+    public toggleShuffle() {
+        const shuffle = ShuffleMode[ShuffleMode[this._shuffle + 1]] ?? ShuffleMode.None;
+        playbackMode.update(cur => ({...cur, shuffle}));
+    }
+
+    public toggleRepeat() {
+        const repeat = RepeatMode[RepeatMode[this._repeat + 1]] ?? RepeatMode.None;
+        playbackMode.update(cur => ({...cur, repeat}));
+    }
+
+    public async play(track: ITrack) {
         if (!track.id) {
             return;
         }
@@ -161,7 +187,7 @@ export class AudioPlayer {
         });
     }
 
-    toggle() {
+    public toggle() {
         if (!this._track_id) {
             return;
         }

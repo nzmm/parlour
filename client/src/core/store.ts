@@ -6,6 +6,8 @@ import type { ILibraryAlbum, IAlbum } from './interfaces/IAlbum';
 import type { IView } from './interfaces/IView';
 import type { IBreadcrumb } from './interfaces/IBreadcrumb';
 import { PlaybackState } from './enums/PlaybackState';
+import { ShuffleMode } from './enums/ShuffleMode';
+import { RepeatMode } from './enums/RepeatMode';
 
 const getInitialView = () => {
     const view = parseInt(sessionStorage.getItem("view"));
@@ -36,6 +38,11 @@ export const playerState = writable({
     length: 0,
     position: 0
 });
+
+export const playbackMode = writable({
+    shuffle: ShuffleMode.None,
+    repeat: RepeatMode.None
+})
 
 export const currentTrack = writable<ITrack>({
     id: 0,

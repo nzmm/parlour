@@ -16,6 +16,10 @@ export function shuffleSelection<T>(array: T[]): T[] {
     return shuffled;
 }
 
+const getTracks = (player: AudioPlayer, tracks: ITrack[]) => {
+    return player.shuffle && tracks.length ? shuffleSelection(tracks) : [...tracks];
+}
+
 const enqueueWithMethod = (player: AudioPlayer, tracks: ITrack[], method: (data: ITrack[]) => void) => {
     if (player.state === PlaybackState.Stopped) {
         player.play(tracks.shift());
@@ -27,12 +31,12 @@ const enqueueWithMethod = (player: AudioPlayer, tracks: ITrack[], method: (data:
 }
 
 export const enqueue = (player: AudioPlayer, tracks: ITrack[]) => {
-    tracks = [...tracks];
+    tracks = getTracks(player, tracks);
     enqueueWithMethod(player, tracks, data => data.push(...tracks));
 }
 
 export const enqueueNext = (player: AudioPlayer, tracks: ITrack[]) => {
-    tracks = [...tracks];
+    tracks = getTracks(player, tracks);
     enqueueWithMethod(player, tracks, data => data.splice(0, 0, ...tracks));
 }
 

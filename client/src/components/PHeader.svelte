@@ -1,4 +1,7 @@
 <script lang="ts">
+import { DropdownPlacement } from '../core/enums/DropdownPlacement';
+
+import Dropdown from './common/Dropdown.svelte';
     import NavBar from './common/NavBar.svelte';
     import TextDropshadow from './common/TextDropshadow.svelte';
     import PSearchMusicInput from "./PSearchMusicInput.svelte";
@@ -11,11 +14,24 @@
 
     <PSearchMusicInput />
 
-    <button class="user btn p-0" style="margin-top: 1px;">
-        <TextDropshadow size="smallest">
-            <strong>MM</strong>
-        </TextDropshadow>
-    </button>
+    <Dropdown placement={DropdownPlacement.BottomRight}>
+        <button class="user btn p-0" style="margin-top: 1px;" slot="toggle">
+            <TextDropshadow size="smallest">
+                <strong>MM</strong>
+            </TextDropshadow>
+        </button>
+
+        <a class="dropdown-item" href="/accounts/logout/">
+            Log out
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="/admin/">
+            Admin
+        </a>
+
+    </Dropdown>
 
 </NavBar>
 

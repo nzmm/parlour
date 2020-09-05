@@ -130,3 +130,6 @@ STATICFILES_DIRS = [
 # Media (file uploads)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# accounts
+LOGOUT_REDIRECT_URL = '/'

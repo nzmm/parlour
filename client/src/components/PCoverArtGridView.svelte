@@ -1,5 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
+    import { intersectionObservable } from "../core/observable";
     import type { IAlbum } from "../core/interfaces/IAlbum";
     import Page from './common/Page.svelte';
     import PCoverArt from "./PCoverArt.svelte";
@@ -9,16 +10,28 @@
 
     const dispatch = createEventDispatcher();
 
+    let root: HTMLElement;
+    let loaded = {};
     let w: number;
+
     $: columnTemplate = "1fr ".repeat(Math.max(1, Math.floor(w / 200))).trimEnd();
+
+    $: if (active && data?.length) {
+        intersectionObservable(
+            root,
+            ".cover",
+            data,
+            (e: HTMLElement) => { loaded[e.dataset.release] = true; });
+    }
+
 </script>
 
-<Page bind:active>
+<Page bind:active bind:root>
     <section class="grid" bind:clientWidth={w} style="--col-template:{columnTemplate}">
         {#each data as item}
-        <div class="item">
+        <div class="cover" data-release={item.id}>
             <button class="btn" id="item-{item.id}" on:click={() => dispatch("details", item)}>
-                <PCoverArt size="150px" src={item.thumbnail} />
+                <PCoverArt size="150px" src={loaded[item.id] ? item.thumbnail : ''} />
             </button>
             <label class="pt-1" for="item-{item.id}">
                 <slot {item} name="label">
@@ -38,15 +51,15 @@
         grid-auto-rows: 230px;
         column-gap: 40px;
     }
-    .grid > .item {
+    .cover {
         line-height: 1;
         text-align: center;
         justify-self: center;
     }
-    .grid > .item > button {
+    .cover > button {
         padding: 2px;
     }
-    .grid > .item > label {
+    .cover > label {
         display: block;
         font-size: 14px;
     }

@@ -2,6 +2,7 @@
     import { currentView, library, libraryFilter } from '../core/store';
     import { likeTrack } from '../core/actions';
     import { enqueue, enqueueNext, playNow } from '../core/playlist';
+    import { intersectionObservable } from '../core/observable';
     import { ToplevelViews } from '../core/enums/ToplevelViews';
     import type { ILibraryAlbum } from "../core/interfaces/IAlbum";
     import type { AudioPlayer } from "../core/audio/player";
@@ -29,38 +30,9 @@
         track = event.detail.item;
     };
 
-    const initLazyLoading = (releases: ILibraryAlbum[]) => {
-        const sections = root?.querySelectorAll('section');
-        console.log(releases.length, sections?.length);
-
-        if (!sections || sections.length !== releases.length) {
-            setTimeout(() => initLazyLoading(releases), 300);
-            return;
-        }
-
-        const options: IntersectionObserverInit = {
-            root,
-            rootMargin: '0px',
-            threshold: 0.1
-        }
-
-        const callback: IntersectionObserverCallback = entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const elem = entry.target as HTMLElement;
-                    loaded[elem.dataset.release] = true;
-                }
-            });
-        }
-
-        const observer = new IntersectionObserver(callback, options);
-        sections.forEach(s => observer.observe(s));
-    }
-
     const onPlayAlbum = (release: ILibraryAlbum) => {
         playNow(player, release.tracks[0], release.tracks);
     }
-
 
     libraryFilter.subscribe(() => {
         loaded = {};
@@ -70,7 +42,13 @@
 
     $: if (active) {
         releases = $libraryFilter.fn($library);
-        setTimeout(() => initLazyLoading(releases), 150);
+        if (releases.length) {
+            intersectionObservable(
+                root,
+                "section",
+                releases,
+                (e: HTMLElement) => { loaded[e.dataset.release] = true; });
+        }
     }
 </script>
 

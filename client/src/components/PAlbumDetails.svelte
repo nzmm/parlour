@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { enqueue, enqueueNext, playNow } from '../core/actions';
+    import { enqueue, enqueueNext, playNow } from '../core/playlist';
     import { getAlbumDetails } from "../core/api/queries";
     import type { IAlbum } from "../core/interfaces/IAlbum";
     import type { ITrack } from "../core/interfaces/ITrack";
@@ -33,7 +33,6 @@
 
     <PTrackListView
         data={tracks}
-        withQueueActions
         on:play={e => playNow(player, e.detail)}
         on:enqueue={e => enqueue(player, e.detail)}
         on:enqueueNext={e => enqueueNext(player, e.detail)}/>

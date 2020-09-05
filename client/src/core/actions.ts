@@ -61,19 +61,32 @@ export const setAlbumDetailsView = (data: IAlbum) => {
 }
 
 export const unfilterLibrary = () => {
-    return libraryFilter.set({ key: null, fn: x => x });
+    return libraryFilter.set({ breadcrumbs: null, fn: x => x });
 }
 
-export const filterLibraryByArtist = (artist_id: number) => {
+const navigateFromBreadcrumb = (toplevel: ToplevelViews) => {
+    setToplevel(toplevel);
+    unfilterLibrary();
+}
+
+export const filterLibraryByArtist = (artist_id: number, artist_name: string, toplevel: ToplevelViews = ToplevelViews.Artists) => {
     return libraryFilter.set({
-        key: `artist:${artist_id}`,
+        breadcrumbs: [
+            {label: "Library", navigateTo: () => navigateFromBreadcrumb(ToplevelViews.Songs)},
+            {label: "Artists", navigateTo: () => navigateFromBreadcrumb(toplevel)},
+            {label: artist_name}
+        ],
         fn: x => x.filter(r => r.artist_id === artist_id)
     });
 }
 
-export const filterLibraryByAlbum = (release_id: number) => {
+export const filterLibraryByAlbum = (release_id: number, release_name: string, toplevel: ToplevelViews = ToplevelViews.Albums) => {
     return libraryFilter.set({
-        key: `album:${release_id}`,
+        breadcrumbs: [
+            {label: "Library", navigateTo: () => navigateFromBreadcrumb(ToplevelViews.Songs)},
+            {label: "Albums", navigateTo: () => navigateFromBreadcrumb(toplevel)},
+            {label: release_name}
+        ],
         fn: x => x.filter(r => r.id === release_id)
     });
 }

@@ -11,12 +11,13 @@
 <aside class="border-right">
     <ScrolledView overflowX="hidden" overflowY="auto">
         <div class="wrapper">
+
             <NavLink
-                href="#artists"
-                label="Artists"
-                count={$artists.length}
-                active={$currentView.toplevel === ToplevelViews.Artists}
-                on:click={() => setToplevel(ToplevelViews.Artists)} />
+                href="#songs"
+                label="Songs"
+                count={trackCount}
+                active={$currentView.toplevel === ToplevelViews.Songs}
+                on:click={() => setToplevel(ToplevelViews.Songs)} />
 
             <NavLink
                 href="#albums"
@@ -26,11 +27,11 @@
                 on:click={() => setToplevel(ToplevelViews.Albums)} />
 
             <NavLink
-                href="#songs"
-                label="Songs"
-                count={trackCount}
-                active={$currentView.toplevel === ToplevelViews.Songs}
-                on:click={() => setToplevel(ToplevelViews.Songs)} />
+                href="#artists"
+                label="Artists"
+                count={$artists.length}
+                active={$currentView.toplevel === ToplevelViews.Artists}
+                on:click={() => setToplevel(ToplevelViews.Artists)} />
 
             <hr>
 
@@ -68,5 +69,10 @@
     .wrapper {
         padding-top: 24px;
         padding-bottom: 24px;
+    }
+    hr {
+        margin-left: 8px;
+        margin-right: 8px;
+        opacity: .5;
     }
 </style>

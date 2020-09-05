@@ -7,7 +7,7 @@
 
     const onDetails = (event: CustomEvent<IArtist>) => {
         setToplevel(ToplevelViews.Songs);
-        filterLibraryByArtist(event.detail.id);
+        filterLibraryByArtist(event.detail.id, event.detail.name);
     }
 </script>
 

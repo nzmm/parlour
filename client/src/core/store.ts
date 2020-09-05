@@ -4,6 +4,7 @@ import type { IArtist } from './interfaces/IArtist';
 import type { ITrack } from './interfaces/ITrack';
 import type { ILibraryAlbum, IAlbum } from './interfaces/IAlbum';
 import type { IView } from './interfaces/IView';
+import type { IBreadcrumb } from './interfaces/IBreadcrumb';
 import { PlaybackState } from './enums/PlaybackState';
 
 const getInitialView = () => {
@@ -28,7 +29,7 @@ export const liked = readable([], function start(set) {
 });
 
 export const artistFilter = writable<{ fn: (x: IArtist[]) => IArtist[] }>({ fn: x => x });
-export const libraryFilter = writable<{ key: string, fn: (x: ILibraryAlbum[]) => ILibraryAlbum[] }>({ key: null, fn: x => x });
+export const libraryFilter = writable<{ breadcrumbs?: IBreadcrumb[], fn: (x: ILibraryAlbum[]) => ILibraryAlbum[] }>({ breadcrumbs: null, fn: x => x });
 
 export const playerState = writable({
     state: PlaybackState.Stopped,

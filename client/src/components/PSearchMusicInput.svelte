@@ -30,13 +30,13 @@ import { ToplevelViews } from '../core/enums/ToplevelViews';
 
         switch (data.group) {
             case SearchGroups.Artists:
-                filterLibraryByArtist(data.id);
+                filterLibraryByArtist(data.id, data.name);
                 break;
             case SearchGroups.Releases:
-                filterLibraryByAlbum(data.id);
+                filterLibraryByAlbum(data.id, data.name);
                 break;
             case SearchGroups.Tracks:
-                filterLibraryByAlbum(data.release_id);
+                filterLibraryByAlbum(data.release_id, data.name);
                 setTimeout(() => {
                     document.getElementById(`track:${data.id}`)?.focus();
                 }, 350);

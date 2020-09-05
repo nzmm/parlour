@@ -1,6 +1,6 @@
 <script lang="ts">
     import { currentView, library, libraryFilter } from '../core/store';
-    import { likeTrack } from '../core/actions';
+    import { likeTrack, unfilterLibrary } from '../core/actions';
     import { enqueue, enqueueNext, playNow } from '../core/playlist';
     import { intersectionObservable } from '../core/observable';
     import { ToplevelViews } from '../core/enums/ToplevelViews';
@@ -53,6 +53,19 @@
 </script>
 
 <Page {active} bind:root>
+    {#if $libraryFilter.breadcrumbs}
+    <div class="breadcrumbs pb-4">
+        {#each $libraryFilter.breadcrumbs as crumb}
+            {#if crumb.navigateTo}
+            <a href="#back" class="crumb" on:click|preventDefault={() => crumb.navigateTo()}>{crumb.label}</a>
+            <span class="crumb caret">〉</span>
+            {:else}
+            <span class="crumb">{crumb.label}</span>
+            {/if}
+        {/each}
+    </div>
+    {/if}
+
     {#each releases as release}
     <section class="mb-5 pb-3" data-release={release.id}>
         {#if loaded[release.id]}
@@ -149,7 +162,12 @@
     button:hover {
         opacity: 1;
     }
-    .d-flex {
-        height: 100px;
+    .crumb {
+        color: #999;
+        padding-right: 6px;
+        font-size: 15px;
+    }
+    .caret {
+        font-size: 11px;
     }
 </style>

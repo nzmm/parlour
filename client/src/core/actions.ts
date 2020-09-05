@@ -1,4 +1,4 @@
-import { currentTrack, currentView, libraryFilter, library } from './store';
+import { currentTrack, currentView, libraryFilter, library, queue } from './store';
 import { setLiked } from '../core/api/commands';
 import { SublevelViews } from './enums/SublevelViews';
 import { ToplevelViews } from './enums/ToplevelViews';
@@ -32,6 +32,16 @@ export const likeTrack = async (track: ITrack) => {
             }
         }
         return lib;
+    });
+
+    queue.update(qu => {
+        for (const t of qu) {
+            if (t.id === track_id) {
+                t.liked = liked;
+                return qu;
+            }
+        }
+        return qu;
     });
 }
 

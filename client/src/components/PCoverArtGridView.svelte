@@ -5,6 +5,9 @@
     import Page from './common/Page.svelte';
     import PCoverArt from "./PCoverArt.svelte";
 
+    let className = "";
+
+    export { className as class };
     export let data: IAlbum[] = [];
     export let active: boolean = false;
 
@@ -21,15 +24,15 @@
             root,
             ".cover",
             data,
-            (e: HTMLElement) => { loaded[e.dataset.release] = true; });
+            (e: HTMLElement) => { loaded[e.dataset.itemid] = true; });
     }
 
 </script>
 
 <Page bind:active bind:root>
-    <section class="grid" bind:clientWidth={w} style="--col-template:{columnTemplate}">
+    <section class="grid {className}" bind:clientWidth={w} style="--col-template:{columnTemplate}">
         {#each data as item}
-        <div class="cover" data-release={item.id}>
+        <div class="cover" data-itemid={item.id}>
             <button class="btn" id="item-{item.id}" on:click={() => dispatch("details", item)}>
                 <PCoverArt size="150px" src={loaded[item.id] ? item.thumbnail : ''} />
             </button>

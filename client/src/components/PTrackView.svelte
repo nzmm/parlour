@@ -9,9 +9,9 @@
 
     let className = "";
 
+    export { className as class };
     export let player: AudioPlayer;
     export let active: boolean = true;
-    export { className as class };
     export let data: ITrack[] = [];
     export let indexed: boolean = false;
 

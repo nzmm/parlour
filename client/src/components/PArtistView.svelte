@@ -12,6 +12,13 @@
 </script>
 
 <PCoverArtGridView
+    class="artist"
     data={$artists}
     on:details={onDetails}
     active={$currentView.toplevel === ToplevelViews.Artists} />
+
+<style>
+    :global(.artist.grid button, .artist.grid .p-cover, .artist.grid img) {
+        border-radius: 50%;
+    }
+</style>

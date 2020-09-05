@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { enqueue, enqueueNext, playNow } from '../core/actions';
+    import { enqueue, enqueueNext, playNow } from '../core/playlist';
     import { getArtistDetails } from "../core/api/queries";
     import type { IArtist } from "../core/interfaces/IArtist";
     import type { IAlbum } from "../core/interfaces/IAlbum";

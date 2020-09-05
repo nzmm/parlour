@@ -19,7 +19,7 @@
 
     <div class="header pt-4 pb-3">
         <h2>Play Queue</h2>
-        <p class="text-muted">{$queue.length} tracks queued ({duration})</p>
+        <p class="text-muted">{$queue.length} tracks queued{$queue.length ? ` (${duration})` : ''}</p>
     </div>
 
 </PTrackView>

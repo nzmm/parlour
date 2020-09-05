@@ -16,29 +16,28 @@ export function shuffleSelection<T>(array: T[]): T[] {
     return shuffled;
 }
 
-const enqueueWithMethod = (player: AudioPlayer, track: ITrack, method: (data: ITrack[]) => void) => {
+const enqueueWithMethod = (player: AudioPlayer, tracks: ITrack[], method: (data: ITrack[]) => void) => {
     if (player.state === PlaybackState.Stopped) {
-        player.play(track);
-    } else {
-        queue.update(q => {
-            method(q);
-            return q;
-        });
+        player.play(tracks.shift());
     }
+    queue.update(q => {
+        method(q);
+        return q;
+    });
 }
 
-export const enqueue = (player: AudioPlayer, track: ITrack) => {
-    enqueueWithMethod(player, track, data => data.push(track));
+export const enqueue = (player: AudioPlayer, tracks: ITrack[]) => {
+    tracks = [...tracks];
+    enqueueWithMethod(player, tracks, data => data.push(...tracks));
 }
 
-export const enqueueNext = (player: AudioPlayer, track: ITrack) => {
-    enqueueWithMethod(player, track, data => data.splice(0, 0, track));
+export const enqueueNext = (player: AudioPlayer, tracks: ITrack[]) => {
+    tracks = [...tracks];
+    enqueueWithMethod(player, tracks, data => data.splice(0, 0, ...tracks));
 }
 
-export const playNow = (player: AudioPlayer, track: ITrack, playlist: ITrack[] = []) => {
-    if (player.state === PlaybackState.Stopped && !player.queue.length && playlist.length) {
-        console.log(track.id, playlist);
-        queue.set(shuffleSelection(playlist.filter(t => t.id !== track.id)));
-    }
-    player.play(track);
+export const playNow = (player: AudioPlayer, tracks: ITrack[]) => {
+    tracks = [...tracks];
+    player.play(tracks.shift());
+    enqueueNext(player, tracks);
 }

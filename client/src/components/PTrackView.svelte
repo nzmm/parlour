@@ -35,21 +35,21 @@
             {data}
             bind:indexed
             on:dropdown={showDropdown}
-            on:play={e => playNow(player, e.detail, data)} />
+            on:play={e => playNow(player, [e.detail])} />
     </section>
 </Page>
 
 <DropdownMenu {visible} {top} {left} on:hide={() => visible = false}>
-    <a class="dropdown-item" href="#play" on:click|preventDefault={() => playNow(player, track, data)}>
+    <a class="dropdown-item" href="#play" on:click|preventDefault={() => playNow(player, [track])}>
         Play
     </a>
 
     <div class="dropdown-divider"></div>
 
-    <a class="dropdown-item" href="#enqueue" on:click|preventDefault={() => enqueue(player, track)}>
+    <a class="dropdown-item" href="#enqueue" on:click|preventDefault={() => enqueue(player, [track])}>
         Add to queue
     </a>
-    <a class="dropdown-item" href="#next" on:click|preventDefault={() => enqueueNext(player, track)}>
+    <a class="dropdown-item" href="#next" on:click|preventDefault={() => enqueueNext(player, [track])}>
         Play next
     </a>
 

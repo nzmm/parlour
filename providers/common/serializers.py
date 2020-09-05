@@ -29,6 +29,7 @@ DEFAULT_SONG_FIELDS = (
     'release_name',
     'release_id',
     'year',
+    'length',
     'length_display',
     'thumbnail',
     'liked')

@@ -21,7 +21,9 @@
 
 </a>
 
-<style>
+<style type="text/scss">
+    @import '../../scss/vars';
+
     .side-nav {
         width: 280px;
         padding-left: 14px;
@@ -33,26 +35,26 @@
         overflow: hidden;
         text-overflow: ellipsis;
         display: block;
-        color: #333;
+        color: $colour-grey-dark;
         text-decoration: none;
         transition: background-color .3s;
     }
     .side-nav:hover {
-        background-color: rgb(231, 230, 230);
+        background-color: $colour-grey-light;
     }
     .side-nav.active {
-        background-color: #ff2a2aff;
-        color: #fff;
+        background-color: $colour-primary;
+        color: $colour-white;
     }
     .badge {
-        background-color: #9d9ea0;
-        color: #fff;
+        background-color: $colour-grey-medium;
+        color: $colour-white;
         padding-top: 3px;
         padding-bottom: 4px;
         min-width: 20px;
     }
     .side-nav.active .badge {
-        background-color: #fff;
-        color: #ff2a2aff;
+        background-color: $colour-white;
+        color: $colour-primary;
     }
 </style>

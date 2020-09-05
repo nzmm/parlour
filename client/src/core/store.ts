@@ -43,6 +43,7 @@ export const currentTrack = writable<ITrack>({
     name: '',
     artist_credit: '',
     release_name: '',
+    length: 0,
     length_display: '',
     thumbnail: '',
     liked: false

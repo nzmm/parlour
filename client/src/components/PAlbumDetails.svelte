@@ -33,8 +33,8 @@
 
     <PTrackListView
         data={tracks}
-        on:play={e => playNow(player, e.detail)}
-        on:enqueue={e => enqueue(player, e.detail)}
-        on:enqueueNext={e => enqueueNext(player, e.detail)}/>
+        on:play={e => playNow(player, [e.detail])}
+        on:enqueue={e => enqueue(player, [e.detail])}
+        on:enqueueNext={e => enqueueNext(player, [e.detail])}/>
 
 </PDetailsView>

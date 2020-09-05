@@ -7,6 +7,7 @@
     import PQueueView from "./PQueueView.svelte";
     import PLikedView from "./PLikedView.svelte";
     import PAlbumView from "./PAlbumView.svelte";
+    import PArtistView from "./PArtistView.svelte";
     import PSidebar from "./PSidebar.svelte";
 
     export let player: AudioPlayer;
@@ -27,6 +28,7 @@
     <div class="d-flex h-100 w-100">
         <PSidebar {trackCount} />
         <PAlbumView />
+        <PArtistView />
         <PLibraryView {player} />
         <PQueueView {player} />
         <PLikedView {player} />

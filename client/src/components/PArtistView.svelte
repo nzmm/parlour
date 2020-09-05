@@ -1,42 +1,17 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-    import { getArtists } from '../core/api/queries';
-    import { setArtistDetailsView, goBack } from '../core/actions';
+    import { filterLibraryByArtist, setToplevel } from '../core/actions';
+    import { ToplevelViews } from '../core/enums/ToplevelViews';
+    import type { IArtist } from '../core/interfaces/IArtist';
     import { artists, currentView } from '../core/store';
-    import { SublevelViews } from "../core/enums/SublevelViews";
-    import type { AudioPlayer } from "../core/audio/player";
-
     import PCoverArtGridView from "./PCoverArtGridView.svelte";
-    import PArtistDetails from "./PArtistDetails.svelte";
 
-    export let player: AudioPlayer;
-
-    onMount(async () => {
-        if ($artists.ready) {
-            return;
-        }
-
-        const res = await getArtists();
-        const data = await res.json();
-        artists.set({ ready: true, data: data.artists });
-    });
-
-    const onDetails = (event: CustomEvent) => {
-        setArtistDetailsView(event.detail);
+    const onDetails = (event: CustomEvent<IArtist>) => {
+        setToplevel(ToplevelViews.Songs);
+        filterLibraryByArtist(event.detail.id);
     }
-
-    $: view = $currentView;
 </script>
 
-{#if view.sublevel === SublevelViews.ArtistDetails && view.data}
-    <PArtistDetails
-        {player}
-        artist={view.data}
-        on:back={goBack} />
-{:else}
-    <PCoverArtGridView
-        heading="Artists"
-        subheading="{$artists.data.length} artists"
-        data={$artists.data}
-        on:details={onDetails} />
-{/if}
+<PCoverArtGridView
+    data={$artists}
+    on:details={onDetails}
+    active={$currentView.toplevel === ToplevelViews.Artists} />

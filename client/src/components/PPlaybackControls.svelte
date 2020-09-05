@@ -2,6 +2,7 @@
     import { playerState } from '../core/store';
     import { PlaybackState } from '../core/enums/PlaybackState';
     import type { AudioPlayer } from '../core/audio/player';
+    import Loader from "./common/Loader.svelte";
     import GlyphButton from "./common/GlyphButton.svelte";
     import TextDropshadow from "./common/TextDropshadow.svelte";
     import PPlaybackProgressbar from './PPlaybackProgressbar.svelte';
@@ -22,7 +23,15 @@
         <TextDropshadow>
             <GlyphButton
                 glyphName={$playerState.state === PlaybackState.Playing  ? 'fas fa-pause' : 'fas fa-play'}
-                on:click={() => player.toggle()} />
+                on:click={() => player.toggle()}>
+
+                {#if $playerState.state === PlaybackState.Loading}
+                <div class="loader">
+                    <Loader />
+                </div>
+                {/if}
+
+            </GlyphButton>
         </TextDropshadow>
 
         <TextDropshadow>
@@ -42,8 +51,13 @@
 
 </section>
 
-<style>
+<style type="text/scss">
     section {
         width: 33vw;
+    }
+    .loader {
+        position: absolute;
+        top: -22px;
+        left: -22px;
     }
 </style>

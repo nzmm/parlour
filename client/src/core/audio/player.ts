@@ -138,6 +138,8 @@ export class AudioPlayer {
             return;
         }
 
+        playerState.update(cur => ({...cur, state: PlaybackState.Loading}));
+
         this._track_id = track.id;
         currentTrack.set(track);
 

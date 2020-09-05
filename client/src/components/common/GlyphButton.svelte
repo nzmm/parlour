@@ -8,12 +8,11 @@
 
 <button {title} class="btn" class:active on:click>
     <i class="{glyphName}"></i>
+    <slot/>
 </button>
 
 <style>
-    :global(button) {
-        padding: 1px 6px;
-        margin: 3px;
-        margin-top: 0;
+    button {
+        position: relative;
     }
 </style>

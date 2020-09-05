@@ -25,10 +25,14 @@ import Dropdown from './common/Dropdown.svelte';
             Log out
         </a>
 
-        <div class="dropdown-divider"></div>
-
         <a class="dropdown-item" href="/admin/">
             Admin
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="https://github.com/nzmm/parlour" target="_blank">
+            Github
         </a>
 
     </Dropdown>

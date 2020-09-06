@@ -48,10 +48,10 @@
 		right: 0;
 		top: 0;
 		bottom: 0;
-		background-color: $colour-primary;
+		background-color: $colour-white;
 
 		:global(.lds-roller div::after) {
-			background-color: $colour-white !important;
+			background-color: $colour-primary !important;
 		}
 	}
 </style>

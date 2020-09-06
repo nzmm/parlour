@@ -14,22 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from server import views
+from server.views import providers, api
 
 urlpatterns = [
-    path('graph_signin', views.graph_sign_in, name='graph_signin'),
-    path('graph_signout', views.graph_sign_out, name='graph_signout'),
-    path('graph_callback', views.graph_callback, name='graph_callback'),
+    path('graph_signin', providers.graph_sign_in, name='graph_signin'),
+    path('graph_signout', providers.graph_sign_out, name='graph_signout'),
+    path('graph_callback', providers.graph_callback, name='graph_callback'),
 
-    path('get_artists', views.get_artists, name='get_artists'),
-    path('get_albums', views.get_albums, name='get_albums'),
-    path('get_songs', views.get_songs, name='get_songs'),
-    path('get_library', views.get_library, name='get_library'),
-    path('get_download', views.get_download, name='get_download'),
-    path('get_thumbnail', views.get_thumbnail, name='get_thumbnail'),
-    path('get_artist_details', views.get_artist_details, name='get_artist_details'),
-    path('get_album_details', views.get_album_details, name='get_album_details'),
-    path('search', views.search, name='search'),
+    path('get_artists', api.get_artists, name='get_artists'),
+    path('get_albums', api.get_albums, name='get_albums'),
+    path('get_songs', api.get_songs, name='get_songs'),
+    path('get_library', api.get_library, name='get_library'),
+    path('get_download', api.get_download, name='get_download'),
+    path('get_thumbnail', api.get_thumbnail, name='get_thumbnail'),
+    path('get_artist_details', api.get_artist_details, name='get_artist_details'),
+    path('get_album_details', api.get_album_details, name='get_album_details'),
+    path('search', api.search, name='search'),
 
-    path('set_liked', views.set_liked, name='set_liked')
+    path('set_liked', api.set_liked, name='set_liked')
 ]

@@ -15,26 +15,6 @@ from server.models import Artist, Release, Track
 
 
 @login_required
-def graph_sign_in(request):
-    sign_in_url, state = get_sign_in_url()
-    request.session['auth_state'] = state
-    return HttpResponseRedirect(sign_in_url)
-
-
-@login_required
-def graph_sign_out(request):
-    remove_token(request.user)
-    return HttpResponseRedirect(reverse('home'))
-
-
-def graph_callback(request):
-    expected_state = request.session.pop('auth_state', '')
-    token = get_token_from_code(request.get_full_path(), expected_state)
-    store_token(request.user, token)
-    return HttpResponseRedirect(reverse('home'))
-
-
-@login_required
 def get_artists(request):
     artists = queries.get_artists_query(request.user)
     data = {'artists': serializers.serialize_artists(artists)}

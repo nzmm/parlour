@@ -5,33 +5,33 @@ export async function getArtists() {
 }
 
 export async function getAlbums() {
-    return GET("/providers/get_albums");
+    return GET("/api/get_albums");
 }
 
 export async function getSongs() {
-    return GET("/providers/get_songs");
+    return GET("/api/get_songs");
 }
 
 export async function getLibrary() {
-    return GET("/providers/get_library");
+    return GET("/api/get_library");
 }
 
 export async function getDownload(id: number) {
-    return GET("/providers/get_download", { id });
+    return GET("/api/get_download", { id });
 }
 
 export async function getThumbnail(id: number) {
-    return GET("/providers/get_thumbnail", { id });
+    return GET("/api/get_thumbnail", { id });
 }
 
 export async function getArtistDetails(id: number) {
-    return GET("/providers/get_artist_details", { id });
+    return GET("/api/get_artist_details", { id });
 }
 
 export async function getAlbumDetails(id: number) {
-    return GET("/providers/get_album_details", { id });
+    return GET("/api/get_album_details", { id });
 }
 
 export async function search(q: string) {
-    return GET("/providers/search", { q });
+    return GET("/api/search", { q });
 }

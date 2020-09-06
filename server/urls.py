@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from providers import views
+from server import views
 
 urlpatterns = [
     path('graph_signin', views.graph_sign_in, name='graph_signin'),

@@ -1,5 +1,5 @@
 from django.db.models import F, Count
-from providers.models import Artist, Release, Track
+from server.models import Artist, Release, Track
 
 
 def get_artists_query(user):

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from providers.common.caching import release_thumbnail_upload_to
+from server.common.caching import release_thumbnail_upload_to
 
 
 class Token(models.Model):

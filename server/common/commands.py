@@ -1,4 +1,4 @@
-from providers.models import Track
+from server.models import Track
 
 
 def set_track_liked(user, track_id, liked):

@@ -1,6 +1,6 @@
-from providers.graph.auth import get_token
-from providers.graph.requests import get_item, get_thumbnails
-from providers.common.caching import release_cache_thumbnail
+from server.graph.auth import get_token
+from server.graph.requests import get_item, get_thumbnails
+from server.common.caching import release_cache_thumbnail
 
 
 def get_track_download_url(track):

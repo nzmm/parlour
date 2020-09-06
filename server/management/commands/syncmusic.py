@@ -1,8 +1,8 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
-from providers.models import Token
-from providers.graph.auth import PROVIDER_GRAPH, get_token as graph_get_token
-from providers.graph.sync import sync_music as graph_sync_music
+from server.models import Token
+from server.graph.auth import PROVIDER_GRAPH, get_token as graph_get_token
+from server.graph.sync import sync_music as graph_sync_music
 
 
 class Command(BaseCommand):

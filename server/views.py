@@ -4,14 +4,14 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
-from providers.graph.auth import get_sign_in_url, get_token_from_code, get_token, store_token, remove_token
-from providers.common import queries
-from providers.common import commands
-from providers.common import serializers
-from providers.common.encoders import ParlourJSONEncoder
-from providers.graph.content import get_track_download_url, get_track_thumbnail_url
-from providers.common.utils import get_body_json
-from providers.models import Artist, Release, Track
+from server.graph.auth import get_sign_in_url, get_token_from_code, get_token, store_token, remove_token
+from server.common import queries
+from server.common import commands
+from server.common import serializers
+from server.common.encoders import ParlourJSONEncoder
+from server.graph.content import get_track_download_url, get_track_thumbnail_url
+from server.common.utils import get_body_json
+from server.models import Artist, Release, Track
 
 
 @login_required

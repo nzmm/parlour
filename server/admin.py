@@ -1,5 +1,5 @@
 from django.contrib import admin
-from providers.models import (
+from server.models import (
     Token,
     Artist,
     Release,

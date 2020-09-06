@@ -3,7 +3,7 @@ import ast
 import time
 import yaml
 from requests_oauthlib import OAuth2Session
-from providers.models import Token
+from server.models import Token
 
 # This is necessary for testing with non-HTTPS localhost
 # Remove this if deploying to production

@@ -1,5 +1,12 @@
-<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+<script lang="ts">
+  export let scale: number = 0.5;
+  export let bold: boolean = false;
+</script>
+
 <!-- Thanks https://github.com/loadingio/css-spinner/ -->
+<div class="lds-roller" class:bold style="--scale:{scale}">
+  <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+</div>
 
 <style>
 .lds-roller {
@@ -7,7 +14,7 @@
   position: relative;
   width: 80px;
   height: 80px;
-  transform: scale(.5);
+  transform: scale(var(--scale));
 }
 .lds-roller div {
   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
@@ -22,6 +29,10 @@
   border-radius: 50%;
   background: #333;
   margin: -4px 0 0 -4px;
+}
+.lds-roller.bold div:after {
+  width: 6px;
+  height: 6px;
 }
 .lds-roller div:nth-child(1) {
   animation-delay: -0.036s;

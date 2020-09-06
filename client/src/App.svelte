@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { getLibrary } from "./core/api/queries";
+	import { fade } from "svelte/transition";
+	import { getLibrary } from "./core/api/queries";
     import { library, artists } from "./core/store";
 	import { AudioPlayer } from './core/audio/player';
 	import Loader from "./components/common/Loader.svelte";
@@ -27,12 +28,12 @@
 </script>
 
 <main>
-	{#if ready}
 	<PHeader />
 	<PBody {player} {trackCount} />
 	<PFooter {player} />
-	{:else}
-	<div class="loader d-flex justify-content-center align-items-center">
+
+	{#if !ready}
+	<div transition:fade class="loader d-flex justify-content-center align-items-center">
 		<Loader bold scale={1.25} />
 	</div>
 	{/if}

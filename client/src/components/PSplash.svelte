@@ -14,7 +14,7 @@
         <a href="/providers/graph_signin">Please begin by connecting Parlour to your OneDrive&hellip;</a>
     </div>
 </div>
-<div class="emergency-logout">
+<div class="emergency-exit">
     <a href="/accounts/logout/" title="Log out">
         <i class="far fa-times-circle"></i>
     </a>
@@ -44,8 +44,8 @@
 			background-color: $colour-primary !important;
 		}
 	}
-	.emergency-logout {
-		z-index: 1101;
+	.emergency-exit {
+		z-index: 1100;
 		position: fixed;
 		top: 15px;
 		right: 20px;

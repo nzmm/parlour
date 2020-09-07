@@ -21,6 +21,7 @@
         <Button
             narrow
             primary
+            disabled={!$liked.length}
             on:click={() => playNow(player, $liked)}>
             Play
         </Button>

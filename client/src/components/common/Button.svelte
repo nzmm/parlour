@@ -3,11 +3,12 @@
 
     export { className as class };
     export let title: string = "";
+    export let disabled: boolean = false;
     export let primary: boolean = false;
     export let narrow: boolean = false;
 </script>
 
-<button class="btn {className}" class:primary class:narrow {title} on:click>
+<button class="btn {className}" class:primary class:narrow {title} {disabled} on:click>
     <slot/>
 </button>
 
@@ -19,7 +20,7 @@
         color: $colour-white;
         border: 1px solid darken($colour-primary, 20%)
     }
-    .primary:hover {
+    .primary:hover:not(:disabled) {
         background-color: lighten($colour-primary, 10%);
     }
     .primary:active {

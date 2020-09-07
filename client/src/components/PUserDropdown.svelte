@@ -31,12 +31,12 @@
     <div class="dropdown-divider"></div>
 
     {#if hasProvider("graph")}
-    <a class="dropdown-item" href="/api/graph_signout">
+    <a class="dropdown-item" href="/providers/graph_signout">
         Disconnect OneDrive
     </a>
     {:else}
-    <a class="dropdown-item" href="/api/graph_signin">
-        Connect to OneDrive
+    <a class="dropdown-item" href="/providers/graph_signin">
+        Connect your OneDrive
     </a>
     {/if}
 

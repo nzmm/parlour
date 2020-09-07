@@ -9,6 +9,7 @@
 	import PHeader from './components/PHeader.svelte';
 	import PBody from './components/PBody.svelte';
 	import PFooter from './components/PFooter.svelte';
+import PSplash from "./components/PSplash.svelte";
 
 	const player = new AudioPlayer();
 
@@ -45,28 +46,5 @@
 	<PHeader {user} />
 	<PBody {player} {trackCount} />
 	<PFooter {player} />
-
-	{#if !ready}
-	<div transition:fade class="loader d-flex justify-content-center align-items-center">
-		<Loader bold scale={1.25} />
-	</div>
-	{/if}
+	<PSplash {ready} {user} />
 </main>
-
-<style type="text/scss">
-	@import "./scss/vars";
-
-	.loader {
-		z-index: 9999999;
-		position: absolute;
-		left: 0;
-		right: 0;
-		top: 0;
-		bottom: 0;
-		background-color: $colour-white;
-
-		:global(.lds-roller div::after) {
-			background-color: $colour-primary !important;
-		}
-	}
-</style>

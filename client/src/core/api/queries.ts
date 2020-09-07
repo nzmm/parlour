@@ -1,7 +1,11 @@
 import { GET } from "./requests";
 
+export async function getCurrentUser() {
+    return GET("/api/get_current_user");
+}
+
 export async function getArtists() {
-    return GET("/providers/get_artists");
+    return GET("/api/get_artists");
 }
 
 export async function getAlbums() {

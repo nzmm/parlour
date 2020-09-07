@@ -1,10 +1,10 @@
 <script lang="ts">
-import { DropdownPlacement } from '../core/enums/DropdownPlacement';
-
-import Dropdown from './common/Dropdown.svelte';
+    import type { IUser } from '../core/interfaces/IUser';
     import NavBar from './common/NavBar.svelte';
-    import TextDropshadow from './common/TextDropshadow.svelte';
     import PSearchMusicInput from "./PSearchMusicInput.svelte";
+    import PUserDropdown from './PUserDropdown.svelte';
+
+    export let user: IUser = null;
 </script>
 
 <NavBar class="top-nav border-bottom d-flex justify-content-between align-items-center">
@@ -14,42 +14,13 @@ import Dropdown from './common/Dropdown.svelte';
 
     <PSearchMusicInput />
 
-    <Dropdown placement={DropdownPlacement.BottomRight}>
-        <button class="user btn p-0" style="margin-top: 1px;" slot="toggle">
-            <TextDropshadow size="smallest">
-                <strong>MM</strong>
-            </TextDropshadow>
-        </button>
-
-        <a class="dropdown-item" href="/accounts/logout/">
-            Log out
-        </a>
-
-        <a class="dropdown-item" href="/admin/">
-            Admin
-        </a>
-
-        <div class="dropdown-divider"></div>
-
-        <a class="dropdown-item" href="https://github.com/nzmm/parlour" target="_blank">
-            Github
-        </a>
-
-    </Dropdown>
-
+    {#if user}
+    <PUserDropdown {user} />
+    {/if}
 </NavBar>
 
 <style>
     :global(.top-nav) {
         box-shadow: 0 -0.4rem 0.9rem 0.2rem rgba(0,0,0,.175);
-    }
-    .user {
-        width: 36px;
-        height: 36px;
-        border-radius: 4px;
-        background-color: #adadadff;
-        color: #fff;
-        line-height: 36px;
-        text-align: center;
     }
 </style>

@@ -22,7 +22,8 @@ import parlour.views
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('', parlour.views.home, name='home'),
-    path('api/', include('server.urls')),
+    path('api/', include('server.urls.api')),
+    path('providers/', include('server.urls.providers')),
     path('admin/', admin.site.urls),
 ]
 

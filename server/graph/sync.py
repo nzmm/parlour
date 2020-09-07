@@ -1,4 +1,4 @@
-from providers.graph.auth import PROVIDER_GRAPH, get_token
+from server.graph.auth import PROVIDER_GRAPH, get_token
 from server.graph.requests import get_music_children, get_children
 from server.graph.content import get_release_thumbnail_url
 from server.models import Artist, Release, Track

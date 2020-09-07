@@ -5,6 +5,11 @@
     import Dropdown from "./common/Dropdown.svelte";
 
     export let user: IUser;
+
+    const hasProvider = (provider: string) => {
+        return user.providers.findIndex(p => p.provider === provider) !== -1;
+    }
+
 </script>
 
 <Dropdown placement={DropdownPlacement.BottomRight}>
@@ -25,9 +30,15 @@
 
     <div class="dropdown-divider"></div>
 
+    {#if hasProvider("graph")}
+    <a class="dropdown-item" href="/api/graph_signout">
+        Disconnect OneDrive
+    </a>
+    {:else}
     <a class="dropdown-item" href="/api/graph_signin">
         Connect to OneDrive
     </a>
+    {/if}
 
     <div class="dropdown-divider"></div>
 

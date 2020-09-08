@@ -2,9 +2,9 @@
     let className = "";
 
     export { className as class };
-    export let label = "";
-    export let href = "#";
-    export let count = null;
+    export let label: string = "";
+    export let href: string = "#";
+    export let count: number | string = null;
     export let active: boolean = false;
 </script>
 

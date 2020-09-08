@@ -4,6 +4,7 @@
     import { ToplevelViews } from '../core/enums/ToplevelViews';
     import ScrolledView from './common/ScrolledView.svelte';
     import NavLink from './common/NavLink.svelte';
+import NavHeader from './common/NavHeader.svelte';
 
     export let trackCount: number = 0;
 </script>
@@ -11,6 +12,8 @@
 <aside class="border-right">
     <ScrolledView overflowX="hidden" overflowY="auto">
         <div class="wrapper">
+
+            <NavHeader>Library</NavHeader>
 
             <NavLink
                 href="#songs"
@@ -35,6 +38,8 @@
 
             <hr>
 
+            <NavHeader>Playlists</NavHeader>
+
             <NavLink
                 href="#queue"
                 label="Play Queue"
@@ -51,10 +56,13 @@
 
             <hr>
 
-            <NavLink
-                href="#channels"
-                label="Channels"
-                count={0} />
+            <NavHeader>
+                Channels
+
+                <button slot="actions">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </NavHeader>
 
         </div>
     </ScrolledView>

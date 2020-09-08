@@ -131,6 +131,7 @@
     .p-search :global(.p-drop-menu) {
         top: calc(100% - 1px);
         width: 100%;
+        border-top-color: #ced4da;
         border-top-left-radius: 0 !important;
         border-top-right-radius: 0 !important;
     }

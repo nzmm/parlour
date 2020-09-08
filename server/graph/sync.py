@@ -24,8 +24,8 @@ def store_audio(user, parent, f, audio):
         user=user,
         provider=PROVIDER_GRAPH,
         provider_id=parentitem_id,
+        name=get_name('album', parent, audio),
         defaults={
-            'name': get_name('album', parent, audio),
             'year': audio.get('year'),
             'artist': artist
         })

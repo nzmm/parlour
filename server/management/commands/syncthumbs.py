@@ -9,17 +9,17 @@ class Command(BaseCommand):
     help = 'Sync thumbnails for each release for a given provider and user (specified by email)'
 
     def add_arguments(self, parser):
-        parser.add_argument('--email', type=str)
+        parser.add_argument('--user', type=str)
         parser.add_argument('--provider', type=str)
         return
 
     def handle(self, *args, **options):
-        email = options['email']
+        user = options['user']
         provider = options['provider']
 
-        user = User.objects.get(email=email)
+        user = User.objects.get(username=user)
         if not user:
-            raise CommandError(f"No user with matching email:{email}")
+            raise CommandError(f"No user with matching email:{user}")
 
         if provider == PROVIDER_GRAPH:
             graph_sync_thumbs(user)

@@ -1,14 +1,16 @@
 <script lang="ts">
-    import { artists, queue, liked, library, currentView } from '../core/store';
+    import { artists, queue, liked, library, channels, currentView } from '../core/store';
     import { setToplevel } from '../core/actions';
     import { ToplevelViews } from '../core/enums/ToplevelViews';
     import ScrolledView from './common/ScrolledView.svelte';
     import NavLink from './common/NavLink.svelte';
     import NavHeader from './common/NavHeader.svelte';
     import PCreateChannel from './modals/PCreateChannel.svelte';
+    import PCreatePlaylist from './modals/PCreatePlaylist.svelte';
 
     export let trackCount: number = 0;
 
+    let createPlaylist = false;
     let createChannel = false;
 </script>
 
@@ -44,7 +46,7 @@
             <NavHeader>
                 Playlists
 
-                <button slot="actions">
+                <button slot="actions" on:click={() => createPlaylist = true}>
                     <i class="fas fa-plus"></i>
                 </button>
             </NavHeader>
@@ -73,6 +75,12 @@
                 </button>
             </NavHeader>
 
+            {#each $channels as ch}
+            <NavLink
+                href="#channels/{ch.unique_id}"
+                label={ch.name} />
+            {/each}
+
         </div>
     </ScrolledView>
 </aside>
@@ -80,6 +88,10 @@
 {#if createChannel}
 <PCreateChannel on:close={() => createChannel = false} />
 {/if}
+{#if createPlaylist}
+<PCreatePlaylist on:close={() => createPlaylist = false} />
+{/if}
+
 
 <style>
     aside {

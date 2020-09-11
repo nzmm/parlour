@@ -11,6 +11,7 @@ urlpatterns = [
     path('get_thumbnail', api.get_thumbnail, name='get_thumbnail'),
     path('get_artist_details', api.get_artist_details, name='get_artist_details'),
     path('get_album_details', api.get_album_details, name='get_album_details'),
+    path('get_channels', api.get_channels, name='get_channels'),
     path('search', api.search, name='search'),
 
     path('create_channel', api.create_channel, name='create_channel'),

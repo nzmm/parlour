@@ -21,5 +21,10 @@
         padding-top: 3px;
         padding-bottom: 3px;
         color: $colour-grey-medium;
+        opacity: 0.8;
+        transition: opacity .3s;
+    }
+    h6 :global(button:hover, button:active, button:focus) {
+        opacity: 1;
     }
 </style>

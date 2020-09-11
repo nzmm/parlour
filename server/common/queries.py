@@ -1,5 +1,5 @@
 from django.db.models import F, Count
-from server.models import Artist, Release, Track
+from server.models import Artist, Release, Track, Channel
 
 
 def get_artists_query(user):
@@ -24,3 +24,7 @@ def get_search_releases_query(user, term):
 
 def get_search_tracks_query(user, term):
     return Track.objects.filter(user=user, name__icontains=term)
+
+
+def get_channels_query(user):
+    return Channel.objects.filter(user=user)

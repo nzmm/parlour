@@ -113,6 +113,12 @@ def get_artist_details(request):
 
 
 @login_required
+def get_channels(request):
+    channels = serializers.serialize_channels(queries.get_channels_query(request.user))
+    return JsonResponse({'channels': channels})
+
+
+@login_required
 def search(request):
     terms = request.GET.get('q', ''.strip())
     data = {'matches': []}

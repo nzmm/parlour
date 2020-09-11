@@ -36,6 +36,10 @@ export async function getAlbumDetails(id: number) {
     return GET("/api/get_album_details", { id });
 }
 
+export async function getChannels() {
+    return GET("/api/get_channels");
+}
+
 export async function search(q: string) {
     return GET("/api/search", { q });
 }

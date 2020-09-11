@@ -71,8 +71,14 @@ class Track(models.Model):
 
 
 class Channel(models.Model):
+    class Meta:
+        ordering = ('name',)
+
     unique_id = models.UUIDField(default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="channels")
     name = models.CharField(max_length=100)
     description = models.TextField()
     public = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name

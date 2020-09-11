@@ -1,6 +1,8 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
     import { createChannel } from "../../core/api/commands";
+    import { getChannels } from "../../core/api/queries";
+    import { channels } from "../../core/store";
     import Modal from "../common/Modal.svelte";
     import Button from "../common/Button.svelte";
 
@@ -15,8 +17,11 @@
     const onCreate = async () => {
         const res = await createChannel(name, description, !!is_public);
         const data = await res.json();
+
         if (data.success) {
-            // todo: append channel
+            const res = await getChannels();
+            const data = await res.json();
+            $channels = data.channels;
             dispatch("close");
         }
     }

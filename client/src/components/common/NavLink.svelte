@@ -36,7 +36,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
         display: block;
-        font-weight: bold;
         color: $colour-grey-dark;
         text-decoration: none;
         transition: background-color .3s;
@@ -47,6 +46,7 @@
     .side-nav.active {
         background-color: $colour-primary;
         color: $colour-white;
+        font-weight: bold;
     }
     .badge {
         background-color: $colour-grey-medium;

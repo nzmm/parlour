@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { getCurrentUser, getLibrary } from "./core/api/queries";
-    import { library, artists } from "./core/store";
+    import { getChannels, getCurrentUser, getLibrary } from "./core/api/queries";
+    import { library, artists, channels } from "./core/store";
     import { AudioPlayer } from './core/audio/player';
     import type { IUser } from './core/interfaces/IUser';
     import PHeader from './components/PHeader.svelte';
@@ -29,13 +29,18 @@
         $library = data.releases;
     }
 
-    onMount(async () => {
-        await initUser();
-        await initLibrary();
+    const initChannels = async () => {
+        const res = await getChannels();
+        const data = await res.json();
+        $channels = data.channels;
+    }
 
-        setTimeout(() => {
-            ready = true;
-        }, 500);
+    onMount(async () => {
+        Promise.all([initUser(), initLibrary(), initChannels()]).then(() => {
+            setTimeout(() => {
+                ready = true;
+            }, 500);
+        });
     });
 </script>
 

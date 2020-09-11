@@ -34,6 +34,12 @@ DEFAULT_SONG_FIELDS = (
     'thumbnail',
     'liked')
 
+DEFAULT_CHANNEL_FIELDS = (
+    'unique_id',
+    'name',
+    'description',
+    'public')
+
 DEFAULT_ARTIST_DETAIL_FIELDS = (
     'id',
     'name')
@@ -85,4 +91,8 @@ def serialize_release(obj, fields=DEFAULT_ALBUM_DETAIL_FIELDS):
 
 
 def serialize_library(queryset, fields=DEFAULT_LIBRARY_FIELDS):
+    return [get_fields(o, fields) for o in queryset]
+
+
+def serialize_channels(queryset, fields=DEFAULT_CHANNEL_FIELDS):
     return [get_fields(o, fields) for o in queryset]

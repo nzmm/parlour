@@ -5,6 +5,7 @@ import type { ITrack } from './interfaces/ITrack';
 import type { ILibraryAlbum, IAlbum } from './interfaces/IAlbum';
 import type { IView } from './interfaces/IView';
 import type { IBreadcrumb } from './interfaces/IBreadcrumb';
+import type { IChannel } from './interfaces/IChannel';
 import { PlaybackState } from './enums/PlaybackState';
 import { ShuffleMode } from './enums/ShuffleMode';
 import { RepeatMode } from './enums/RepeatMode';
@@ -55,3 +56,5 @@ export const currentTrack = writable<ITrack>({
     thumbnail: '',
     liked: false
 });
+
+export const channels = writable<IChannel[]>([]);

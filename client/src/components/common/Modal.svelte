@@ -1,19 +1,31 @@
 <script lang="ts">
     import { createEventDispatcher, onMount } from 'svelte';
+    import { fade } from 'svelte/transition';
     import BoxDropshadow from "./BoxDropshadow.svelte";
+    import Button from "./Button.svelte";
 
     export let title: string = "Modal";
     let ref: HTMLDivElement;
 
     const dispatch = createEventDispatcher();
 
+    const onKeyPress = (event: KeyboardEvent) => {
+        if (event.key !== "Escape") {
+            return;
+        }
+        dispatch("close");
+    };
+
     onMount(() => {
         document.body.appendChild(ref);
+        document.addEventListener("keyup", onKeyPress);
+        return () => document.removeEventListener("keyup", onKeyPress);
     });
 </script>
 
 <div
     bind:this={ref}
+    transition:fade={{ duration: 150 }}
     class="p-modal-bg d-flex justify-content-center align-items-center"
     on:click|stopPropagation|preventDefault={() => null}>
 
@@ -32,7 +44,7 @@
 
             <footer class="border-top d-flex justify-content-end align-items-center">
                 <slot name="footer">
-                    <button on:click={() => dispatch("close")}>Close</button>
+                    <Button primary on:click={() => dispatch("close")}>Close</Button>
                 </slot>
             </footer>
         </div>

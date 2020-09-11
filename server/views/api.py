@@ -139,3 +139,14 @@ def set_liked(request):
     liked = data.get('liked')
     success = commands.set_track_liked(request.user, track_id, liked)
     return JsonResponse({'success': success})
+
+
+@require_POST
+@login_required
+def create_channel(request):
+    data = get_body_json(request)
+    name = data.get('name')
+    description = data.get('description')
+    public = data.get('public')
+    success, channel_id = commands.create_channel(request.user, name, description, public)
+    return JsonResponse({'success': success, 'channel_id': channel_id})

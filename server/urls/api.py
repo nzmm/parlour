@@ -13,5 +13,6 @@ urlpatterns = [
     path('get_album_details', api.get_album_details, name='get_album_details'),
     path('search', api.search, name='search'),
 
-    path('set_liked', api.set_liked, name='set_liked')
+    path('create_channel', api.create_channel, name='create_channel'),
+    path('set_liked', api.set_liked, name='set_liked'),
 ]

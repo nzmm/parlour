@@ -14,7 +14,8 @@
     class:active
     on:click>
 
-    <strong>{label}</strong>
+    {label}
+
     {#if count != null}
     <span class="badge badge-pill">{count}</span>
     {/if}
@@ -35,6 +36,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         display: block;
+        font-weight: bold;
         color: $colour-grey-dark;
         text-decoration: none;
         transition: background-color .3s;

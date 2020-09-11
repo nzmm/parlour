@@ -3,7 +3,8 @@ from server.models import (
     Token,
     Artist,
     Release,
-    Track)
+    Track,
+    Channel)
 
 
 @admin.register(Token)
@@ -28,3 +29,8 @@ class TrackAdmin(admin.ModelAdmin):
     list_display = ("user", "provider", "name", "artist_credit", "liked")
     list_filter = ('provider', "liked")
     readonly_fields = ('provider', 'provider_id')
+
+
+@admin.register(Channel)
+class ChannelAdmin(admin.ModelAdmin):
+    list_display = ("user", "name", "unique_id", "public")

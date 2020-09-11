@@ -4,9 +4,12 @@
     import { ToplevelViews } from '../core/enums/ToplevelViews';
     import ScrolledView from './common/ScrolledView.svelte';
     import NavLink from './common/NavLink.svelte';
-import NavHeader from './common/NavHeader.svelte';
+    import NavHeader from './common/NavHeader.svelte';
+    import PCreateChannel from './modals/PCreateChannel.svelte';
 
     export let trackCount: number = 0;
+
+    let createChannel = false;
 </script>
 
 <aside class="border-right">
@@ -38,7 +41,13 @@ import NavHeader from './common/NavHeader.svelte';
 
             <hr>
 
-            <NavHeader>Playlists</NavHeader>
+            <NavHeader>
+                Playlists
+
+                <button slot="actions">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </NavHeader>
 
             <NavLink
                 href="#queue"
@@ -59,7 +68,7 @@ import NavHeader from './common/NavHeader.svelte';
             <NavHeader>
                 Channels
 
-                <button slot="actions">
+                <button slot="actions" on:click={() => createChannel = true}>
                     <i class="fas fa-plus"></i>
                 </button>
             </NavHeader>
@@ -67,6 +76,10 @@ import NavHeader from './common/NavHeader.svelte';
         </div>
     </ScrolledView>
 </aside>
+
+{#if createChannel}
+<PCreateChannel on:close={() => createChannel = false} />
+{/if}
 
 <style>
     aside {

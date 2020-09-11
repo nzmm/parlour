@@ -7,13 +7,19 @@
     @import "../../scss/vars";
 
     h6 {
+        margin-top: 5px;
+        margin-bottom: 5px;
         padding-left: 14px;
         padding-right: 8px;
         font-size: 13px;
-        opacity: 0.5;
+        font-weight: bold;
+        color: $colour-grey-dark;
         cursor: default;
     }
     h6 :global(button) {
         border: 0;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        color: $colour-grey-medium;
     }
 </style>

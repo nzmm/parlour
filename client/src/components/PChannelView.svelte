@@ -10,6 +10,7 @@
     $: active = $currentView.toplevel === ToplevelViews.Channel;
     $: if ($currentView.data) {
         channel = $currentView.data;
+        console.log(channel);
 
         if (channel.unique_id !== $currentView.data.unique_id) {
             // get channel
@@ -19,8 +20,8 @@
 
 <Page {active} wide>
     <div class="header pt-4 pb-3">
-        <h2>{ channel.name }</h2>
-        <p><small>{ channel.description }</small></p>
+        <h2>{ channel?.name }</h2>
+        <p><small>{ channel?.description }</small></p>
 
         <Button
             narrow

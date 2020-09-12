@@ -1,7 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { getChannels, getCurrentUser, getLibrary } from "./core/api/queries";
-    import { library, artists, channels } from "./core/store";
+    import { bootstrapParlour } from "./core/bootstrap";
     import { registerGlobalKeyUpHandler } from "./core/keys";
     import { AudioPlayer } from './core/audio/player';
     import type { IUser } from './core/interfaces/IUser';
@@ -16,32 +15,14 @@
     let ready: boolean = false;
     let trackCount: number = 0;
 
-    const initUser = async () => {
-        const res = await getCurrentUser();
-        const data = await res.json();
-        user = data.user;
-    }
-
-    const initLibrary = async () => {
-        const res = await getLibrary();
-        const data = await res.json();
-        trackCount = data.track_count;
-        $artists = data.artists;
-        $library = data.releases;
-    }
-
-    const initChannels = async () => {
-        const res = await getChannels();
-        const data = await res.json();
-        $channels = data.channels;
-    }
-
     onMount(async () => {
-        Promise.all([initUser(), initLibrary(), initChannels()]).then(() => {
-            setTimeout(() => {
+        const res = await bootstrapParlour();
+        user = res.user;
+        trackCount = res.trackCount;
+
+        setTimeout(() => {
                 ready = true;
-            }, 500);
-        });
+        }, 500);
 
         return registerGlobalKeyUpHandler(" ", () => player.toggle());
     });

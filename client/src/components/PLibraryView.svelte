@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { currentView, library, libraryFilter } from '../core/store';
-    import { likeTrack, unfilterLibrary } from '../core/actions';
+    import { currentView, library, libraryFilter, channels } from '../core/store';
+    import { likeTrack } from '../core/actions';
     import { enqueue, enqueueNext, playNow } from '../core/playlist';
     import { intersectionObservable } from '../core/observable';
     import { ToplevelViews } from '../core/enums/ToplevelViews';
@@ -11,6 +11,7 @@
     import PTrackListView from "./PTrackListView.svelte";
     import PCoverArt from "./PCoverArt.svelte";
     import DropdownMenu from "./common/DropdownMenu.svelte";
+    import DropdownSubMenu from './common/DropdownSubMenu.svelte';
 
     export let player: AudioPlayer;
 
@@ -129,6 +130,14 @@
     <a class="dropdown-item" href="#next" on:click|preventDefault={() => enqueueNext(player, [track])}>
         Play next
     </a>
+
+    <DropdownSubMenu label="Add to channel…">
+        {#each $channels as ch}
+        <a class="dropdown-item" href="#channels/{ch.unique_id}">
+            {ch.name}
+        </a>
+        {/each}
+    </DropdownSubMenu>
 
     <div class="dropdown-divider"></div>
 

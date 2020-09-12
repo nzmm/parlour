@@ -18,8 +18,7 @@
     }
     h6 :global(button) {
         border: 0;
-        padding-top: 3px;
-        padding-bottom: 3px;
+        padding: 3px;
         color: $colour-grey-medium;
         opacity: 0.8;
         transition: opacity .3s;

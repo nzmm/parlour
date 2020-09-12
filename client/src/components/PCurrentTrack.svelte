@@ -1,33 +1,12 @@
 <script lang="ts">
     import { currentTrack } from '../core/store';
-    import { getThumbnail } from '../core/api/queries';
     import { likeTrack } from '../core/actions';
 
     import BoxDropshadow from './common/BoxDropshadow.svelte';
     import TextDropshadow from './common/TextDropshadow.svelte';
     import PCoverArt from './PCoverArt.svelte';
 
-    const getThumb = async (id: number) => {
-        console.log('Fetching thumbnail...',  id);
-        const res = await getThumbnail(id);
-        const data = await res.json();
-        console.log(`Thumbnail url response... "${data.thumbnail}"`);
-
-        if (!data.thumbnail) {
-            return;
-        }
-
-        currentTrack.update(cur => ({
-            ...cur,
-            thumbnail: data.thumbnail
-        }));
-    };
-
     $: track = $currentTrack;
-
-    $: if (track.id && !track.thumbnail) {
-        getThumb(track.id);
-    }
 </script>
 
 <section class="d-flex align-items-center">

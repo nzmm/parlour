@@ -18,10 +18,11 @@
     }
 </script>
 
-<Page {active} wide>
+{#if active}
+<Page wide>
     <div class="header pt-4 pb-3">
-        <h2>{ channel?.name }</h2>
-        <p><small>{ channel?.description }</small></p>
+        <h2>{ channel.name }</h2>
+        <p><small>{ channel.description }</small></p>
 
         <Button
             narrow
@@ -32,6 +33,7 @@
 
     <section></section>
 </Page>
+{/if}
 
 <style lang="scss">
     .header {

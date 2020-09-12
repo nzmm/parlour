@@ -16,9 +16,7 @@
     let trackCount: number = 0;
 
     onMount(async () => {
-        const res = await bootstrapParlour();
-        user = res.user;
-        trackCount = res.trackCount;
+        ({ user, trackCount } = await bootstrapParlour());
 
         setTimeout(() => {
                 ready = true;

@@ -10,13 +10,17 @@ import { PlaybackState } from './enums/PlaybackState';
 import { ShuffleMode } from './enums/ShuffleMode';
 import { RepeatMode } from './enums/RepeatMode';
 
-const getInitialView = () => {
-    const view = parseInt(sessionStorage.getItem("view"));
-    return ToplevelViews[view] != null ? view : ToplevelViews.Songs;
+const getInitialView = (): IView => {
+    const view = JSON.parse(sessionStorage.getItem("view"));
+    const toplevel = parseInt(view.toplevel);
+
+    return ToplevelViews[toplevel] != null
+        ? { ...view, toplevel }
+        : { toplevel: ToplevelViews.Songs };
 }
 
-const toplevel = getInitialView();
-export const currentView = writable<IView>({ toplevel });
+const view = getInitialView();
+export const currentView = writable<IView>(view);
 export const artists = writable<IArtist[]>([]);
 
 export const library = writable<ILibraryAlbum[]>([]);

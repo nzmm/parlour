@@ -23,7 +23,7 @@
             primary
             disabled={!$liked.length}
             on:click={() => playNow(player, $liked)}>
-            Play
+            Play all
         </Button>
     </div>
 </PTrackView>

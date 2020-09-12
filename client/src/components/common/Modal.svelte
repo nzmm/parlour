@@ -1,6 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher, onMount } from 'svelte';
     import { fade } from 'svelte/transition';
+    import { registerGlobalKeyUpHandler } from "../../core/keys";
     import BoxDropshadow from "./BoxDropshadow.svelte";
     import Button from "./Button.svelte";
 
@@ -9,17 +10,9 @@
 
     const dispatch = createEventDispatcher();
 
-    const onKeyPress = (event: KeyboardEvent) => {
-        if (event.key !== "Escape") {
-            return;
-        }
-        dispatch("close");
-    };
-
     onMount(() => {
         document.body.appendChild(ref);
-        document.addEventListener("keyup", onKeyPress);
-        return () => document.removeEventListener("keyup", onKeyPress);
+        return registerGlobalKeyUpHandler("Escape", () => dispatch("close"));
     });
 </script>
 

@@ -5,6 +5,7 @@
     import PLikedView from "./PLikedView.svelte";
     import PAlbumView from "./PAlbumView.svelte";
     import PArtistView from "./PArtistView.svelte";
+    import PChannelView from "./PChannelView.svelte";
     import PSidebar from "./PSidebar.svelte";
 
     export let player: AudioPlayer;
@@ -19,6 +20,7 @@
         <PLibraryView {player} />
         <PQueueView {player} />
         <PLikedView {player} />
+        <PChannelView />
     </div>
 </div>
 

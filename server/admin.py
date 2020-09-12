@@ -33,4 +33,4 @@ class TrackAdmin(admin.ModelAdmin):
 
 @admin.register(Channel)
 class ChannelAdmin(admin.ModelAdmin):
-    list_display = ("user", "name", "unique_id", "public")
+    list_display = ("name", "user", "unique_id", "public")

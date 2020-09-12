@@ -101,10 +101,11 @@ export const filterLibraryByAlbum = (release_id: number, release_name: string, t
     });
 }
 
-export const setToplevel = (view: ToplevelViews) => {
-    currentView.set({ toplevel: view });
-    sessionStorage.setItem("view", view.toString());
+export const setToplevel = (view: ToplevelViews, data?: any) => {
+    currentView.set({ toplevel: view, data });
+    sessionStorage.setItem("view", JSON.stringify({ toplevel: view, data }));
 }
+
 
 export const pickRandom = (library: ILibraryAlbum[]) => {
     console.log('Picking random track from...', library.length);

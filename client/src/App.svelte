@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import { getChannels, getCurrentUser, getLibrary } from "./core/api/queries";
     import { library, artists, channels } from "./core/store";
+    import { registerGlobalKeyUpHandler } from "./core/keys";
     import { AudioPlayer } from './core/audio/player';
     import type { IUser } from './core/interfaces/IUser';
     import PHeader from './components/PHeader.svelte';
@@ -41,6 +42,8 @@
                 ready = true;
             }, 500);
         });
+
+        return registerGlobalKeyUpHandler(" ", () => player.toggle());
     });
 </script>
 

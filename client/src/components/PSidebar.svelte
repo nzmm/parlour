@@ -78,7 +78,9 @@
             {#each $channels as ch}
             <NavLink
                 href="#channels/{ch.unique_id}"
-                label={ch.name} />
+                label={ch.name}
+                active={$currentView.toplevel === ToplevelViews.Channel && $currentView.data?.unique_id === ch.unique_id}
+                on:click={() => setToplevel(ToplevelViews.Channel, ch)}/>
             {/each}
 
         </div>

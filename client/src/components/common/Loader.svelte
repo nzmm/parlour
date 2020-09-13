@@ -4,8 +4,9 @@
 </script>
 
 <!-- Thanks https://github.com/loadingio/css-spinner/ -->
-<div class="lds-roller" class:bold style="--scale:{scale}">
+<div class="lds-roller" class:bold style="--scale:{scale}" role="status">
   <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  <span class="sr-only">Loading...</span>
 </div>
 
 <style>

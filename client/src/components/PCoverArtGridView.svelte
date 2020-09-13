@@ -15,7 +15,7 @@
     const dispatch = createEventDispatcher();
 
     let root: HTMLElement;
-    let loaded = {};
+    let loaded: Record<string, boolean> = {};
     let w: number;
 
     $: columnTemplate = "1fr ".repeat(Math.max(1, Math.floor(w / 200))).trimEnd();

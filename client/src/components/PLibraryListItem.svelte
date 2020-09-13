@@ -15,7 +15,7 @@
 </script>
 
 <tr
-    id="track:{item.id}"
+    id={`track:${item.id}`}
     class="item d-flex py-2"
     class:playing={current}
     tabindex="0"
@@ -68,10 +68,6 @@
     }
     .item:focus {
         background-color: #ff2a2aff;
-        color: #fff;
-    }
-    .item:target {
-        background-color: rgb(255, 131, 131);
         color: #fff;
     }
     .item > .p-col {

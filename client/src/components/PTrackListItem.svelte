@@ -83,10 +83,6 @@
         background-color: #ff2a2aff;
         color: #fff;
     }
-    .item:target {
-        background-color: rgb(255, 131, 131);
-        color: #fff;
-    }
     .item > .p-col {
         overflow: hidden;
         text-overflow: ellipsis;

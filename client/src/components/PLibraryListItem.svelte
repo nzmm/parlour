@@ -64,7 +64,7 @@
         font-weight: bold;
     }
     .item:nth-child(odd) {
-        background-color: #eee;
+        background-color: #f2f2f2;
     }
     .item:focus {
         background-color: #ff2a2aff;

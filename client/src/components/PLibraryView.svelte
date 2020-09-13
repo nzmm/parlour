@@ -98,30 +98,17 @@
                     number={item.number}
                     current={item.id === currentId}
                     playing={playbackState === PlaybackState.Playing}
-                    on:dropdown
-                    on:play />
+                    on:dropdown={showDropdown}
+                    on:play={e => playNow(player, [e.detail])} />
                 {/each}
             </tbody>
         </table>
         {:else}
         <!-- Placeholder -->
-        <div class="d-flex mb-3">
+        <div class="placeholder-banner mb-3">
             <PCoverArt size="100px" />
-
-            <h4 class="pl-4 pt-2">
-                {release.name}
-
-                <p class="text-muted">
-                    <small>
-                        {release.artist_name || '?'} &middot; {release.year || '?'}<br/>
-                    </small>
-                </p>
-            </h4>
         </div>
-
-        <div style="height: {37 * release.track_count}px">
-            <p class="text-muted">Loading...</p>
-        </div>
+        <div style="height: {37 * release.track_count}px"></div>
         {/if}
     </section>
     {/each}
@@ -158,6 +145,9 @@
     }
     button:hover {
         opacity: 1;
+    }
+    .placeholder-banner {
+        height: 100px;
     }
     .crumb {
         color: #999;

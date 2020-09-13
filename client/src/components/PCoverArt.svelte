@@ -1,6 +1,4 @@
 <script lang="ts">
-import TextDropshadow from "./common/TextDropshadow.svelte";
-
     const COVERART_PLACEHOLDER = "/static/data/im/coverart-placeholder.png";
 
     export let src = "";

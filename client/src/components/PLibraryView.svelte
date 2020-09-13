@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { currentView, library, libraryFilter, channels } from '../core/store';
-    import { likeTrack } from '../core/actions';
-    import { enqueue, enqueueNext, playNow } from '../core/playlist';
+    import { currentView, library, libraryFilter } from '../core/store';
+    import { enqueueNext, playNow } from '../core/playlist';
     import { intersectionObservable } from '../core/observable';
     import { ToplevelViews } from '../core/enums/ToplevelViews';
     import type { ILibraryAlbum } from "../core/interfaces/IAlbum";
@@ -10,8 +9,7 @@
     import Page from './common/Page.svelte';
     import PTrackListView from "./PTrackListView.svelte";
     import PCoverArt from "./PCoverArt.svelte";
-    import DropdownMenu from "./common/DropdownMenu.svelte";
-    import DropdownSubMenu from './common/DropdownSubMenu.svelte';
+    import PTrackListDropdown from './PTrackListDropdown.svelte';
 
     export let player: AudioPlayer;
 
@@ -117,34 +115,12 @@
     {/each}
 </Page>
 
-<DropdownMenu {visible} {top} {left} on:hide={() => visible = false}>
-    <a class="dropdown-item" href="#play" on:click|preventDefault={() => playNow(player, [track])}>
-        Play
-    </a>
-
-    <div class="dropdown-divider"></div>
-
-    <a class="dropdown-item" href="#enqueue" on:click|preventDefault={() => enqueue(player, [track])}>
-        Add to queue
-    </a>
-    <a class="dropdown-item" href="#next" on:click|preventDefault={() => enqueueNext(player, [track])}>
-        Play next
-    </a>
-
-    <DropdownSubMenu label="Add to channel…">
-        {#each $channels as ch}
-        <a class="dropdown-item" href="#channels/{ch.unique_id}">
-            {ch.name}
-        </a>
-        {/each}
-    </DropdownSubMenu>
-
-    <div class="dropdown-divider"></div>
-
-    <a class="dropdown-item" href="#like" on:click|preventDefault={() => likeTrack(track)}>
-        Like
-    </a>
-</DropdownMenu>
+<PTrackListDropdown
+    {player}
+    {track}
+    {visible}
+    {top}
+    {left} />
 
 <style>
     h4 > p {

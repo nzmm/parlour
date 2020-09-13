@@ -24,7 +24,7 @@
     <a class="dropdown-item" href="/accounts/logout/">
         Log out
     </a>
-    <a class="dropdown-item" href="/admin/">
+    <a class="dropdown-item" href="/admin/" target="_blank">
         Admin
     </a>
 

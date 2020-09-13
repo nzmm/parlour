@@ -6,6 +6,7 @@
     import Page from "./common/Page.svelte";
     import DropdownMenu from "./common/DropdownMenu.svelte";
     import PTrackListView from './PTrackListView.svelte';
+import PTrackListDropdown from './PTrackListDropdown.svelte';
 
     let className = "";
 
@@ -39,24 +40,10 @@
     </section>
 </Page>
 
-<DropdownMenu {visible} {top} {left} on:hide={() => visible = false}>
-    <a class="dropdown-item" href="#play" on:click|preventDefault={() => playNow(player, [track])}>
-        Play
-    </a>
-
-    <div class="dropdown-divider"></div>
-
-    <a class="dropdown-item" href="#enqueue" on:click|preventDefault={() => enqueue(player, [track])}>
-        Add to queue
-    </a>
-    <a class="dropdown-item" href="#next" on:click|preventDefault={() => enqueueNext(player, [track])}>
-        Play next
-    </a>
-
-    <div class="dropdown-divider"></div>
-
-    <a class="dropdown-item" href="#like" on:click|preventDefault={() => likeTrack(track)}>
-        Like
-    </a>
-</DropdownMenu>
+<PTrackListDropdown
+    {player}
+    {track}
+    {visible}
+    {top}
+    {left} />
 

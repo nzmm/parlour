@@ -31,7 +31,9 @@ import { createDebouncer } from "../../core/utils";
     <i class="fas fa-caret-right"></i>
 
     <DropdownMenu {visible} {left} top={-9} interceptor={false}>
-        <slot />
+        <slot>
+            <em class="dropdown-item disabled">Empty</em>
+        </slot>
     </DropdownMenu>
 </div>
 

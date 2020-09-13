@@ -12,7 +12,7 @@ import { RepeatMode } from './enums/RepeatMode';
 
 const getInitialView = (): IView => {
     const view = JSON.parse(sessionStorage.getItem("view"));
-    const toplevel = parseInt(view.toplevel);
+    const toplevel = parseInt(view?.toplevel);
 
     return ToplevelViews[toplevel] != null
         ? { ...view, toplevel }

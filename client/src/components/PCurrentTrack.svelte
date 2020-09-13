@@ -16,6 +16,7 @@
             size="70px" />
     </BoxDropshadow>
 
+    {#if track.id}
     <TextDropshadow>
         <div class="ml-3">
             <p class="m-0 pb-0">
@@ -23,11 +24,9 @@
                     <a href="#recording">{track.name}</a>
                 </strong>
 
-                {#if track.id}
                 <a href="#like" class="px-1" on:click|preventDefault={() => likeTrack(track)}>
                     <i class="{track.liked ? "fas" : "text-muted far"} fa-heart"></i>
                 </a>
-                {/if}
             </p>
             <p class="m-0 pb-0">
                 <small>
@@ -36,6 +35,7 @@
             </p>
         </div>
     </TextDropshadow>
+    {/if}
 </section>
 
 <style>

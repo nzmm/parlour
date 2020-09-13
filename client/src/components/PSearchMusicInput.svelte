@@ -1,11 +1,11 @@
 <script lang="ts">
     import { createDebouncer } from '../core/utils';
     import { filterLibraryByArtist, filterLibraryByAlbum, unfilterLibrary, setToplevel } from '../core/actions';
+    import { ToplevelViews } from '../core/enums/ToplevelViews';
     import { search } from '../core/api/queries';
     import { SearchGroups } from '../core/enums/SearchGroups';
     import type { ITrack } from '../core/interfaces/ITrack';
     import SearchInput from "./common/SearchInput.svelte";
-import { ToplevelViews } from '../core/enums/ToplevelViews';
 
     let matches: ITrack[] = [];
     const debounce = createDebouncer();
@@ -60,9 +60,11 @@ import { ToplevelViews } from '../core/enums/ToplevelViews';
 
 <SearchInput
     {matches}
+    id="search-music"
     let:match
     class="mx-1"
     grouper="group"
+    placeholder="Search here..."
     on:input={onInput}
     on:select={onSelect}
     on:clear={onClear}>

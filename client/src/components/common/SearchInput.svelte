@@ -13,6 +13,7 @@
     export { className as class };
     export let matches = [];
     export let grouper: string = null;
+    export let placeholder: string = "";
 
     $: visible = focus && value.length > 0 && matches.length > 0;
 
@@ -72,13 +73,14 @@
     <input
         type="text"
         class="form-control pr-4"
-        placeholder="Search here..."
+        {placeholder}
         bind:this={input}
         bind:value={value}
         on:focus={() => focus = true}
         on:blur={onBlur}
         on:keydown={onKeyDown}
-        on:input />
+        on:input
+        aria-labelledby="parlour" />
 
     {#if value}
     <a class="clear" href="#clear" on:click={clear} title="Clear">

@@ -26,7 +26,8 @@
 
         <Button
             narrow
-            primary>
+            primary
+            ariaLabel="Play all">
             Play all
         </Button>
     </div>

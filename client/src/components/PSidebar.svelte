@@ -46,7 +46,10 @@
             <NavHeader>
                 Playlists
 
-                <button slot="actions" on:click={() => createPlaylist = true}>
+                <button
+                    slot="actions"
+                    aria-label="Create playlist"
+                    on:click={() => createPlaylist = true}>
                     <i class="fas fa-plus"></i>
                 </button>
             </NavHeader>
@@ -70,7 +73,10 @@
             <NavHeader>
                 Channels
 
-                <button slot="actions" on:click={() => createChannel = true}>
+                <button
+                    slot="actions"
+                    aria-label="Create channel"
+                    on:click={() => createChannel = true}>
                     <i class="fas fa-plus"></i>
                 </button>
             </NavHeader>

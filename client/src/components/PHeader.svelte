@@ -8,7 +8,7 @@
 </script>
 
 <NavBar class="top-nav border-bottom d-flex justify-content-between align-items-center">
-    <a class="navbar-brand pr-2" href="/">
+    <a class="navbar-brand pr-2" href="/" id="parlour">
         <img src="/static/data/im/parlour-brand-32.png" alt="Parlour" height="32" />
     </a>
 

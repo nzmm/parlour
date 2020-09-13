@@ -3,13 +3,15 @@
     import { enqueueNext, playNow } from '../core/playlist';
     import { intersectionObservable } from '../core/observable';
     import { ToplevelViews } from '../core/enums/ToplevelViews';
+    import { currentTrack, playerState } from '../core/store';
+    import { PlaybackState } from '../core/enums/PlaybackState';
     import type { ILibraryAlbum } from "../core/interfaces/IAlbum";
     import type { AudioPlayer } from "../core/audio/player";
     import type { ITrack } from "../core/interfaces/ITrack";
     import Page from './common/Page.svelte';
-    import PTrackListView from "./PTrackListView.svelte";
     import PCoverArt from "./PCoverArt.svelte";
     import PTrackListDropdown from './PTrackListDropdown.svelte';
+    import PLibraryListItem from './PLibraryListItem.svelte';
 
     export let player: AudioPlayer;
 
@@ -37,6 +39,8 @@
         loaded = {};
     });
 
+    $: currentId = $currentTrack.id;
+    $: playbackState = $playerState.state;
     $: active = $currentView.toplevel === ToplevelViews.Songs;
 
     $: if (active) {
@@ -86,11 +90,19 @@
             </h4>
         </div>
 
-        <PTrackListView
-            data={release.tracks}
-            on:dropdown={showDropdown}
-            on:play={e => playNow(player, [e.detail])} />
-
+        <table class="w-100">
+            <tbody>
+                {#each release.tracks as item, i}
+                <PLibraryListItem
+                    {item}
+                    number={item.number}
+                    current={item.id === currentId}
+                    playing={playbackState === PlaybackState.Playing}
+                    on:dropdown
+                    on:play />
+                {/each}
+            </tbody>
+        </table>
         {:else}
         <!-- Placeholder -->
         <div class="d-flex mb-3">

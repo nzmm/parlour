@@ -13,6 +13,7 @@
 
 
 <PCoverArtGridView
+    context="album"
     data={$library}
     on:details={onDetails}
     active={$currentView.toplevel === ToplevelViews.Albums}>

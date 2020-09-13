@@ -12,6 +12,7 @@
 </script>
 
 <PCoverArtGridView
+    context="artist"
     class="artist"
     data={$artists}
     on:details={onDetails}

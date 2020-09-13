@@ -8,6 +8,7 @@
     let className = "";
 
     export { className as class };
+    export let context: string;
     export let data: IAlbum[] = [];
     export let active: boolean = false;
 
@@ -33,7 +34,7 @@
     <section class="grid {className}" bind:clientWidth={w} style="--col-template:{columnTemplate}">
         {#each data as item}
         <div class="cover" data-itemid={item.id}>
-            <button class="btn" id="item-{item.id}" on:click={() => dispatch("details", item)}>
+            <button class="btn" id={`${context}-${item.id}`} on:click={() => dispatch("details", item)}>
                 <PCoverArt size="150px" src={loaded[item.id] ? item.thumbnail : ''} />
             </button>
             <label class="pt-1" for="item-{item.id}">

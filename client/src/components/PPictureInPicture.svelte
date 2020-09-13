@@ -52,4 +52,5 @@
 <GlyphButton
     glyphName="far fa-image"
     title="Picture-in-Picture"
+    ariaLabel="Picture-in-Picture"
     on:click={showPictureInPictureWindow} />

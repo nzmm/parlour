@@ -18,7 +18,7 @@
         {#if pipable}
         <PPictureInPicture {player} />
         {/if}
-        <GlyphButton glyphName="fas fa-volume-up" />
+        <GlyphButton glyphName="fas fa-volume-up" ariaLabel="Volume control" />
     </TextDropshadow>
 </section>
 

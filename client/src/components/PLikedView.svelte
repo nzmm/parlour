@@ -22,7 +22,8 @@
             narrow
             primary
             disabled={!$liked.length}
-            on:click={() => playNow(player, $liked)}>
+            on:click={() => playNow(player, $liked)}
+            ariaLabel="Play all">
             Play all
         </Button>
     </div>

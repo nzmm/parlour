@@ -26,7 +26,7 @@
         <div class="p-modal-dialog d-flex flex-column justify-content-between">
             <header class="border-bottom">
                 <h3>{title}</h3>
-                <button class="close" on:click|preventDefault={() => dispatch("close")}>
+                <button class="close" on:click|preventDefault={() => dispatch("close")} aria-label="Close">
                     <i class="fas fa-times"></i>
                 </button>
             </header>
@@ -37,7 +37,12 @@
 
             <footer class="border-top d-flex justify-content-end align-items-center">
                 <slot name="footer">
-                    <Button primary on:click={() => dispatch("close")}>Close</Button>
+                    <Button
+                        primary
+                        ariaLabel="Close"
+                        on:click={() => dispatch("close")}>
+                        Close
+                    </Button>
                 </slot>
             </footer>
         </div>

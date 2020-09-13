@@ -50,7 +50,19 @@
     </div>
 
     <div slot="footer">
-        <Button class="mr-1" on:click={() => dispatch("close")}>Cancel</Button>
-        <Button {disabled} primary on:click={onCreate}>Create</Button>
+        <Button
+            class="mr-1"
+            ariaLabel="Close"
+            on:click={() => dispatch("close")}>
+            Cancel
+        </Button>
+
+        <Button
+            {disabled}
+            primary
+            ariaLabel="Create"
+            on:click={onCreate}>
+            Create
+        </Button>
     </div>
 </Modal>

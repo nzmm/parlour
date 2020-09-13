@@ -2,13 +2,22 @@
     let className = "";
 
     export { className as class };
+    export let ariaLabel: string;
     export let title: string = "";
     export let disabled: boolean = false;
     export let primary: boolean = false;
     export let narrow: boolean = false;
 </script>
 
-<button class="btn {className}" class:primary class:narrow {title} {disabled} on:click>
+<button
+    class="btn
+    {className}"
+    class:primary
+    class:narrow
+    {title}
+    {disabled}
+    on:click
+    aria-label={ariaLabel}>
     <slot/>
 </button>
 

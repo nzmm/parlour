@@ -17,17 +17,21 @@
         <TextDropshadow>
             <GlyphButton
                 glyphName="fas fa-random"
+                ariaLabel="Shuffle"
                 active={$playbackMode.shuffle !== ShuffleMode.None}
                 on:click={() => player.toggleShuffle()} />
         </TextDropshadow>
 
         <TextDropshadow>
-            <GlyphButton glyphName="fas fa-fast-backward" />
+            <GlyphButton
+                glyphName="fas fa-fast-backward"
+                ariaLabel="Previous track" />
         </TextDropshadow>
 
         <TextDropshadow>
             <GlyphButton
                 glyphName={$playerState.state === PlaybackState.Playing  ? 'fas fa-pause' : 'fas fa-play'}
+                ariaLabel="Play / Pause"
                 on:click={() => player.toggle()}>
 
                 {#if $playerState.state === PlaybackState.Loading}
@@ -42,12 +46,14 @@
         <TextDropshadow>
             <GlyphButton
                 glyphName="fas fa-fast-forward"
+                ariaLabel="Next track"
                 on:click={() => player.playNext()} />
         </TextDropshadow>
 
         <TextDropshadow>
             <GlyphButton
                 glyphName="fas fa-redo"
+                ariaLabel="Repeat"
                 active={$playbackMode.repeat !== RepeatMode.None}
                 on:click={() => player.toggleRepeat()} />
         </TextDropshadow>

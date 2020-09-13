@@ -11,7 +11,7 @@
 
 <div class="progressbar d-flex align-items-center mt-2 px-2">
     <div class="hms text-muted mr-2">{positionHms}</div>
-    <div class="bg">
+    <div class="bg" role="progressbar">
         <div class="bar" style="width: {percent}"></div>
     </div>
     <div class="hms text-muted ml-2">{lengthHms}</div>

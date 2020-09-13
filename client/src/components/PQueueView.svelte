@@ -17,18 +17,14 @@
     data={$queue}
     active={$currentView.toplevel === ToplevelViews.PlayQueue}>
 
-    <div class="header pt-4 pb-3">
+    <div class="header pb-3">
         <h2>Play Queue</h2>
-        <p class="text-muted">{$queue.length} tracks queued{$queue.length ? ` (${duration})` : ''}</p>
+        <p class="text-muted"><small>{$queue.length} tracks queued{$queue.length ? `, ${duration[0]} ${duration[1]}` : ''}</small></p>
     </div>
 
 </PTrackView>
 
 <style>
-    .header {
-        padding-left: 24px;
-        padding-right: 24px;
-    }
     h2 {
         font-weight: bold;
     }

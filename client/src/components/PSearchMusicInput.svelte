@@ -60,7 +60,6 @@
 
 <SearchInput
     {matches}
-    id="search-music"
     let:match
     class="mx-1"
     grouper="group"

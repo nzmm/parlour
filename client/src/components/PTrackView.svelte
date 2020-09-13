@@ -1,12 +1,10 @@
 <script lang="ts">
-    import { likeTrack } from '../core/actions';
-    import { enqueue, enqueueNext, playNow } from '../core/playlist';
+    import { playNow } from '../core/playlist';
     import type { AudioPlayer } from '../core/audio/player';
     import type { ITrack } from "../core/interfaces/ITrack";
     import Page from "./common/Page.svelte";
-    import DropdownMenu from "./common/DropdownMenu.svelte";
     import PTrackListView from './PTrackListView.svelte';
-import PTrackListDropdown from './PTrackListDropdown.svelte';
+    import PTrackListDropdown from './PTrackListDropdown.svelte';
 
     let className = "";
 
@@ -29,7 +27,7 @@ import PTrackListDropdown from './PTrackListDropdown.svelte';
     };
 </script>
 
-<Page {active} wide>
+<Page {active}>
     <slot></slot>
     <section class="list {className}">
         <PTrackListView
@@ -45,5 +43,6 @@ import PTrackListDropdown from './PTrackListDropdown.svelte';
     {track}
     {visible}
     {top}
-    {left} />
+    {left}
+    on:hide={() => visible = false} />
 

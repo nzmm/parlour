@@ -14,7 +14,7 @@
     export let left: number = 0;
 </script>
 
-<DropdownMenu {visible} {top} {left} on:hide={() => visible = false}>
+<DropdownMenu {visible} {top} {left} on:hide >
     <a class="dropdown-item" href="#play" on:click|preventDefault={() => playNow(player, [track])}>
         Play
     </a>

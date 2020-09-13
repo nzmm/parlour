@@ -119,7 +119,8 @@
     {track}
     {visible}
     {top}
-    {left} />
+    {left}
+    on:hide={() => visible = false} />
 
 <style>
     h4 > p {

@@ -82,3 +82,13 @@ class Channel(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ChannelTrack(models.Model):
+    unique_id = models.UUIDField(default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name="channel_tracks")
+    track = models.ForeignKey(Track, on_delete=models.CASCADE, related_name="track_channels")
+
+    def __str__(self):
+        return f"[Ch:{self.channel.name}] {self.track.name}"

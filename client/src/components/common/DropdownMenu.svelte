@@ -60,7 +60,7 @@
     .p-drop-menu {
         position: absolute;
         min-width: 200px;
-        min-height: 50px;
+        min-height: 30px;
         color: #000;
         background-color: #fff;
         border: 1px solid #a5a5a5;

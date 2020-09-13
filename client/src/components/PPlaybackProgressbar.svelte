@@ -4,8 +4,8 @@
     export let length: number = 0;
     export let position: number = 0;
 
-    $: positionHms = getHms(position);
-    $: lengthHms = getHms(length);
+    $: positionHms = getHms(position)[0];
+    $: lengthHms = getHms(length)[0];
     $: percent = `${length > 0 ? position / length * 100 : 0}%`;
 </script>
 

@@ -134,7 +134,7 @@
         outline: 0;
         font-size: 200%;
         position: absolute;
-        left: -3px;
+        left: 0;
         top: 0;
         width: 100%;
         height: 100%;

@@ -21,7 +21,7 @@
         overflow: hidden;
     }
     img {
-        padding: 3px;
+        padding: 2px;
         width: 100%;
         height: 100%;
     }

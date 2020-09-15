@@ -34,6 +34,13 @@
         <Button
             narrow
             primary
+            ariaLabel="Listen live">
+            Listen live
+        </Button>
+
+        <Button
+            narrow
+            primary
             ariaLabel="Play all">
             Play all
         </Button>
@@ -41,11 +48,9 @@
 
     <table class="w-100">
         <tbody>
-            {#each tracks as item, i}
+            {#each tracks as item}
             <PChannelListItem
-                {item}
-                indexed
-                number={i+1}/>
+                {item}  />
             {/each}
         </tbody>
     </table>

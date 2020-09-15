@@ -40,6 +40,10 @@ export async function getChannels() {
     return GET("/api/get_channels");
 }
 
+export async function getChannelTracks(channel_id: string) {
+    return GET("/api/get_channel_tracks", { channel_id });
+}
+
 export async function search(q: string) {
     return GET("/api/search", { q });
 }

@@ -4,7 +4,8 @@ from server.models import (
     Artist,
     Release,
     Track,
-    Channel)
+    Channel,
+    ChannelTrack)
 
 
 @admin.register(Token)
@@ -34,3 +35,8 @@ class TrackAdmin(admin.ModelAdmin):
 @admin.register(Channel)
 class ChannelAdmin(admin.ModelAdmin):
     list_display = ("name", "user", "unique_id", "public")
+
+
+@admin.register(ChannelTrack)
+class ChannelTrackAdmin(admin.ModelAdmin):
+    list_display = ("track", "channel", "user")

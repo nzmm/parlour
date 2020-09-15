@@ -89,6 +89,8 @@ class ChannelTrack(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name="channel_tracks")
     track = models.ForeignKey(Track, on_delete=models.CASCADE, related_name="track_channels")
+    created = models.DateTimeField(auto_now=False, auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     def __str__(self):
         return f"[Ch:{self.channel.name}] {self.track.name}"

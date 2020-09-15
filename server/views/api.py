@@ -10,7 +10,7 @@ from server.common import serializers
 from server.common.encoders import ParlourJSONEncoder
 from server.graph.content import get_track_download_url, get_track_thumbnail_url
 from server.common.utils import get_body_json, get_user_initials
-from server.models import Artist, Release, Track
+from server.models import Artist, Release, Track, Channel
 
 
 @login_required
@@ -119,6 +119,14 @@ def get_channels(request):
 
 
 @login_required
+def get_channel_tracks(request):
+    channel_id = request.GET.get('channel_id')
+    channel = get_object_or_404(Channel, unique_id=channel_id, user=request.user)
+    tracks = channel.channel_tracks.select_related('track').all()
+    return JsonResponse({'tracks': serializers.serialize_channel_tracks(tracks)})
+
+
+@login_required
 def search(request):
     terms = request.GET.get('q', ''.strip())
     data = {'matches': []}
@@ -156,3 +164,13 @@ def create_channel(request):
     public = data.get('public')
     success, channel_id = commands.create_channel(request.user, name, description, public)
     return JsonResponse({'success': success, 'channel_id': channel_id})
+
+
+@require_POST
+@login_required
+def create_channel_track(request):
+    data = get_body_json(request)
+    channel_id = data.get('channel_id')
+    track_id = data.get('track_id')
+    success, ch_track_id = commands.create_channel_track(request.user, channel_id, track_id)
+    return JsonResponse({'success': success, 'channel_track_id': ch_track_id})

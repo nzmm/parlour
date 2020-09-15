@@ -34,6 +34,21 @@ DEFAULT_SONG_FIELDS = (
     'thumbnail',
     'liked')
 
+DEFAULT_CHANNEL_TRACK_FIELDS = (
+    'track__id',
+    'track__number',
+    'track__name',
+    'track__artist_credit',
+    'track__release_name',
+    'track__release_id',
+    'track__year',
+    'track__length',
+    'track__length_display',
+    'track__thumbnail',
+    'created',
+    'user__username'
+)
+
 DEFAULT_CHANNEL_FIELDS = (
     'unique_id',
     'name',
@@ -76,6 +91,10 @@ def serialize_releases(queryset, fields=DEFAULT_ALBUM_FIELDS):
 
 def serialize_tracks(queryset, fields=DEFAULT_SONG_FIELDS):
     return [get_fields(o, fields) for o in queryset]
+
+
+def serialize_channel_tracks(queryset, fields=DEFAULT_CHANNEL_TRACK_FIELDS):
+    return [get_nested_fields(o, fields) for o in queryset]
 
 
 def serialize_track(obj, fields=DEFAULT_SONG_FIELDS):

@@ -2,8 +2,10 @@
     import { likeTrack } from '../core/actions';
     import { channels } from '../core/store';
     import { enqueue, enqueueNext, playNow } from '../core/playlist';
+    import { createChannelTrack } from '../core/api/commands';
     import type { ITrack } from "../core/interfaces/ITrack";
     import type { AudioPlayer } from '../core/audio/player';
+    import type { IChannel } from '../core/interfaces/IChannel';
     import DropdownMenu from "./common/DropdownMenu.svelte";
     import DropdownSubMenu from "./common/DropdownSubMenu.svelte";
 
@@ -12,6 +14,14 @@
     export let visible: boolean = false;
     export let top: number = 0;
     export let left: number = 0;
+
+    const onAddToChannel = async (ch: IChannel) => {
+        const res = await createChannelTrack(ch.unique_id, track.id);
+        const data = await res.json();
+        if (data.success) {
+
+        }
+    }
 </script>
 
 <DropdownMenu {visible} {top} {left} on:hide >
@@ -32,7 +42,10 @@
 
     <DropdownSubMenu label="Add to channel…">
         {#each $channels as ch}
-        <a class="dropdown-item" href="#channels/{ch.unique_id}">
+        <a
+            class="dropdown-item"
+            href="#channels/{ch.unique_id}"
+            on:click={() => onAddToChannel(ch)} >
             {ch.name}
         </a>
         {/each}

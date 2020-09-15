@@ -18,7 +18,7 @@
             return;
         }
 
-        dispatch("hide");
+        setTimeout(() => dispatch("hide"), 200);
     }
 
     $: if (top >= 0 && left >= 0) {

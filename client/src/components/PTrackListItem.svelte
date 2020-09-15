@@ -17,7 +17,7 @@
 
 <tr
     id="track:{item.id}"
-    class="item d-flex py-2"
+    class="item py-2"
     class:playing={current}
     class:indexed
     tabindex="0"

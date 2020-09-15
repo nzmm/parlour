@@ -12,8 +12,10 @@ urlpatterns = [
     path('get_artist_details', api.get_artist_details, name='get_artist_details'),
     path('get_album_details', api.get_album_details, name='get_album_details'),
     path('get_channels', api.get_channels, name='get_channels'),
+    path('get_channel_tracks', api.get_channel_tracks, name='get_channel_tracks'),
     path('search', api.search, name='search'),
 
     path('create_channel', api.create_channel, name='create_channel'),
+    path('create_channel_track', api.create_channel_track, name='create_channel_track'),
     path('set_liked', api.set_liked, name='set_liked'),
 ]

@@ -1,4 +1,8 @@
-# Parlour
+![Parlour](./docs/images/parlour-h1.png)
+
+---
+
+<br>
 
 Bring your own music.
 

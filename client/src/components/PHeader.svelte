@@ -9,7 +9,7 @@
 
 <NavBar class="top-nav border-bottom d-flex justify-content-between align-items-center">
     <a class="navbar-brand pr-2" href="/" id="totallywired">
-        <img src="/static/data/im/tw-monogram-logo.png" alt="Totally Wired" height="32" />
+        <img src="/static/data/im/tw-monogram-2-logo.png" alt="Totally Wired" height="32" />
     </a>
 
     <PSearchMusicInput />

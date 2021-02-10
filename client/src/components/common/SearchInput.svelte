@@ -79,8 +79,7 @@
         on:focus={() => focus = true}
         on:blur={onBlur}
         on:keydown={onKeyDown}
-        on:input
-        aria-labelledby="parlour" />
+        on:input />
 
     {#if value}
     <a class="clear" href="#clear" on:click={clear} title="Clear">

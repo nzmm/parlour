@@ -1,6 +1,6 @@
 {
     "git.ignoreLimitWarning": true,
-    "python.pythonPath": "/home/matthew/Projects/parlour/venv/bin/python3.8",
+    "python.pythonPath": "/home/matthew/Projects/totallywired/venv/bin/python3.8",
     "files.trimTrailingWhitespace": true,
     "editor.renderWhitespace": "all"
 }

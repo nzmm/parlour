@@ -1,4 +1,4 @@
-![Parlour](./docs/images/parlour-h1.png)
+![Totally Wired](./docs/images/tw-primary-logo.png)
 
 ---
 

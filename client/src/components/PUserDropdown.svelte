@@ -42,7 +42,7 @@
 
     <div class="dropdown-divider"></div>
 
-    <a class="dropdown-item" href="https://github.com/nzmm/parlour" target="_blank">
+    <a class="dropdown-item" href="https://github.com/nzmm/totallywired" target="_blank">
         Github
     </a>
 </Dropdown>

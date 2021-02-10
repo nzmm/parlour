@@ -1,4 +1,4 @@
-"""parlour URL Configuration
+"""totallywired URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -16,12 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
-from parlour import settings
-import parlour.views
+from totallywired import settings
+import totallywired.views
 
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', parlour.views.home, name='home'),
+    path('', totallywired.views.home, name='home'),
     path('api/', include('server.urls.api')),
     path('providers/', include('server.urls.providers')),
     path('admin/', admin.site.urls),

@@ -8,7 +8,7 @@ from server.graph.auth import get_sign_in_url, get_token_from_code, get_token, s
 from server.common import queries
 from server.common import commands
 from server.common import serializers
-from server.common.encoders import ParlourJSONEncoder
+from server.common.encoders import TWJSONEncoder
 from server.graph.content import get_track_download_url, get_track_thumbnail_url
 from server.common.utils import get_body_json
 from server.models import Artist, Release, Track

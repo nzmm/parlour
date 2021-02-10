@@ -11,7 +11,7 @@
 <div class="no-providers d-flex justify-content-center align-items-center">
     <div>
         <p>Hi {user.full_name},</p>
-        <a href="/providers/graph_signin">Please begin by connecting Parlour to your OneDrive&hellip;</a>
+        <a href="/providers/graph_signin">Please begin by connecting Totally Wired to your OneDrive&hellip;</a>
     </div>
 </div>
 <div class="emergency-exit">

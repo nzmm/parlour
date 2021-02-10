@@ -22,7 +22,7 @@ const initChannels = async () => {
     return data.channels.length;
 }
 
-export const bootstrapParlour = async () => {
+export const bootstrapTW = async () => {
     const [user, trackCount, ] = await Promise.all([initUser(), initLibrary(), initChannels()]);
     return { user, trackCount };
 }

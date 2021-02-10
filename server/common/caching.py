@@ -3,7 +3,7 @@ import hashlib
 import requests
 import shutil
 from pathlib import Path
-from parlour.settings import MEDIA_ROOT
+from totallywired.settings import MEDIA_ROOT
 
 
 def get_media_user_facet(user):

@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from server.common import queries
 from server.common import commands
 from server.common import serializers
-from server.common.encoders import ParlourJSONEncoder
+from server.common.encoders import TWJSONEncoder
 from server.graph.content import get_track_download_url, get_track_thumbnail_url
 from server.common.utils import get_body_json, get_user_initials
 from server.models import Artist, Release, Track, Channel
@@ -30,21 +30,21 @@ def get_current_user(request):
 def get_artists(request):
     artists = queries.get_artists_query(request.user)
     data = {'artists': serializers.serialize_artists(artists)}
-    return JsonResponse(data, encoder=ParlourJSONEncoder)
+    return JsonResponse(data, encoder=TWJSONEncoder)
 
 
 @login_required
 def get_albums(request):
     albums = queries.get_releases_query(request.user).order_by('name', 'year')
     data = {'albums': serializers.serialize_releases(albums)}
-    return JsonResponse(data, encoder=ParlourJSONEncoder)
+    return JsonResponse(data, encoder=TWJSONEncoder)
 
 
 @login_required
 def get_songs(request):
     songs = queries.get_tracks_query(request.user)
     data = {'songs': serializers.serialize_tracks(songs)}
-    return JsonResponse(data, encoder=ParlourJSONEncoder)
+    return JsonResponse(data, encoder=TWJSONEncoder)
 
 
 @login_required
@@ -64,7 +64,7 @@ def get_library(request):
         'releases': releases,
         'track_count': tracks.count()
     }
-    return JsonResponse(data, encoder=ParlourJSONEncoder)
+    return JsonResponse(data, encoder=TWJSONEncoder)
 
 
 @login_required
@@ -92,7 +92,7 @@ def get_album_details(request):
         'album': serializers.serialize_release(album),
         'tracks': serializers.serialize_tracks(tracks)
     }
-    return JsonResponse(data, encoder=ParlourJSONEncoder)
+    return JsonResponse(data, encoder=TWJSONEncoder)
 
 
 @login_required
@@ -109,7 +109,7 @@ def get_artist_details(request):
         'artist': serializers.serialize_artist(artist),
         'releases': releases
     }
-    return JsonResponse(data, encoder=ParlourJSONEncoder)
+    return JsonResponse(data, encoder=TWJSONEncoder)
 
 
 @login_required
@@ -142,7 +142,7 @@ def search(request):
     data['matches'].extend([{**t, 'group': 1} for t in serializers.serialize_releases(releases)])
     data['matches'].extend([{**t, 'group': 2} for t in serializers.serialize_tracks(tracks)])
 
-    return JsonResponse(data, encoder=ParlourJSONEncoder)
+    return JsonResponse(data, encoder=TWJSONEncoder)
 
 
 @require_POST

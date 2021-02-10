@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { bootstrapParlour } from "./core/bootstrap";
+    import { bootstrapTW } from "./core/bootstrap";
     import { registerGlobalKeyUpHandler } from "./core/keys";
     import { AudioPlayer } from './core/audio/player';
     import type { IUser } from './core/interfaces/IUser';
@@ -16,7 +16,7 @@
     let trackCount: number = 0;
 
     onMount(async () => {
-        ({ user, trackCount } = await bootstrapParlour());
+        ({ user, trackCount } = await bootstrapTW());
 
         setTimeout(() => {
                 ready = true;

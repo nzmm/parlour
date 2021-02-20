@@ -20,14 +20,14 @@ DEBUG=True
 SECRET_KEY=xxx
 
 # Database
-POSTGRES_DB = 'totallywired'
-POSTGRES_USER = 'totallywired'
+POSTGRES_DB=totallywired
+POSTGRES_USER=totallywired
 POSTGRES_PASSWORD=xxx
 
 # A superuser will be created for you automatically
-ROOT_USER = xxx
-ROOT_EMAIL = xxx
-ROOT_PASSWORD = xxx
+ROOT_USER=xxx
+ROOT_EMAIL=xxx
+ROOT_PASSWORD=xxx
 ```
 
 2. run `docker-compose build`

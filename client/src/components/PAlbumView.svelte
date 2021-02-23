@@ -1,13 +1,17 @@
 <script lang="ts">
-    import { library, currentView } from '../core/store';
-    import { filterLibraryByAlbum, setToplevel } from '../core/actions';
-    import { ToplevelViews } from "../core/enums/ToplevelViews";
+    import { library } from '../core/store';
+    import { filterLibraryByAlbum } from '../core/actions';
     import type { IAlbum } from "../core/interfaces/IAlbum";
     import PCoverArtGridView from "./PCoverArtGridView.svelte";
+    import NotFound from "./NotFound.svelte";
 
     const onDetails = (event: CustomEvent<IAlbum>) => {
-        setToplevel(ToplevelViews.Songs);
         filterLibraryByAlbum(event.detail.id, event.detail.name);
+    }
+
+    const routes = {
+
+        '*': NotFound,
     }
 </script>
 
@@ -15,8 +19,7 @@
 <PCoverArtGridView
     context="album"
     data={$library}
-    on:details={onDetails}
-    active={$currentView.toplevel === ToplevelViews.Albums}>
+    on:details={onDetails}>
 
     <span let:item slot="label">
         <div class="pb-1">{item.name || '-'}</div>

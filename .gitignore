@@ -1,6 +1,7 @@
 
 venv
 media
+node_modules
 graph_oauth_settings.yml
 db.sqlite3
 db.sqlite3-*

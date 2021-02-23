@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { push } from 'svelte-spa-router';
     import { artists, queue, liked, library, channels, currentView } from '../core/store';
     import { setToplevel } from '../core/actions';
     import { ToplevelViews } from '../core/enums/ToplevelViews';
@@ -21,25 +22,19 @@
             <NavHeader>Library</NavHeader>
 
             <NavLink
-                href="#songs"
+                href="/"
                 label="Songs"
-                count={trackCount}
-                active={$currentView.toplevel === ToplevelViews.Songs}
-                on:click={() => setToplevel(ToplevelViews.Songs)} />
+                count={trackCount} />
 
             <NavLink
-                href="#albums"
+                href="/albums"
                 label="Albums"
-                count={$library.length}
-                active={$currentView.toplevel === ToplevelViews.Albums}
-                on:click={() => setToplevel(ToplevelViews.Albums)} />
+                count={$library.length} />
 
             <NavLink
-                href="#artists"
+                href="/artists"
                 label="Artists"
-                count={$artists.length}
-                active={$currentView.toplevel === ToplevelViews.Artists}
-                on:click={() => setToplevel(ToplevelViews.Artists)} />
+                count={$artists.length} />
 
             <hr>
 
@@ -55,18 +50,14 @@
             </NavHeader>
 
             <NavLink
-                href="#queue"
+                href="/queue"
                 label="Play Queue"
-                count={$queue.length}
-                active={$currentView.toplevel === ToplevelViews.PlayQueue}
-                on:click={() => setToplevel(ToplevelViews.PlayQueue)} />
+                count={$queue.length} />
 
             <NavLink
-                href="#liked"
+                href="/liked"
                 label="Liked"
-                count={$liked.length}
-                active={$currentView.toplevel === ToplevelViews.Liked}
-                on:click={() => setToplevel(ToplevelViews.Liked)}/>
+                count={$liked.length} />
 
             <hr>
 
@@ -83,10 +74,8 @@
 
             {#each $channels as ch}
             <NavLink
-                href="#channels/{ch.unique_id}"
-                label={ch.name}
-                active={$currentView.toplevel === ToplevelViews.Channel && $currentView.data?.unique_id === ch.unique_id}
-                on:click={() => setToplevel(ToplevelViews.Channel, ch)}/>
+                href="/channels/{ch.unique_id}"
+                label={ch.name} />
             {/each}
 
         </div>

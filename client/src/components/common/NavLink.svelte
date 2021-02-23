@@ -1,18 +1,20 @@
 <script lang="ts">
+    import { link } from 'svelte-spa-router';
+    import active from 'svelte-spa-router/active';
+
     let className = "";
 
     export { className as class };
     export let label: string = "";
     export let href: string = "#";
     export let count: number | string = null;
-    export let active: boolean = false;
 </script>
 
 <a
     {href}
     class="d-flex justify-content-between align-items-center side-nav {className}"
-    class:active
-    on:click>
+    use:active
+    use:link>
 
     {label}
 

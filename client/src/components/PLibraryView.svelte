@@ -41,9 +41,8 @@
 
     $: currentId = $currentTrack.id;
     $: playbackState = $playerState.state;
-    $: active = $currentView.toplevel === ToplevelViews.Songs;
 
-    $: if (active) {
+    $: {
         releases = $libraryFilter.fn($library);
         if (releases.length) {
             intersectionObservable(
@@ -55,7 +54,7 @@
     }
 </script>
 
-<Page {active} bind:root>
+<Page bind:root>
     {#if $libraryFilter.breadcrumbs}
     <div class="breadcrumbs pb-4">
         {#each $libraryFilter.breadcrumbs as crumb}

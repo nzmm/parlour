@@ -4,7 +4,6 @@
     import { getChannelTracks } from "../core/api/queries";
     import type { IChannel } from "../core/interfaces/IChannel";
     import type { IChannelTrack } from "../core/interfaces/IChannelTrack";
-    import type { ITrack } from "../core/interfaces/ITrack";
     import Page from "./common/Page.svelte";
     import Button from "./common/Button.svelte";
     import PChannelListItem from "./PChannelListItem.svelte";

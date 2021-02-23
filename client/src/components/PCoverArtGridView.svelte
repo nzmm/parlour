@@ -10,7 +10,6 @@
     export { className as class };
     export let context: string;
     export let data: IAlbum[] = [];
-    export let active: boolean = false;
 
     const dispatch = createEventDispatcher();
 
@@ -20,7 +19,7 @@
 
     $: columnTemplate = "1fr ".repeat(Math.max(1, Math.floor(w / 200))).trimEnd();
 
-    $: if (active && data?.length) {
+    $: if (data?.length) {
         intersectionObservable(
             root,
             ".cover",
@@ -30,7 +29,7 @@
 
 </script>
 
-<Page bind:active bind:root>
+<Page bind:root>
     <section class="grid {className}" bind:clientWidth={w} style="--col-template:{columnTemplate}">
         {#each data as item}
         <div class="cover" data-itemid={item.id}>

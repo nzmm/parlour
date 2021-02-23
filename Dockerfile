@@ -8,7 +8,7 @@ COPY package*.json /code/
 RUN pip install -r requirements.txt
 RUN npm install
 COPY . /code/
-RUN ["chmod", "+x", "/code/docker-entrypoint.sh"]
+RUN ["chmod", "+x", "/code/entrypoint-web.sh"]
 WORKDIR /code/client
 RUN npm run build
 WORKDIR /code

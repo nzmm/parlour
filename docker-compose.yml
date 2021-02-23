@@ -1,8 +1,10 @@
 version: "3.9"
 
 services:
+
   db:
-    image: postgres
+    hostname: db
+    image: postgres:latest
     env_file:
       .env
     environment:
@@ -10,14 +12,60 @@ services:
       - POSTGRES_USER=totallywired
     ports:
       - 5432:5432
+
+  rabbitmq:
+    env_file:
+      .env
+    environment:
+      - RABBITMQ_DEFAULT_USER=totallywired
+      - RABBITMQ_DEFAULT_VHOST=vhost
+    container_name: rabbitmq
+    hostname: rabbitmq
+    image: rabbitmq:latest
+    ports:
+      - 5672:5672
+
   web:
     build: .
     env_file:
       .env
-    entrypoint: /code/docker-entrypoint.sh
+    entrypoint: /code/entrypoint-web.sh
     volumes:
       - .:/code
     ports:
       - 8000:8000
     depends_on:
       - db
+    hostname: web
+    image: web-image
+
+  celery_worker:
+    env_file:
+      .env
+    entrypoint: /code/entrypoint-celery-worker.sh
+    depends_on:
+      - web
+      - db
+      - rabbitmq
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '1'
+    hostname: celery_worker
+    image: web-image
+    restart: on-failure
+
+  celery_beat:
+    env_file:
+      .env
+    entrypoint: /code/entrypoint-celery-beat.sh
+    depends_on:
+      - web
+      - db
+      - rabbitmq
+    hostname: celery_beat
+    image: web-image
+    restart: on-failure

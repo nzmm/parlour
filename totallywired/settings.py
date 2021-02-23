@@ -137,5 +137,9 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# accounts
+# Accounts
 LOGOUT_REDIRECT_URL = '/'
+
+# Celery
+CELERY_BROKER_URL = f"amqp://{environ['RABBITMQ_DEFAULT_USER']}:{environ['RABBITMQ_DEFAULT_PASS']}@rabbitmq:5672/{environ['RABBITMQ_DEFAULT_VHOST']}"
+print(CELERY_BROKER_URL)

@@ -10,9 +10,23 @@ Combine the Spotify catalogue with your curated collection of mp3's and create g
 
 <br>
 
+## OneDrive Oauth configuration
+You should create a `graph_oauth_settings.yml` configuration file in the project root directory, with the following (substituting xxx values with your values):
+
+```
+app_id: "xxx"
+app_secret: "xxx"
+redirect: "http://localhost:8000/providers/graph_callback"
+scopes: "files.read offline_access"
+authority: "https://login.microsoftonline.com/common"
+authorize_endpoint: "/oauth2/v2.0/authorize"
+token_endpoint: "/oauth2/v2.0/token"
+```
+
+
 ## Docker (dev) setup
 
-1. Create a `.env` file in the root directory, with the following (substituting xxx values with your values):
+1. Create an `.env` file in the project root directory, with the following (substituting xxx values with your values):
 ```
 # Default docker-compose environment variables
 
@@ -41,7 +55,10 @@ ROOT_PASSWORD=xxx
     - Sync album art: `python manage.py syncthumbs --user {username} --provider {provider}`
     - __Note:__ `graph` aka OneDrive is the only supported `--provider` at this time.
 
+---
 
 ## Screenshot
 
 ![Songs view](./docs/images/songs.png "Songs view")
+
+---

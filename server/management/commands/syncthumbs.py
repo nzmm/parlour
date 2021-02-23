@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
-from server.models import Token
-from server.graph.auth import PROVIDER_GRAPH, get_token as graph_get_token
+from server.graph.auth import PROVIDER_GRAPH
 from server.graph.sync import sync_thumbnails as graph_sync_thumbs
 
 

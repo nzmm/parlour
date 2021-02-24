@@ -1,7 +1,7 @@
 <script lang="ts">
+    import { push } from 'svelte-spa-router';
     import { createDebouncer } from '../core/utils';
     import { filterLibraryByArtist, filterLibraryByAlbum, unfilterLibrary, setToplevel } from '../core/actions';
-    import { ToplevelViews } from '../core/enums/ToplevelViews';
     import { search } from '../core/api/queries';
     import { SearchGroups } from '../core/enums/SearchGroups';
     import type { ITrack } from '../core/interfaces/ITrack';
@@ -26,7 +26,7 @@
 
     const onSelect = (event: CustomEvent) => {
         const data = event.detail;
-        setToplevel(ToplevelViews.Songs);
+        push('/');
 
         switch (data.group) {
             case SearchGroups.Artists:

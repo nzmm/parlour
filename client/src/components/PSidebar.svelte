@@ -1,8 +1,5 @@
 <script lang="ts">
-    import { push } from 'svelte-spa-router';
-    import { artists, queue, liked, library, channels, currentView } from '../core/store';
-    import { setToplevel } from '../core/actions';
-    import { ToplevelViews } from '../core/enums/ToplevelViews';
+    import { artists, queue, liked, library, channels } from '../core/store';
     import ScrolledView from './common/ScrolledView.svelte';
     import NavLink from './common/NavLink.svelte';
     import NavHeader from './common/NavHeader.svelte';

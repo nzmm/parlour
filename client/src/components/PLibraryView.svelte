@@ -1,8 +1,7 @@
 <script lang="ts">
-    import { currentView, library, libraryFilter } from '../core/store';
+    import { library, libraryFilter } from '../core/store';
     import { enqueueNext, playNow } from '../core/playlist';
     import { intersectionObservable } from '../core/observable';
-    import { ToplevelViews } from '../core/enums/ToplevelViews';
     import { currentTrack, playerState } from '../core/store';
     import { PlaybackState } from '../core/enums/PlaybackState';
     import type { ILibraryAlbum } from "../core/interfaces/IAlbum";
@@ -13,6 +12,8 @@
     import PTrackListDropdown from './PTrackListDropdown.svelte';
     import PLibraryListItem from './PLibraryListItem.svelte';
 
+    export let context = '';
+    export let params: { id?: string }
     export let player: AudioPlayer;
 
     let releases: ILibraryAlbum[] = [];
@@ -39,11 +40,26 @@
         loaded = {};
     });
 
-    $: currentId = $currentTrack.id;
-    $: playbackState = $playerState.state;
+    const getRealeases = (library: ILibraryAlbum[]) => {
+        if (!params?.id) {
+            return library;
+        }
+
+        const filter_id = parseInt(params.id);
+        switch(context) {
+            case 'artists':
+                return library.filter(x => x.artist_id === filter_id);
+            case 'albums':
+                return library.filter(x => x.id === filter_id);
+            default:
+                return library;
+        }
+    }
 
     $: {
-        releases = $libraryFilter.fn($library);
+        console.log(params, context);
+        releases = getRealeases($library);
+
         if (releases.length) {
             intersectionObservable(
                 root,
@@ -95,8 +111,8 @@
                 <PLibraryListItem
                     {item}
                     number={item.number}
-                    current={item.id === currentId}
-                    playing={playbackState === PlaybackState.Playing}
+                    current={item.id === $currentTrack.id}
+                    playing={$playerState.state === PlaybackState.Playing}
                     on:dropdown={showDropdown}
                     on:play={e => playNow(player, [e.detail])} />
                 {/each}

@@ -20,8 +20,6 @@
         artist = data.artist;
         releases = data.releases;
     }
-
-    $: { getDetails(artist); }
 </script>
 
 <PDetailsView

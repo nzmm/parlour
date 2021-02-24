@@ -6,14 +6,15 @@
 
     export { className as class };
     export let label: string = "";
-    export let href: string = "#";
+    export let href: string = "/";
+    export let activePath: string = null;
     export let count: number | string = null;
 </script>
 
 <a
     {href}
     class="d-flex justify-content-between align-items-center side-nav {className}"
-    use:active
+    use:active={activePath}
     use:link>
 
     {label}

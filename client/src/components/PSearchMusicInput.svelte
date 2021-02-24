@@ -1,7 +1,7 @@
 <script lang="ts">
     import { push } from 'svelte-spa-router';
     import { createDebouncer } from '../core/utils';
-    import { filterLibraryByArtist, filterLibraryByAlbum, unfilterLibrary, setToplevel } from '../core/actions';
+    import { filterLibraryByArtist, filterLibraryByAlbum, unfilterLibrary } from '../core/actions';
     import { search } from '../core/api/queries';
     import { SearchGroups } from '../core/enums/SearchGroups';
     import type { ITrack } from '../core/interfaces/ITrack';

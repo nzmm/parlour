@@ -1,3 +1,4 @@
+import { push } from 'svelte-spa-router';
 import { currentTrack, currentView, libraryFilter, library, queue } from './store';
 import { setLiked } from '../core/api/commands';
 import { SublevelViews } from './enums/SublevelViews';
@@ -71,33 +72,26 @@ export const setAlbumDetailsView = (data: IAlbum) => {
 }
 
 export const unfilterLibrary = () => {
-    return libraryFilter.set({ breadcrumbs: null, fn: x => x });
+    return libraryFilter.set({ breadcrumbs: null });
 }
 
-const navigateFromBreadcrumb = (toplevel: ToplevelViews) => {
-    setToplevel(toplevel);
-    unfilterLibrary();
-}
-
-export const filterLibraryByArtist = (artist_id: number, artist_name: string, toplevel: ToplevelViews = ToplevelViews.Artists) => {
+export const filterLibraryByArtist = (artist_id: number, artist_name: string) => {
     return libraryFilter.set({
         breadcrumbs: [
-            {label: "Library", navigateTo: () => navigateFromBreadcrumb(ToplevelViews.Songs)},
-            {label: "Artists", navigateTo: () => navigateFromBreadcrumb(toplevel)},
+            {label: "Library", navigateTo: () => push('/')},
+            {label: "Artists", navigateTo: () => push('/artists')},
             {label: artist_name}
-        ],
-        fn: x => x.filter(r => r.artist_id === artist_id)
+        ]
     });
 }
 
-export const filterLibraryByAlbum = (release_id: number, release_name: string, toplevel: ToplevelViews = ToplevelViews.Albums) => {
+export const filterLibraryByAlbum = (release_id: number, release_name: string) => {
     return libraryFilter.set({
         breadcrumbs: [
-            {label: "Library", navigateTo: () => navigateFromBreadcrumb(ToplevelViews.Songs)},
-            {label: "Albums", navigateTo: () => navigateFromBreadcrumb(toplevel)},
+            {label: "Library", navigateTo: () => push('/')},
+            {label: "Albums", navigateTo: () => push('/albums')},
             {label: release_name}
-        ],
-        fn: x => x.filter(r => r.id === release_id)
+        ]
     });
 }
 

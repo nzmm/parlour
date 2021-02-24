@@ -16,11 +16,11 @@
     export let trackCount: number = 0;
 
     const routes = {
-        '/': wrap({ component: PLibraryView, props: { player }}),
+        '/': wrap({ component: PLibraryView, props: { player, context: "" }}),
         '/albums': PAlbumView,
-        '/albums/*': PAlbumView,
         '/artists': PArtistView,
-        '/artists/*': PArtistView,
+        '/albums/:id': wrap({ component: PLibraryView, props: { player, context: 'albums' }}),
+        '/artists/:id': wrap({ component: PLibraryView, props: { player, context: 'artists' }}),
         '/queue': wrap({ component: PQueueView, props: { player }}),
         '/liked': wrap({ component: PLikedView, props: { player }}),
         '/channel/:id': PChannelView,

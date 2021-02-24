@@ -7,9 +7,6 @@
 
     export let data: ITrack[] = [];
     export let indexed: boolean = false;
-
-    $: currentId = $currentTrack.id;
-    $: playbackState = $playerState.state;
 </script>
 
 <table class="w-100">
@@ -19,8 +16,8 @@
             {item}
             bind:indexed
             number={indexed ? i+1 : item.number}
-            current={item.id === currentId}
-            playing={playbackState === PlaybackState.Playing}
+            current={item.id === $currentTrack.id}
+            playing={$playerState.state === PlaybackState.Playing}
             on:dropdown
             on:play />
         {/each}

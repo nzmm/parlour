@@ -26,11 +26,13 @@
             <NavLink
                 href="/albums"
                 label="Albums"
+                activePath="/albums*"
                 count={$library.length} />
 
             <NavLink
                 href="/artists"
                 label="Artists"
+                activePath="/artists*"
                 count={$artists.length} />
 
             <hr>

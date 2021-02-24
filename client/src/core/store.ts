@@ -2,7 +2,7 @@ import { readable, writable } from 'svelte/store';
 import { ToplevelViews } from './enums/ToplevelViews';
 import type { IArtist } from './interfaces/IArtist';
 import type { ITrack } from './interfaces/ITrack';
-import type { ILibraryAlbum, IAlbum } from './interfaces/IAlbum';
+import type { ILibraryAlbum } from './interfaces/IAlbum';
 import type { IView } from './interfaces/IView';
 import type { IBreadcrumb } from './interfaces/IBreadcrumb';
 import type { IChannel } from './interfaces/IChannel';
@@ -36,7 +36,7 @@ export const liked = readable([], function start(set) {
 });
 
 export const artistFilter = writable<{ fn: (x: IArtist[]) => IArtist[] }>({ fn: x => x });
-export const libraryFilter = writable<{ breadcrumbs?: IBreadcrumb[], fn: (x: ILibraryAlbum[]) => ILibraryAlbum[] }>({ breadcrumbs: null, fn: x => x });
+export const libraryFilter = writable<{ breadcrumbs?: IBreadcrumb[] }>({ breadcrumbs: null });
 
 export const playerState = writable({
     state: PlaybackState.Stopped,

@@ -1,8 +1,7 @@
 <script lang="ts">
-    import { currentView, liked } from '../core/store';
+    import { liked } from '../core/store';
     import { playNow } from '../core/playlist';
     import { getHms } from '../core/utils';
-    import { ToplevelViews } from '../core/enums/ToplevelViews';
     import type { AudioPlayer } from '../core/audio/player';
     import Button from './common/Button.svelte';
     import PTrackView from "./PTrackView.svelte";
@@ -16,8 +15,7 @@
     class="pb-5"
     indexed
     {player}
-    data={$liked}
-    active={$currentView.toplevel === ToplevelViews.Liked}>
+    data={$liked} >
 
     <div class="header pb-3">
         <h2>Liked</h2>

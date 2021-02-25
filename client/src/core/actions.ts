@@ -1,9 +1,6 @@
 import { push } from 'svelte-spa-router';
-import { currentTrack, currentView, libraryFilter, library, queue } from './store';
+import { currentTrack, libraryFilter, library, queue } from './store';
 import { setLiked } from '../core/api/commands';
-import { SublevelViews } from './enums/SublevelViews';
-import { ToplevelViews } from './enums/ToplevelViews';
-import type { IArtist } from './interfaces/IArtist';
 import type { IAlbum, ILibraryAlbum } from './interfaces/IAlbum';
 import type { ITrack } from "./interfaces/ITrack";
 
@@ -46,36 +43,7 @@ export const likeTrack = async (track: ITrack) => {
     });
 }
 
-const setDetailsView = (toplevel: ToplevelViews, sublevel: SublevelViews, data: any) => {
-    console.log(toplevel, sublevel, data);
-    currentView.update(() => ({
-        toplevel,
-        sublevel,
-        data
-    }));
-}
-
-export const goBack = () => {
-    currentView.update(cur => ({
-        ...cur,
-        sublevel: null,
-        data: null
-    }));
-};
-
-export const setArtistDetailsView = (data: IArtist) => {
-    return setDetailsView(ToplevelViews.Artists, SublevelViews.ArtistDetails, data);
-}
-
-export const setAlbumDetailsView = (data: IAlbum) => {
-    return setDetailsView(ToplevelViews.Albums, SublevelViews.AlbumDetails, data);
-}
-
-export const unfilterLibrary = () => {
-    return libraryFilter.set({ breadcrumbs: null });
-}
-
-export const filterLibraryByArtist = (artist_id: number, artist_name: string) => {
+export const setArtistBreadcrumbs = (artist_id: number, artist_name: string) => {
     return libraryFilter.set({
         breadcrumbs: [
             {label: "Library", navigateTo: () => push('/')},
@@ -85,7 +53,7 @@ export const filterLibraryByArtist = (artist_id: number, artist_name: string) =>
     });
 }
 
-export const filterLibraryByAlbum = (release_id: number, release_name: string) => {
+export const setAlbumBradcrumbs = (release_id: number, release_name: string) => {
     return libraryFilter.set({
         breadcrumbs: [
             {label: "Library", navigateTo: () => push('/')},
@@ -94,12 +62,6 @@ export const filterLibraryByAlbum = (release_id: number, release_name: string) =
         ]
     });
 }
-
-export const setToplevel = (view: ToplevelViews, data?: any) => {
-    currentView.set({ toplevel: view, data });
-    sessionStorage.setItem("view", JSON.stringify({ toplevel: view, data }));
-}
-
 
 export const pickRandom = (library: ILibraryAlbum[]) => {
     console.log('Picking random track from...', library.length);

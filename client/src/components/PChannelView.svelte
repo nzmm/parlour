@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { currentView } from "../core/store";
-    import { ToplevelViews } from "../core/enums/ToplevelViews";
     import { getChannelTracks } from "../core/api/queries";
     import type { IChannel } from "../core/interfaces/IChannel";
     import type { IChannelTrack } from "../core/interfaces/IChannelTrack";
@@ -11,11 +9,7 @@
     let channel: IChannel;
     let tracks: IChannelTrack[] = [];
 
-    $: active = $currentView.toplevel === ToplevelViews.Channel;
-    $: if ($currentView.data) {
-        channel = $currentView.data;
-        console.log(channel);
-
+    $: {
         (async () => {
             const res = await getChannelTracks(channel.unique_id);
             const data = await res.json();
@@ -24,7 +18,6 @@
     }
 </script>
 
-{#if active}
 <Page wide>
     <div class="header pt-4 pb-3">
         <h2>{ channel.name }</h2>
@@ -54,7 +47,6 @@
         </tbody>
     </table>
 </Page>
-{/if}
 
 <style lang="scss">
     .header {

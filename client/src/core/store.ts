@@ -1,26 +1,13 @@
 import { readable, writable } from 'svelte/store';
-import { ToplevelViews } from './enums/ToplevelViews';
 import type { IArtist } from './interfaces/IArtist';
 import type { ITrack } from './interfaces/ITrack';
 import type { ILibraryAlbum } from './interfaces/IAlbum';
-import type { IView } from './interfaces/IView';
 import type { IBreadcrumb } from './interfaces/IBreadcrumb';
 import type { IChannel } from './interfaces/IChannel';
 import { PlaybackState } from './enums/PlaybackState';
 import { ShuffleMode } from './enums/ShuffleMode';
 import { RepeatMode } from './enums/RepeatMode';
 
-const getInitialView = (): IView => {
-    const view = JSON.parse(sessionStorage.getItem("view"));
-    const toplevel = parseInt(view?.toplevel);
-
-    return ToplevelViews[toplevel] != null
-        ? { ...view, toplevel }
-        : { toplevel: ToplevelViews.Songs };
-}
-
-const view = getInitialView();
-export const currentView = writable<IView>(view);
 export const artists = writable<IArtist[]>([]);
 
 export const library = writable<ILibraryAlbum[]>([]);

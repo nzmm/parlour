@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { currentView, queue } from '../core/store';
+    import { queue } from '../core/store';
     import { getHms } from '../core/utils';
-    import { ToplevelViews } from '../core/enums/ToplevelViews';
     import type { AudioPlayer } from '../core/audio/player';
     import PTrackView from "./PTrackView.svelte";
 
@@ -14,8 +13,7 @@
     class="pb-5"
     {player}
     indexed
-    data={$queue}
-    active={$currentView.toplevel === ToplevelViews.PlayQueue}>
+    data={$queue} >
 
     <div class="header pb-3">
         <h2>Play Queue</h2>

@@ -1,5 +1,5 @@
 import { push } from 'svelte-spa-router';
-import { currentTrack, libraryFilter, library, queue } from './store';
+import { currentTrack, breadcrumbs, library, queue } from './store';
 import { setLiked } from '../core/api/commands';
 import type { IAlbum, ILibraryAlbum } from './interfaces/IAlbum';
 import type { ITrack } from "./interfaces/ITrack";
@@ -44,23 +44,19 @@ export const likeTrack = async (track: ITrack) => {
 }
 
 export const setArtistBreadcrumbs = (artist_id: number, artist_name: string) => {
-    return libraryFilter.set({
-        breadcrumbs: [
-            {label: "Library", navigateTo: () => push('/')},
-            {label: "Artists", navigateTo: () => push('/artists')},
-            {label: artist_name}
-        ]
-    });
+    return breadcrumbs.set([
+        { label: "Library", navigateTo: () => push('/') },
+        { label: "Artists", navigateTo: () => push('/artists') },
+        { label: artist_name }
+    ]);
 }
 
 export const setAlbumBradcrumbs = (release_id: number, release_name: string) => {
-    return libraryFilter.set({
-        breadcrumbs: [
-            {label: "Library", navigateTo: () => push('/')},
-            {label: "Albums", navigateTo: () => push('/albums')},
-            {label: release_name}
-        ]
-    });
+    return breadcrumbs.set([
+        { label: "Library", navigateTo: () => push('/') },
+        { label: "Albums", navigateTo: () => push('/albums') },
+        { label: release_name }
+    ]);
 }
 
 export const pickRandom = (library: ILibraryAlbum[]) => {

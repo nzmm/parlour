@@ -70,7 +70,9 @@
     on:select={onSelect}
     on:clear={onClear}
 >
-    <span slot="grouper"> {groups[match.group]} </span>
+    <span slot="grouper">
+        {groups[match.group]}
+    </span>
 
     <span>{match.name}</span>
 </SearchInput>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { library, libraryFilter } from '../core/store';
+    import { library, breadcrumbs } from '../core/store';
     import { enqueueNext, playNow } from '../core/playlist';
     import { intersectionObservable } from '../core/observable';
     import { currentTrack, playerState } from '../core/store';
@@ -36,10 +36,6 @@
         enqueueNext(player, release.tracks);
     }
 
-    libraryFilter.subscribe(() => {
-        loaded = {};
-    });
-
     const getRealeases = (library: ILibraryAlbum[]) => {
         if (!params?.id) {
             return library;
@@ -71,9 +67,9 @@
 </script>
 
 <Page bind:root>
-    {#if $libraryFilter.breadcrumbs}
+    {#if $breadcrumbs}
     <div class="breadcrumbs pb-4">
-        {#each $libraryFilter.breadcrumbs as crumb}
+        {#each $breadcrumbs as crumb}
             {#if crumb.navigateTo}
             <a href="#back" class="crumb" on:click|preventDefault={() => crumb.navigateTo()}>{crumb.label}</a>
             <span class="crumb caret">〉</span>

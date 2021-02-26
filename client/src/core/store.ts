@@ -23,7 +23,7 @@ export const liked = readable([], function start(set) {
 });
 
 export const artistFilter = writable<{ fn: (x: IArtist[]) => IArtist[] }>({ fn: x => x });
-export const libraryFilter = writable<{ breadcrumbs?: IBreadcrumb[] }>({ breadcrumbs: null });
+export const breadcrumbs = writable<IBreadcrumb[]>([]);
 
 export const playerState = writable({
     state: PlaybackState.Stopped,

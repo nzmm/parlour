@@ -4,15 +4,17 @@ import type { ITrack } from './interfaces/ITrack';
 import type { ILibraryAlbum } from './interfaces/IAlbum';
 import type { IBreadcrumb } from './interfaces/IBreadcrumb';
 import type { IChannel } from './interfaces/IChannel';
+import type { IUser } from './interfaces/IUser';
 import { PlaybackState } from './enums/PlaybackState';
 import { ShuffleMode } from './enums/ShuffleMode';
 import { RepeatMode } from './enums/RepeatMode';
 
+export const user = writable<IUser>(null);
 export const artists = writable<IArtist[]>([]);
-
 export const library = writable<ILibraryAlbum[]>([]);
 export const queue = writable<ITrack[]>([]);
 export const history = writable<ITrack[]>([]);
+
 export const liked = readable([], function start(set) {
     library.subscribe(lib => {
         set(lib.reduce((acc, cur) => {

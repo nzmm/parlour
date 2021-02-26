@@ -1,7 +1,7 @@
 import { push } from 'svelte-spa-router';
 import { currentTrack, breadcrumbs, library, queue } from './store';
 import { setLiked } from '../core/api/commands';
-import type { IAlbum, ILibraryAlbum } from './interfaces/IAlbum';
+import type { ILibraryAlbum } from './interfaces/IAlbum';
 import type { ITrack } from "./interfaces/ITrack";
 
 

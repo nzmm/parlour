@@ -53,7 +53,6 @@
     }
 
     $: {
-        console.log(params, context);
         releases = getRealeases($library);
 
         if (releases.length) {

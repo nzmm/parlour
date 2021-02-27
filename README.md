@@ -6,7 +6,7 @@
 
 Bring your own music.
 
-Combine the Spotify catalogue with your curated collection of mp3's and create group playlists with your friends.
+Combine the Spotify Library with your curated collection of mp3's and create group playlists with your friends.
 
 <br>
 
@@ -48,17 +48,16 @@ ROOT_PASSWORD=xxx
 3. run `docker-compose up`
 4. Navigate to http://localhost:8000/
 5. Login using your root user
-6. Authorize access to your OneDrive account
-7. Right now you need to manually run management commands to sync music and album art. The following series of commands should be used...
-    - Attach a shell: `docker exec -it totallywired_web_1 bash`
-    - Sync music: `python manage.py syncmusic --user {username} --provider {provider}`
-    - Sync album art: `python manage.py syncthumbs --user {username} --provider {provider}`
-    - __Note:__ `graph` aka OneDrive is the only supported `--provider` at this time.
+6. Navigate to http://localhost:8000/#/account
+7. Connect to any available providers
+8. Sync music and art
 
 ---
 
-## Screenshot
+## Screenshots
 
 ![Songs view](./docs/images/songs.png "Songs view")
+
+![Account view](./docs/images/account.png "Account view")
 
 ---

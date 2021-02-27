@@ -14,8 +14,9 @@ from server.models import Artist, Release, Track, Channel
 
 
 ALL_PROVIDERS = [
+    ("dropbox", "Dropbox", "/static/data/im/dropbox.svg"),
+    ("google-drive", "Google Drive", "/static/data/im/google-drive.svg"),
     ("graph", "Microsoft OneDrive", "/static/data/im/onedrive.svg"),
-    ("spotify", "Spotify Premium", "/static/data/im/spotify.svg")
 ]
 
 

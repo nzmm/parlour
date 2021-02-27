@@ -6,7 +6,7 @@
 
 Bring your own music.
 
-Combine the Spotify Library with your curated collection of mp3's and create group playlists with your friends.
+Play all your cloud stashed audio tracks with this web based player.
 
 <br>
 

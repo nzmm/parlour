@@ -29,10 +29,10 @@
             {#each $user.providers as provider}
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <div class="d-flex">
-                    <img src={provider.brand} height="40" width="50" alt="OneDrive" class="mr-3" />
+                    <img src={provider.brand} height="40" width="50" alt={provider.title} class="mr-3" />
                     <div>
                         <h6 class="p-0 m-0">{provider.title}</h6>
-                        <span class="text-muted">This provider contributes $N tracks to your collection</span>
+                        <small class="text-muted">This provider contributes $N tracks to your collection</small>
                     </div>
                 </div>
                 <div>

@@ -1,55 +1,57 @@
 import os
 import ast
 import time
-import yaml
 from requests_oauthlib import OAuth2Session
 from server.models import Token
 
-# This is necessary for testing with non-HTTPS localhost
-# Remove this if deploying to production
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-
-# This is necessary because Azure does not guarantee
-# to return scopes in the same case and order as requested
-os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
-os.environ['OAUTHLIB_IGNORE_SCOPE_CHANGE'] = '1'
-
-# Load the oauth_settings.yml file
-stream = open('graph_oauth_settings.yml', 'r')
-settings = yaml.load(stream, yaml.SafeLoader)
-authorize_url = f'{settings["authority"]}{settings["authorize_endpoint"]}'
-token_url = f'{settings["authority"]}{settings["token_endpoint"]}'
-
 PROVIDER_GRAPH = "graph"
 
-def get_sign_in_url():
-    # Initialize the OAuth client
-    aad_auth = OAuth2Session(settings['app_id'],
-        scope=settings['scopes'],
-        redirect_uri=settings['redirect'])
+GRAPH_REQUIRED_SCOPES = "files.read offline_access"
+GRAPH_AUTHORITY = "https://login.microsoftonline.com/common"
+GRAPH_AUTH_ENDPOINT = "/oauth2/v2.0/authorize"
+GRAPH_TOKEN_ENDPOINT = "/oauth2/v2.0/token"
 
-    sign_in_url, state = aad_auth.authorization_url(authorize_url, prompt='login')
+authorize_url = f'{GRAPH_AUTHORITY}{GRAPH_AUTH_ENDPOINT}'
+token_url = f'{GRAPH_AUTHORITY}{GRAPH_TOKEN_ENDPOINT}'
+app_id = os.environ["GRAPH_APP_ID"]
+app_secret = os.environ["GRAPH_APP_SECRET"]
+redirect = os.environ["GRAPH_REDIRECT_URI"]
+
+
+def get_sign_in_url():
+    aad_auth = OAuth2Session(
+        app_id,
+        scope=GRAPH_REQUIRED_SCOPES,
+        redirect_uri=redirect)
+
+    sign_in_url, state = aad_auth.authorization_url(
+        authorize_url, prompt='login')
 
     return sign_in_url, state
 
 
 def get_token_from_code(callback_url, expected_state):
-    aad_auth = OAuth2Session(settings['app_id'],
+    aad_auth = OAuth2Session(
+        app_id,
         state=expected_state,
-        scope=settings['scopes'],
-        redirect_uri=settings['redirect'])
+        scope=GRAPH_REQUIRED_SCOPES,
+        redirect_uri=redirect)
 
-    token = aad_auth.fetch_token(token_url,
-        client_secret = settings['app_secret'],
+    token = aad_auth.fetch_token(
+        token_url,
+        client_secret=app_secret,
         authorization_response=callback_url)
 
     return token
 
 
 def store_token(user, token):
-    token_obj, created = Token.objects.update_or_create(user=user, provider=PROVIDER_GRAPH, defaults={
-      'value': token
-    })
+    token_obj, created = Token.objects.update_or_create(
+        user=user,
+        provider=PROVIDER_GRAPH,
+        defaults={
+            'value': token
+        })
     return token_obj, created
 
 
@@ -66,14 +68,15 @@ def get_token(user):
 
         if now >= expire_time:
             # refresh the token
-            aad_auth = OAuth2Session(settings['app_id'],
-                token = token,
-                scope=settings['scopes'],
-                redirect_uri=settings['redirect'])
+            aad_auth = OAuth2Session(
+                app_id,
+                token=token,
+                scope=GRAPH_REQUIRED_SCOPES,
+                redirect_uri=redirect)
 
             refresh_params = {
-                'client_id': settings['app_id'],
-                'client_secret': settings['app_secret'],
+                'client_id': app_id,
+                'client_secret': app_secret,
             }
 
             print("Refreshing graph user token...")

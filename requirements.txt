@@ -2,6 +2,5 @@ psycopg2-binary>=2.8
 Django>=3.1
 channels>=2.4
 celery>=5.0
-PyYAML>=5.3
 requests>=2.22
 requests-oauthlib>=1.3

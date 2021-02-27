@@ -1,12 +1,10 @@
 <script lang="ts">
-    import { artists, queue, liked, library, channels } from '../core/store';
+    import { artists, queue, liked, library, channels, user } from '../core/store';
     import ScrolledView from './common/ScrolledView.svelte';
     import NavLink from './common/NavLink.svelte';
     import NavHeader from './common/NavHeader.svelte';
     import PCreateChannel from './modals/PCreateChannel.svelte';
     import PCreatePlaylist from './modals/PCreatePlaylist.svelte';
-
-    export let trackCount: number = 0;
 
     let createPlaylist = false;
     let createChannel = false;
@@ -21,7 +19,7 @@
             <NavLink
                 href="/"
                 label="Songs"
-                count={trackCount} />
+                count={$user?.trackCount ?? 0} />
 
             <NavLink
                 href="/albums"

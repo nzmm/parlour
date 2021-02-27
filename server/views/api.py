@@ -13,12 +13,21 @@ from server.common.utils import get_body_json, get_user_initials
 from server.models import Artist, Release, Track, Channel
 
 
+ALL_PROVIDERS = [
+    ("graph", "Microsoft OneDrive", "/static/data/im/onedrive.svg"),
+    ("spotify", "Spotify Premium", "/static/data/im/spotify.svg")
+]
+
+
 @login_required
 def get_current_user(request):
     user = request.user
-    providers = list(user.tokens.all().values('provider', 'id'))
+    active_providers = {provider:id for (provider, id) in user.tokens.all().values_list('provider', 'id')}
+    providers = [dict(provider=p, title=t, brand=b, id=active_providers.get(p)) for p, t, b in ALL_PROVIDERS]
+
     data = {
         'username': user.username,
+        'first_name': user.first_name,
         'full_name': user.get_full_name() or user.username,
         'initials': get_user_initials(user),
         'providers': providers

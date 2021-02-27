@@ -13,7 +13,6 @@
     import NotFound from "./NotFound.svelte";
 
     export let player: AudioPlayer;
-    export let trackCount: number = 0;
 
     const routes = {
         '/': wrap({ component: PLibraryView, props: { player, context: "" }}),
@@ -30,5 +29,5 @@
 </script>
 
 
-<PSidebar {trackCount} />
+<PSidebar />
 <Router {routes} />

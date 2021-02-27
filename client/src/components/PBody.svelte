@@ -2,17 +2,15 @@
     import Router from 'svelte-spa-router';
     import { wrap } from 'svelte-spa-router/wrap';
 
-    import type { IUser } from '../core/interfaces/IUser';
     import type { AudioPlayer } from "../core/audio/player";
     import PAccount from './PAccount.svelte';
     import PSidebarView from './PSidebarView.svelte';
 
     export let player: AudioPlayer;
-    export let trackCount: number = 0;
 
     const routes = {
         '/account': PAccount,
-        '*': wrap({ component: PSidebarView, props: { player, trackCount }})
+        '*': wrap({ component: PSidebarView, props: { player }})
     }
 </script>
 

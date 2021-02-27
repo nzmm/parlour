@@ -1,4 +1,6 @@
 export interface IProvider {
-    id: number;
     provider: string;
+    title: string;
+    brand: string;
+    id: number;
 }

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { link } from 'svelte-spa-router';
     import type { IUser } from '../core/interfaces/IUser';
     import NavBar from './common/NavBar.svelte';
     import PSearchMusicInput from "./PSearchMusicInput.svelte";
@@ -8,7 +9,7 @@
 </script>
 
 <NavBar class="top-nav border-bottom d-flex justify-content-between align-items-center">
-    <a class="navbar-brand pr-2" href="/" id="totallywired">
+    <a class="navbar-brand pr-2" href="/" use:link id="totallywired">
         <img src="/static/data/im/tw-monogram-2-logo.png" alt="Totally Wired" height="32" />
     </a>
 

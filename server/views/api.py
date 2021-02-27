@@ -16,7 +16,7 @@ from server.models import Artist, Release, Track, Channel
 @login_required
 def get_current_user(request):
     user = request.user
-    providers = list(user.tokens.all().values('provider'))
+    providers = list(user.tokens.all().values('provider', 'id'))
     data = {
         'username': user.username,
         'full_name': user.get_full_name() or user.username,

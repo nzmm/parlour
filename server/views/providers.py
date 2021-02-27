@@ -6,15 +6,15 @@ from server.tasks import sync_music_task, sync_thumbs_task
 
 
 @login_required
-def refresh_music(request, provider):
-    task = sync_music_task.delay(request.user.pk, provider)
+def refresh_music(request, provider_id):
+    task = sync_music_task.delay(request.user.pk, provider_id)
     print(task)
     return JsonResponse({"success": True})
 
 
 @login_required
-def refresh_thumbs(request, provider):
-    task = sync_thumbs_task.delay(request.user.pk, provider)
+def refresh_thumbs(request, provider_id):
+    task = sync_thumbs_task.delay(request.user.pk, provider_id)
     print(task)
     return JsonResponse({"success": True})
 

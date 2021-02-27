@@ -11,7 +11,7 @@ RUN pip install -r requirements.txt
 
 # Node deps and build
 WORKDIR /code/client
-RUN npm install -g npm@7.6
+RUN npm install -g npm@7.6.0
 RUN npm install
 RUN npm run build
 

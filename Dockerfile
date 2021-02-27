@@ -4,6 +4,7 @@ WORKDIR /code
 RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
 RUN apt-get install -y nodejs
 COPY . /code/
+RUN mkdir media
 
 # Python deps
 RUN pip install --upgrade pip

@@ -31,7 +31,7 @@ services:
       .env
     entrypoint: /code/entrypoint-web.sh
     volumes:
-      - .:/code
+      - web:/code
     ports:
       - 8000:8000
     depends_on:
@@ -43,6 +43,8 @@ services:
     env_file:
       .env
     entrypoint: /code/entrypoint-celery-worker.sh
+    volumes:
+      - web:/code
     depends_on:
       - web
       - db
@@ -62,6 +64,8 @@ services:
     env_file:
       .env
     entrypoint: /code/entrypoint-celery-beat.sh
+    volumes:
+      - web:/code
     depends_on:
       - web
       - db
@@ -69,3 +73,6 @@ services:
     hostname: celery_beat
     image: web-image
     restart: on-failure
+
+volumes:
+  web:

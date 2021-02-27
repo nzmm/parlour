@@ -18,6 +18,8 @@ Play all your cloud stashed audio tracks with this web based player.
 
 DEBUG = "1"
 SECRET_KEY = "xxx"
+# Comma-separated list
+ALLOWED_HOSTS = "localhost"
 
 # Database
 POSTGRES_DB = "totallywired"

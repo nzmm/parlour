@@ -27,8 +27,7 @@ SECRET_KEY = environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = environ['DEBUG'] == '1'
 
-ALLOWED_HOSTS = ["localhost"]
-
+ALLOWED_HOSTS = [h.strip() for h in environ["ALLOWED_HOSTS"].split(",")]
 
 # Application definition
 

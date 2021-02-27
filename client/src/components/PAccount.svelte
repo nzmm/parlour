@@ -1,6 +1,12 @@
 <script lang="ts">
+    import { POST } from "../core/api/requests";
     import { user } from "../core/store";
     import Page from "./common/Page.svelte";
+
+    const onRrefreshMusic = async (provider: string) => {
+        const res = await POST(`/providers/refresh_music/${provider}/`);
+        const data = await res.json();
+    }
 </script>
 
 <Page>
@@ -22,9 +28,15 @@
             <li class="list-group-item">
                 {provider.provider}
                 <div class="mt-2">
-                    <button class="btn btn-sm btn-secondary">Refresh music</button>
-                    <button class="btn btn-sm btn-secondary">Refresh art</button>
-                    <a class="btn btn-sm btn-danger" href="/providers/graph_signout">Revoke access</a>
+                    <button class="btn btn-sm btn-secondary" on:click={() => onRrefreshMusic(provider.provider)}>
+                        Refresh music
+                    </button>
+                    <button class="btn btn-sm btn-secondary">
+                        Refresh art
+                    </button>
+                    <a class="btn btn-sm btn-danger" href="/providers/graph_signout">
+                        Revoke access
+                    </a>
                 </div>
             </li>
             {/each}

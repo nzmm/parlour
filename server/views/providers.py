@@ -1,17 +1,22 @@
-from itertools import groupby
 from django.urls import reverse
-from django.shortcuts import get_object_or_404
-from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
-from server.graph.auth import get_sign_in_url, get_token_from_code, get_token, store_token, remove_token
-from server.common import queries
-from server.common import commands
-from server.common import serializers
-from server.common.encoders import TWJSONEncoder
-from server.graph.content import get_track_download_url, get_track_thumbnail_url
-from server.common.utils import get_body_json
-from server.models import Artist, Release, Track
+from server.graph.auth import get_sign_in_url, get_token_from_code, store_token, remove_token
+from server.tasks import sync_music_task, sync_thumbs_task
+
+
+@login_required
+def refresh_music(request, provider):
+    task = sync_music_task.delay(request.user.pk, provider)
+    print(task)
+    return JsonResponse({"success": True})
+
+
+@login_required
+def refresh_thumbs(request, provider):
+    task = sync_thumbs_task.delay(request.user.pk, provider)
+    print(task)
+    return JsonResponse({"success": True})
 
 
 @login_required

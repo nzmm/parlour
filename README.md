@@ -58,6 +58,6 @@ ROOT_PASSWORD=xxx
 
 ![Songs view](./docs/images/songs.png "Songs view")
 
-![Account view](./docs/images/account.png "Account view")
+![Account view](./docs/images/accounts.png "Account view")
 
 ---
